@@ -55,7 +55,7 @@ export class CreateAttribute extends Component {
       .post("/admin/addcategory", data)
       .then((response) => {
         console.log(response);
-        this.props.history.push("/app/freshlist/category/categoryList");
+        this.props.history.push("/app/mmbaic/category/categoryList");
       })
       .catch((error) => {
         console.log(error);

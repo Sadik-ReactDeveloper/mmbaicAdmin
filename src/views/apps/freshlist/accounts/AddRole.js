@@ -9,6 +9,19 @@ export const Roles = [
     ],
   },
   {
+    title: "Program CRM",
+    TabName: [
+      {
+        title: "Affiliated",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Category",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
     title: "Accounts",
     TabName: [
       {
@@ -19,15 +32,6 @@ export const Roles = [
         title: "User List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      // {
-      //   title: "Client Account",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-
-      // {
-      //   title: "Accountant Account",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
       {
         title: "Create Role",
         permission: ["View", "Create", "Edit", "Delete"],
@@ -39,10 +43,27 @@ export const Roles = [
     ],
   },
   {
-    title: "Product",
+    title: "Memberships",
     TabName: [
       {
-        title: "Product List",
+        title: "Member list",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Course Completed",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Subscription Plan",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "Products",
+    TabName: [
+      {
+        title: "Add Category",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
@@ -50,66 +71,17 @@ export const Roles = [
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Type",
+        title: "Product List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      // {
-      //   title: "User List",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-      {
-        title: "Assign To Client",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Assigned List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+    ],
+  },
 
-      {
-        title: "Rate Master",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Inventory",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      // {
-      //   title: "Rate Master",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-      // {
-      //   title: "Inventory",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-      // {
-      //   title: "Service Master",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-    ],
-  },
   {
-    title: "Brand",
+    title: "E-Commerce",
     TabName: [
       {
-        title: "Brand List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Category List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-    ],
-  },
-  {
-    title: "Transaction",
-    TabName: [
-      {
-        title: "Place Order",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Order Raise List",
+        title: "Stock Inventory",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
@@ -117,54 +89,95 @@ export const Roles = [
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Completed Order List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-    ],
-  },
-
-  {
-    title: "BILLINGS",
-    TabName: [
-      {
-        title: "Purchase Order",
+        title: "Order Dispatch",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Bills",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "invoice Generator",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "invoice Re-Generator",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      // {
-      //   title: "invoices",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-      {
-        title: "Payment Status",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Payment completed",
+        title: "Order Completed List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],
   },
   {
-    title: "Budget",
+    title: "Billing",
     TabName: [
       {
-        title: "Budget List",
+        title: "Receipt",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Budget Assignment",
+        title: "Invoices",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Transaction Status list",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "Certification",
+    TabName: [
+      {
+        title: "Membership Cerfiticate",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Course Certificate",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Seminar Course Certificate",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "Associate",
+    TabName: [
+      {
+        title: "Commission Rate Master",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Commission Rate List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Payment Raise",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Commission Rate Master",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Request Transaction List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "CMS Management",
+    TabName: [
+      {
+        title: "CMS Management",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Services",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Category List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Category",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Courses",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],
@@ -173,28 +186,48 @@ export const Roles = [
     title: "Reports",
     TabName: [
       {
+        title: "Filtering Tab",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
         title: "Date Wise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Client Wise",
+        title: "Product Category",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Branch Wise",
+        title: "Associate Wise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Product Wise",
+        title: "City Wise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],
   },
   {
-    title: "Unique Code",
+    title: "Explore",
     TabName: [
       {
-        title: "Unique Code",
+        title: "Assignment",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Grades",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Forums",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Quiz",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Reviews",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],
@@ -208,105 +241,4 @@ export const Roles = [
       },
     ],
   },
-  // {
-  //   title: "Panel Master",
-  //   TabName: [
-  //     {
-  //       title: "Panel Master",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Client Access",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Supplier Access",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Account Access",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //   ],
-  // },
-
-  // {
-  //   title: "Tranaction",
-  //   TabName: [
-  //     {
-  //       title: "Transaction Dashboard",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Place Order",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Edit Order",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Order Raise List ",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Order Received List",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Completed Order List ",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "Billing Dashboard",
-  //   TabName: [
-  //     {
-  //       title: "Billing Dashboard",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Purchase Order",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Edit Order",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Bills ",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Invoice Generation",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Invoices ",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Payment Status ",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Payment completed ",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "Budget",
-  //   TabName: [
-  //     {
-  //       title: "Budget List",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //     {
-  //       title: "Budget Assignment",
-  //       permission: ["View", "Create", "Edit", "Delete"],
-  //     },
-  //   ],
-  // },
 ];

@@ -77,7 +77,7 @@ export class AddCategory extends Component {
         if (response?.data.success) {
           swal("Success!", "You Data Submitted", "Success");
           this.setState({ category_name: "" });
-          // this.props.history.push("/app/freshlist/category/categoryList");
+          // this.props.history.push("/app/mmbaic/category/categoryList");
         }
       })
       .catch((error) => {
@@ -100,7 +100,7 @@ export class AddCategory extends Component {
                   <Button
                     className=" btn btn-danger float-right"
                     onClick={() =>
-                      history.push("/app/freshlist/category/categoryList")
+                      history.push("/app/mmbaic/category/categoryList")
                     }
                   >
                     Back

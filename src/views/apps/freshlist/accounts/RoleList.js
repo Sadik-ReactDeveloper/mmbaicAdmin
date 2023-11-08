@@ -15,7 +15,7 @@ import {
   Button,
 } from "reactstrap";
 import UserContext from "../../../../context/Context";
-
+import swal from "sweetalert";
 import axiosConfig from "../../../../axiosConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
@@ -24,7 +24,6 @@ import { Eye, Trash2, ChevronDown, Edit, Trash, Edit2 } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import swal from "sweetalert";
 import { Route } from "react-router-dom";
 import { BsEye, BsTrash } from "react-icons/bs";
 
@@ -56,7 +55,7 @@ class RoleList extends React.Component {
       },
       {
         headerName: "Role Name",
-        field: "Name",
+        field: "role_name",
         filter: true,
         resizable: true,
         width: 160,
@@ -64,7 +63,7 @@ class RoleList extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params?.data}</span>
+                <span>{params?.data?.role_name}</span>
               </div>
             </div>
           );
@@ -77,6 +76,7 @@ class RoleList extends React.Component {
         field: "transactions",
         width: 160,
         cellRendererFramework: (params) => {
+          console.log(params);
           return (
             <div className="actions cursor-pointer">
               {/* {this.state.Viewpermisson && (
@@ -101,7 +101,7 @@ class RoleList extends React.Component {
                       color="blue"
                       onClick={() =>
                         history.push({
-                          pathname: `/app/freshlist/account/editRole/${params?.data}`,
+                          pathname: `/app/freshlist/account/editRole/${params?.data?.id}`,
                           data: params,
                         })
                       }
@@ -149,12 +149,16 @@ class RoleList extends React.Component {
     await axiosConfig
       .post("/getrolelist", formdata)
       .then((response) => {
-        // console.log(response.data?.data);
-        const propertyNames = Object.values(response.data?.data);
+        console.log(response.data?.data);
+        const uniqueArray = [
+          ...new Set(response.data?.data?.map(JSON.stringify)),
+        ].map(JSON.parse);
+        this.setState({ rowData: uniqueArray });
+        // const propertyNames = Object.values(response.data?.data);
         // console.log(propertyNames);
-        this.setState({ rowData: propertyNames });
       })
       .catch((error) => {
+        swal("Something went Wrong");
         // console.log(error);
       });
   }

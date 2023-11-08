@@ -25,6 +25,7 @@ class UserProfile extends React.Component {
       name: "",
       email: "",
       cnfmPassword: "",
+      user: {},
       password: "",
       role: "",
       gstinno: "",
@@ -46,6 +47,7 @@ class UserProfile extends React.Component {
     // let { id } = this.props.match.params;
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     // console.log(pageparmission?.Userinfo);
+    this.setState({ user: pageparmission?.Userinfo });
     let formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     await axiosConfig
@@ -110,6 +112,7 @@ class UserProfile extends React.Component {
       });
   };
   render() {
+    const { user } = this.state;
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -119,7 +122,7 @@ class UserProfile extends React.Component {
         />
         <div id="user-profile">
           <Row className="m-0 justify-content-center">
-            {/* <Col lg="4" md="4" xl="4" sm="12">
+            <Col lg="4" md="4" xl="4" sm="12">
               <Card className="bg-authentication rounded-0 mb-0 w-100">
                 <div className="profile-img text-center st-1">
                   <img
@@ -130,22 +133,22 @@ class UserProfile extends React.Component {
                   />
                   <ul className="lst-1">
                     <li className="lst-2">
-                      Name: <span className="lst-3">{this.state.name}</span>
+                      Name: <span className="lst-3">{user?.username}</span>
                     </li>
                     <li className="lst-2">
-                      Email: <span className="lst-3">{this.state.email}</span>
+                      Email: <span className="lst-3">{user?.email}</span>
                     </li>
                     <li className="lst-2">
-                      Role: <span className="lst-3">{this.state.role}</span>
+                      Role: <span className="lst-3">{user?.role}</span>
                     </li>
                   </ul>
                 </div>
               </Card>
-            </Col> */}
+            </Col>
             <Col
-              sm="12"
-              xl="12"
-              lg="12"
+              sm="8"
+              xl="8"
+              lg="8"
               md="12"
               className="d-flex justify-content-center"
             >

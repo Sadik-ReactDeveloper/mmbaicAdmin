@@ -136,7 +136,7 @@ class TAndCList extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  Terms and Condition List
+                  About Us
                 </h1>
               </Col>
               <Col>
@@ -144,13 +144,9 @@ class TAndCList extends React.Component {
                   render={({ history }) => (
                     <Button
                       className=" btn btn-danger float-right"
-                      onClick={() =>
-                        history.push(
-                          "/app/freshlist/termsAndCondition/addTAndC"
-                        )
-                      }
+                      onClick={() => history.push("/app/mmbaic/addcourse")}
                     >
-                      Add New T&C
+                      Add Aboutus
                     </Button>
                   )}
                 />

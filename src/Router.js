@@ -77,6 +77,13 @@ const BannerList = lazy(() =>
   import("./views/apps/freshlist/banner/BannerList")
 );
 const AddBanner = lazy(() => import("./views/apps/freshlist/banner/AddBanner"));
+const EditCMS = lazy(() => import("./views/apps/freshlist/banner/EditCMS"));
+const Aboutuslist = lazy(() =>
+  import("./views/apps/freshlist/banner/Aboutuslist")
+);
+const Addaboutus = lazy(() =>
+  import("./views/apps/freshlist/banner/Addaboutus")
+);
 const ViewBanner = lazy(() =>
   import("./views/apps/freshlist/banner/ViewBanner")
 );
@@ -806,13 +813,10 @@ class AppRouter extends React.Component {
             component={CustomerGroup}
           />
           <AppRoute
-            path="/app/freshlist/customer/addCustomer"
+            path="/app/mmbaic/services/addservices"
             component={AddCustomer}
           />
-          <AppRoute
-            path="/app/freshlist/customer/customerList"
-            component={CustomerList}
-          />
+          <AppRoute path="/app/mmbaic/services/List" component={CustomerList} />
           <AppRoute
             path="/app/freshlist/customer/viewCustomer/:id"
             component={ViewCustomer}
@@ -855,16 +859,16 @@ class AppRouter extends React.Component {
             component={AddFund}
           />
           {/* Banner */}
-          <AppRoute
-            path="/app/freshlist/banner/addBanner"
-            component={AddBanner}
-          />
+          <AppRoute path="/app/mmbaic/slider/addSlider" component={AddBanner} />
+          <AppRoute path="/app/mmbaic/slider/EditCMS/:id" component={EditCMS} />
+          <AppRoute path="/app/mmbaic/addcourse" component={Addaboutus} />
+          <AppRoute path="/app/mmbaic/courseslist" component={Aboutuslist} />
           <AppRoute
             path="/app/freshlist/banner/viewBanner/:id"
             component={ViewBanner}
           />
           <AppRoute
-            path="/app/freshlist/banner/reportsdatewise"
+            path="/app/mmbaic/banner/headerCMS"
             component={BannerList}
           />
           <AppRoute
@@ -1141,14 +1145,8 @@ class AppRouter extends React.Component {
             component={ViewRefundRequest}
           />
           {/* T&C */}
-          <AppRoute
-            path="/app/freshlist/termsAndCondition/tAndCList"
-            component={TermsAndCondition}
-          />
-          <AppRoute
-            path="/app/freshlist/termsAndCondition/addTAndC"
-            component={AddTAndC}
-          />
+          <AppRoute path="/app/mmbaic/Aboutus" component={TermsAndCondition} />
+          <AppRoute path="/app/mmbaic/addcourse" component={AddTAndC} />
           {/* Options */}
           <AppRoute
             path="/app/freshlist/options/createAttribute"
@@ -1185,11 +1183,11 @@ class AppRouter extends React.Component {
           />
           {/* category */}
           <AppRoute
-            path="/app/freshlist/category/categoryList"
+            path="/app/mmbaic/category/categoryList"
             component={CategoryList}
           />
           <AppRoute
-            path="/app/freshlist/category/addCategory"
+            path="/app/mmbaic/category/addCategory"
             component={AddCategory}
           />
           <AppRoute

@@ -47,7 +47,7 @@ class CustomerGroup extends React.Component {
         field: "username",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div>
               <span>{params.data.username}</span>
@@ -61,7 +61,7 @@ class CustomerGroup extends React.Component {
         field: "status",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return params.value === "true" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
@@ -78,7 +78,7 @@ class CustomerGroup extends React.Component {
         field: "sortorder",
         field: "transactions",
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
               <Eye
@@ -119,7 +119,7 @@ class CustomerGroup extends React.Component {
   };
 
   async componentDidMount() {
-    await axiosConfig.get("/user/userlist").then(response => {
+    await axiosConfig.get("/user/userlist").then((response) => {
       let rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
@@ -128,15 +128,15 @@ class CustomerGroup extends React.Component {
   async runthisfunction(id) {
     console.log(id);
     await axios.get(`/user/dlt_user/${id}`).then(
-      response => {
+      (response) => {
         console.log(response);
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
   }
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.setState({
@@ -145,10 +145,10 @@ class CustomerGroup extends React.Component {
       totalPages: this.gridApi.paginationGetTotalPages(),
     });
   };
-  updateSearchQuery = val => {
+  updateSearchQuery = (val) => {
     this.gridApi.setQuickFilter(val);
   };
-  filterSize = val => {
+  filterSize = (val) => {
     if (this.gridApi) {
       this.gridApi.paginationSetPageSize(Number(val));
       this.setState({
@@ -179,9 +179,7 @@ class CustomerGroup extends React.Component {
                         sm="6"
                         className="float-right"
                         color="primary"
-                        onClick={() =>
-                          history.push(`/app/freshlist/customer/AddCustomer`)
-                        }
+                        onClick={() => history.push(`/app/mmbaic/services/add`)}
                       >
                         Add New
                       </Button>
@@ -243,7 +241,7 @@ class CustomerGroup extends React.Component {
                         <div className="table-input mr-1">
                           <Input
                             placeholder="search..."
-                            onChange={e =>
+                            onChange={(e) =>
                               this.updateSearchQuery(e.target.value)
                             }
                             value={this.state.value}
@@ -260,7 +258,7 @@ class CustomerGroup extends React.Component {
                       </div>
                     </div>
                     <ContextLayout.Consumer>
-                      {context => (
+                      {(context) => (
                         <AgGridReact
                           gridOptions={{}}
                           rowSelection="multiple"

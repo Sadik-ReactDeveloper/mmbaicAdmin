@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, Media, Row, Col, Button, } from "reactstrap";
+import { Card, CardBody, Media, Row, Col, Button } from "reactstrap";
 //import { Edit,Trash } from "react-feather";
 //import { Link } from "react-router-dom";
 import axiosConfig from "../../../axiosConfig";
@@ -9,7 +9,7 @@ import "../../../assets/scss/pages/users.scss";
 import { history } from "../../../history";
 
 class ViewProfile extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       data: {},
@@ -44,7 +44,7 @@ class ViewProfile extends React.Component {
                 <Col>
                   <Button
                     className=" btn btn-danger float-right"
-                    onClick={() => history.push("/app/freshlist/customer/customerList")}
+                    onClick={() => history.push("/app/mmbaic/services/List")}
                   >
                     Back
                   </Button>
@@ -55,7 +55,6 @@ class ViewProfile extends React.Component {
                   <Col className="pl-0" sm="12" lg="6">
                     <Media className="d-sm-flex d-block">
                       <Media className="mt-md-1 mt-0" left>
-
                         {this.state.data?.image?.map((i) => (
                           <img
                             className="border-black m-0"

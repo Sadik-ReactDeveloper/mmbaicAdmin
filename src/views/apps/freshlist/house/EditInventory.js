@@ -210,7 +210,7 @@ export class EditInventory extends Component {
                   <Button
                     className=" btn btn-danger float-right"
                     onClick={() =>
-                      history.push("/app/freshlist/category/categoryList")
+                      history.push("/app/mmbaic/category/categoryList")
                     }
                   >
                     Back

@@ -307,13 +307,14 @@ class CategoryList extends React.Component {
                   className="btn btn-danger float-right"
                   onClick={() =>
                     this.props.history.push(
-                      "/app/freshlist/category/addCategory"
+                      "/app/mmbaic/category/addCategory"
                     )
                   }
                 >
                   Add
                 </Button>
               </Col> */}
+
               <Col>
                 {this.state.Createpermisson && (
                   <Route
@@ -322,7 +323,7 @@ class CategoryList extends React.Component {
                         className="btn float-right"
                         color="primary"
                         onClick={() =>
-                          history.push("/app/freshlist/category/addCategory")
+                          history.push("/app/mmbaic/category/addCategory")
                         }
                       >
                         Add Category
@@ -330,6 +331,23 @@ class CategoryList extends React.Component {
                     )}
                   />
                 )}
+              </Col>
+              <Col>
+                {" "}
+                <div className="d-flex justify-content-end">
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className="btn btn-success float-right"
+                        onClick={() =>
+                          history.push("/app/mmbaic/category/addCategory")
+                        }
+                      >
+                        + Category
+                      </Button>
+                    )}
+                  />
+                </div>
               </Col>
             </Row>
             <CardBody>

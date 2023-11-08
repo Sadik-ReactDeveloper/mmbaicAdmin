@@ -182,7 +182,7 @@ class TotalSales extends React.Component {
                     className="float-right"
                     color="primary"
                     onClick={() =>
-                      history.push(`/app/freshlist/customer/AddCustomer`)
+                      history.push(`/app/mmbaic/services/add`)
                     }
                   >
                     Add New

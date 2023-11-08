@@ -26,11 +26,11 @@ class ViewCustomer extends React.Component {
     axiosConfig
       .get(`/user/getviewone/${id}`)
 
-      .then(response => {
+      .then((response) => {
         console.log(response.data.data);
         this.setState({ data: response.data.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   }
@@ -47,7 +47,7 @@ class ViewCustomer extends React.Component {
                     Home
                   </BreadcrumbItem>
                   <BreadcrumbItem
-                    href="/app/freshlist/customer/customerList"
+                    href="/app/mmbaic/services/List"
                     tag="a"
                   >
                     Customer List
@@ -69,9 +69,7 @@ class ViewCustomer extends React.Component {
                   render={({ history }) => (
                     <Button
                       className=" btn btn-danger float-right"
-                      onClick={() =>
-                        history.push("/app/freshlist/customer/customerList")
-                      }
+                      onClick={() => history.push("/app/mmbaic/services/List")}
                     >
                       Back
                     </Button>

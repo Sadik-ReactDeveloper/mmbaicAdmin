@@ -185,9 +185,7 @@ class HubSales extends React.Component {
                         sm="6"
                         className="float-right"
                         color="primary"
-                        onClick={() =>
-                          history.push(`/app/freshlist/customer/AddCustomer`)
-                        }
+                        onClick={() => history.push(`/app/mmbaic/services/add`)}
                       >
                         Add New
                       </Button>

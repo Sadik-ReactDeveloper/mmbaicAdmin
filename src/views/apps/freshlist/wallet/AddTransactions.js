@@ -55,7 +55,7 @@ export class AddTransactions extends Component {
       .post("/admin/addwallet", this.state)
       .then((response) => {
         console.log(response.data.data);
-        // this.props.history.push("/app/freshlist/category/categoryList");
+        // this.props.history.push("/app/mmbaic/category/categoryList");
       })
       .catch((error) => {
         console.log(error);

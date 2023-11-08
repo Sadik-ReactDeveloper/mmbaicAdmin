@@ -33,7 +33,8 @@ $blue: #00cfe8; //$info
 $red: #ea5455; //$danger
 $orange: #ff9f43; //$warning
 $green: #28c76f; //$success
-$cyan: #1877f2; //$primary
+$cyan: #F2D156; //$primary
+// $cyan: #1877f2; //$primary
 
 $primary: $cyan;
 $info: $blue;
@@ -93,7 +94,7 @@ $body-color: #626262;
 // Style anchor elements.
 
 $link-color: $primary;
-$link-hover-color: darken($link-color, 5%);
+$link-hover-color: darken($link-color, 25%);
 $link-hover-decoration: none;
 
 // Grid columns

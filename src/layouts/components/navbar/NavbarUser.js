@@ -17,12 +17,16 @@ import axios from "axios";
 import * as Icon from "react-feather";
 import classnames from "classnames";
 import ReactCountryFlag from "react-country-flag";
+import { BsCartPlusFill, BsMoon, BsMoonFill } from "react-icons/bs";
 import Autocomplete from "../../../components/@vuexy/autoComplete/AutoCompleteComponent";
 //import { useAuth0 } from "../../../authServices/auth0/auth0Service"
 import { history } from "../../../history";
-import images from "../../assets/img/logo/g.png";
+import images from "../../assets/img/logo/logo-info.png";
 import { IntlContext } from "../../../utility/context/Internationalization";
 import { Route } from "react-router-dom";
+import themeConfig from "../../../../src/configs/themeConfig";
+import { FaMoon } from "react-icons/fa";
+import UserContext from "../../../context/Context";
 
 const handleNavigation = (e) => {
   e.preventDefault();
@@ -133,10 +137,13 @@ const UserDropdown = (props) => {
 };
 
 class NavbarUser extends React.PureComponent {
+  static contextType = UserContext;
+
   state = {
     // navbarSearch: false,
     langDropdown: false,
     userData: "",
+    theme: "semi-dark",
     shoppingCart: [
       {
         id: 1,
@@ -198,6 +205,16 @@ class NavbarUser extends React.PureComponent {
     // if (accessToken === null || accessToken === undefined) {
     //   history.push("/pages/login");
     // }
+    const user = this.context;
+    console.log(user);
+    const theme = localStorage.getItem("theme");
+    if (theme) {
+      themeConfig.theme = theme;
+    } else {
+      themeConfig.theme = this.state.theme;
+    }
+    // console.log(theme);
+    this.setState({ theme: theme });
     axios.get("/api/main-search/data").then(({ data }) => {
       this.setState({ suggestions: data.searchResult });
     });
@@ -219,6 +236,12 @@ class NavbarUser extends React.PureComponent {
     this.setState({
       shoppingCart: updatedCart,
     });
+  };
+  changetheme = (value) => {
+    // console.log(value);
+    localStorage.setItem("theme", value);
+    this.setState({ theme: value });
+    window.location.reload();
   };
 
   handleLangDropdown = () =>
@@ -308,18 +331,188 @@ class NavbarUser extends React.PureComponent {
             );
           }}
         </IntlContext.Consumer>
-
+        <div title="Toggle Mode" className="mt-2" style={{ cursor: "pointer" }}>
+          {this.state.theme == "semi-dark" ? (
+            <>
+              <BsMoonFill onClick={() => this.changetheme("dark")} size={25} />
+            </>
+          ) : (
+            <>
+              <BsMoon onClick={() => this.changetheme("semi-dark")} size={25} />
+            </>
+          )}
+        </div>
         <UncontrolledDropdown
           tag="li"
           className="dropdown-notification nav-item"
         >
-          {/* <DropdownToggle tag="a" className="nav-link nav-link-label">
+          <DropdownToggle tag="a" className="nav-link nav-link-label">
+            <BsCartPlusFill size={21} />
+
+            <Badge pill color="primary" className="badge-up">
+              {" "}
+              5{" "}
+            </Badge>
+          </DropdownToggle>
+          <DropdownMenu tag="ul" right className="dropdown-menu-media">
+            <li className="dropdown-menu-header">
+              <div className="dropdown-header mt-0">
+                <h3 className="text-white">5 New</h3>
+                <span className="notification-title">App Notifications</span>
+              </div>
+            </li>
+            <PerfectScrollbar
+              className="media-list overflow-hidden position-relative"
+              options={{
+                wheelPropagation: false,
+              }}
+            >
+              <div className="d-flex justify-content-between">
+                <Media className="d-flex align-items-start">
+                  <Media left href="#">
+                    <Icon.PlusSquare
+                      className="font-medium-5 primary"
+                      size={21}
+                    />
+                  </Media>
+                  <Media body>
+                    <Media heading className="primary media-heading" tag="h6">
+                      You have new order!
+                    </Media>
+                    <p className="notification-text">
+                      Are your going to meet me tonight?
+                    </p>
+                  </Media>
+                  <small>
+                    <time
+                      className="media-meta"
+                      dateTime="2015-06-11T18:29:20+08:00"
+                    >
+                      9 hours ago
+                    </time>
+                  </small>
+                </Media>
+              </div>
+              <div className="d-flex justify-content-between">
+                <Media className="d-flex align-items-start">
+                  <Media left href="#">
+                    <Icon.DownloadCloud
+                      className="font-medium-5 success"
+                      size={21}
+                    />
+                  </Media>
+                  <Media body>
+                    <Media heading className="success media-heading" tag="h6">
+                      99% Server load
+                    </Media>
+                    <p className="notification-text">
+                      You got new order of goods?
+                    </p>
+                  </Media>
+                  <small>
+                    <time
+                      className="media-meta"
+                      dateTime="2015-06-11T18:29:20+08:00"
+                    >
+                      5 hours ago
+                    </time>
+                  </small>
+                </Media>
+              </div>
+              <div className="d-flex justify-content-between">
+                <Media className="d-flex align-items-start">
+                  <Media left href="#">
+                    <Icon.AlertTriangle
+                      className="font-medium-5 danger"
+                      size={21}
+                    />
+                  </Media>
+                  <Media body>
+                    <Media heading className="danger media-heading" tag="h6">
+                      Warning Notification
+                    </Media>
+                    <p className="notification-text">
+                      Server has used 99% of CPU
+                    </p>
+                  </Media>
+                  <small>
+                    <time
+                      className="media-meta"
+                      dateTime="2015-06-11T18:29:20+08:00"
+                    >
+                      Today
+                    </time>
+                  </small>
+                </Media>
+              </div>
+              <div className="d-flex justify-content-between">
+                <Media className="d-flex align-items-start">
+                  <Media left href="#">
+                    <Icon.CheckCircle
+                      className="font-medium-5 info"
+                      size={21}
+                    />
+                  </Media>
+                  <Media body>
+                    <Media heading className="info media-heading" tag="h6">
+                      Complete the task
+                    </Media>
+                    <p className="notification-text">
+                      One of your task is pending.
+                    </p>
+                  </Media>
+                  <small>
+                    <time
+                      className="media-meta"
+                      dateTime="2015-06-11T18:29:20+08:00"
+                    >
+                      Last week
+                    </time>
+                  </small>
+                </Media>
+              </div>
+              <div className="d-flex justify-content-between">
+                <Media className="d-flex align-items-start">
+                  <Media left href="#">
+                    <Icon.File className="font-medium-5 warning" size={21} />
+                  </Media>
+                  <Media body>
+                    <Media heading className="warning media-heading" tag="h6">
+                      Generate monthly report
+                    </Media>
+                    <p className="notification-text">
+                      Reminder to generate monthly report
+                    </p>
+                  </Media>
+                  <small>
+                    <time
+                      className="media-meta"
+                      dateTime="2015-06-11T18:29:20+08:00"
+                    >
+                      Last month
+                    </time>
+                  </small>
+                </Media>
+              </div>
+            </PerfectScrollbar>
+            <li className="dropdown-menu-footer">
+              <DropdownItem tag="a" className="p-1 text-center">
+                <span className="align-middle">Read all notifications</span>
+              </DropdownItem>
+            </li>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+        <UncontrolledDropdown
+          tag="li"
+          className="dropdown-notification nav-item"
+        >
+          <DropdownToggle tag="a" className="nav-link nav-link-label">
             <Icon.Bell size={21} />
             <Badge pill color="primary" className="badge-up">
               {" "}
               5{" "}
             </Badge>
-          </DropdownToggle> */}
+          </DropdownToggle>
           <DropdownMenu tag="ul" right className="dropdown-menu-media">
             <li className="dropdown-menu-header">
               <div className="dropdown-header mt-0">
@@ -473,7 +666,7 @@ class NavbarUser extends React.PureComponent {
             <div className="user-nav d-sm-flex d-none">
               <span className="user-name text-bold-600">
                 {pageparmission?.Userinfo.full_name}
-                {/* <div>{pageparmission?.Userinfo?.role}</div> */}
+                <div>{pageparmission?.Userinfo?.role}</div>
               </span>
               {/* <span className="user-status">{this.state.userData.name}</span> */}
             </div>

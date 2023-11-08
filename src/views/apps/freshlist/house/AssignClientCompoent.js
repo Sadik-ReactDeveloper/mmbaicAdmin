@@ -155,7 +155,7 @@ export class AssignClientCompoent extends Component {
         console.log(response);
         if (response.data.success) {
           swal("Success!", "You Data iS been Submitted", "success");
-          // this.props.history.push("/app/freshlist/category/categoryList");
+          // this.props.history.push("/app/mmbaic/category/categoryList");
         }
       })
       .catch((error) => {

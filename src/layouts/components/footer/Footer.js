@@ -23,7 +23,7 @@ const Footer = (props) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Pravri,
+            MMBAIC,
           </a>
           All rights reserved
         </span>

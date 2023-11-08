@@ -1,12 +1,12 @@
-import React from "react"
-import ExtensionsHeader from "../extensionsHeader"
-import { Row, Col } from "reactstrap"
-import EditorControlled from "./EditorControlled"
-import EditorCustomToolbar from "./EditorCustomToolbar"
-import EditorImage from "./EditorImage"
-import EditorInline from "./EditorInline"
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-import "../../assets/scss/plugins/extensions/editor.scss"
+import React from "react";
+import ExtensionsHeader from "../extensionsHeader";
+import { Row, Col } from "reactstrap";
+import EditorControlled from "./EditorControlled";
+import EditorCustomToolbar from "./EditorCustomToolbar";
+import EditorImage from "./EditorImage";
+import EditorInline from "./EditorInline";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "../../assets/scss/plugins/extensions/editor.scss";
 
 class Editor extends React.Component {
   render() {
@@ -32,8 +32,8 @@ class Editor extends React.Component {
           </Col>
         </Row>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default Editor
+export default Editor;
