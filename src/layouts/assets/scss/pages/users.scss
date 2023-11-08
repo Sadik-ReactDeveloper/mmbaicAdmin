@@ -66,3 +66,32 @@
 // .table tr th td{
 //   border:1px solid #bb1717 ;
 // }
+// input, Input {
+//   box-shadow: -1px 2px 7px;
+//   background: #bcb92012;
+//   cursor: pointer;
+//   padding: 1px 19px;
+//   height: 50px;
+//   border-radius: 8px;
+// }
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.75 * 1em + 1.4rem + 1px);
+  font-size: 0.96rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #4e5154;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+[dir] .custom-select {
+  height: calc(1.75 * 1em + 1.4rem + 1px);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.multiSelectContainer {
+  height: calc(1.75 * 1em + 1.4rem + 1px);
+  position: relative;
+  text-align: left;
+  width: 100%;
+}

@@ -38,9 +38,7 @@ class ViewBanner extends React.Component {
                 <Col>
                   <Button
                     className=" btn btn-danger float-right"
-                    onClick={() =>
-                      history.push("/app/freshlist/banner/reportsdatewise")
-                    }
+                    onClick={() => history.push("/app/mmbaic/banner/headerCMS")}
                   >
                     Back
                   </Button>

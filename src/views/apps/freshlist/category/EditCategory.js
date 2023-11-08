@@ -111,7 +111,7 @@ export class EditCategory extends Component {
         // console.log(response?.data.success);
         if (response?.data.success) {
           swal("Success!", "You Data iS been Submitted", "success");
-          this.props.history.push("/app/freshlist/category/categoryList");
+          this.props.history.push("/app/mmbaic/category/categoryList");
         }
       })
       .catch((error) => {
@@ -134,7 +134,7 @@ export class EditCategory extends Component {
                   <Button
                     className=" btn btn-danger float-right"
                     onClick={() =>
-                      history.push("/app/freshlist/category/categoryList")
+                      history.push("/app/mmbaic/category/categoryList")
                     }
                   >
                     Back

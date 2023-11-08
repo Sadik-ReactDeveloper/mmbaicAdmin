@@ -5,7 +5,6 @@ import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";
 // import { Route, Link } from "react-router-dom";
 import swal from "sweetalert";
-import { BsFillArrowDownCircleFill } from "react-icons/bs";
 import { permission } from "./DummyPermissiom";
 import { useParams, useHistory } from "react-router-dom";
 
@@ -31,7 +30,7 @@ export default function AddRoleNew() {
         setSelected(res?.data?.data?.permissioninfo);
         // console.log("origional permission", res?.data?.data);
         console.log("origional permission", res?.data?.data?.permissioninfo);
-        setRole(res?.data?.data?.roleinfo?.role_name);
+        setRole(res?.data?.data?.roleinfo?.role);
         setDesc(res?.data?.data?.roleinfo?.description);
         setExistingpermission(res?.data?.data);
       })
@@ -289,7 +288,7 @@ export default function AddRoleNew() {
     console.log(userdata?.Userinfo?.id);
     const formdata = new FormData();
     formdata.set("user_id", userdata?.Userinfo?.id);
-    formdata.set("role_name", Role);
+    formdata.set("role_name", Existingpermission?.roleinfo?.role_name);
     formdata.set("description", Desc);
     formdata.set("selectedarray", JSON.stringify(Selected));
 

@@ -26,19 +26,23 @@ export class EditProductType extends Component {
     super(props);
     this.state = {
       Address: "",
-      fullname: "",
+      FirstName: "",
+      Lastname: "",
+      UserName: "",
+      Mobile_no: "",
+      email: "",
+      SelectedState: "",
+      SelectedSupplierCity: [],
+      SelectedSCity: [],
+      postalCode: "",
       GSTIN: "",
       B_City: "",
       checkbox: "",
-      SelectedState: "",
       StateList: [],
-      SelectedSupplierCity: [],
-      SelectedSCity: [],
 
       CityList: [],
 
       S_City: "",
-      Mobile_no: "",
       B_Country: "",
       S_Country: "",
       Phone_no: "",
@@ -51,13 +55,11 @@ export class EditProductType extends Component {
       S_PinCode: "",
       setuserList: false,
       password: "",
-      email: "",
       status: "",
       AssignRole: "",
       CompanyName: "",
       Companytype: "",
       Selectuser: "",
-      UserName: "",
       UserId: "",
       City: "",
       Role: "",
@@ -315,21 +317,35 @@ export class EditProductType extends Component {
                 <Row className="mb-2">
                   <Col lg="6" md="6">
                     <FormGroup>
-                      <Label>Name *</Label>
+                      <Label>First Name*</Label>
                       <Input
                         required
                         // disabled
                         type="text"
                         placeholder="Enter Your Name"
-                        name="fullname"
-                        value={this.state.fullname}
+                        name="FirstName"
+                        value={this.state.FirstName}
                         onChange={this.changeHandler}
                       />
                     </FormGroup>
                   </Col>
                   <Col lg="6" md="6">
                     <FormGroup>
-                      <Label>Display Name *</Label>
+                      <Label>Last Name *</Label>
+                      <Input
+                        required
+                        // disabled
+                        type="text"
+                        placeholder="Enter Your Name"
+                        name="Lastname"
+                        value={this.state.Lastname}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col lg="6" md="6">
+                    <FormGroup>
+                      <Label>User Name *</Label>
                       <Input
                         required
                         // disabled
@@ -362,7 +378,7 @@ export class EditProductType extends Component {
                       />
                     </FormGroup>
                   </Col>
-                  <Col lg="6" md="6">
+                  {/* <Col lg="6" md="6">
                     <FormGroup>
                       <Label>Phone Number </Label>
                       <Input
@@ -381,7 +397,7 @@ export class EditProductType extends Component {
                         onChange={this.changeHandler.bind(this)}
                       />
                     </FormGroup>
-                  </Col>
+                  </Col> */}
 
                   <Col lg="6" md="6">
                     <FormGroup>
@@ -398,7 +414,7 @@ export class EditProductType extends Component {
                     </FormGroup>
                   </Col>
 
-                  <Col lg="6" md="6">
+                  {/* <Col lg="6" md="6">
                     <FormGroup>
                       <Label>Company Name</Label>
                       <Input
@@ -449,7 +465,7 @@ export class EditProductType extends Component {
                         onChange={this.changeHandler}
                       />
                     </FormGroup>
-                  </Col>
+                  </Col> */}
                   <Col lg="6" md="6">
                     <FormGroup>
                       <label for="cars">Choose State</label>
@@ -497,9 +513,27 @@ export class EditProductType extends Component {
                       displayValue="name" // Property name to display in the dropdown options
                     />
                   </Col>
+                  <Col lg="6" md="6">
+                    <FormGroup>
+                      <Label>Postal Code</Label>
+                      <Input
+                        required
+                        onKeyDown={(e) =>
+                          ["e", "E", "+", "-"].includes(e.key) &&
+                          e.preventDefault()
+                        }
+                        min={0}
+                        type="number"
+                        placeholder="452001"
+                        name="postalCode"
+                        value={this.state.postalCode}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
                 </Row>
                 <hr />
-                <Row>
+                {/* <Row>
                   <Col>
                     <h4 className="mt-4">Billing Address :</h4>
 
@@ -737,7 +771,7 @@ export class EditProductType extends Component {
                       </FormGroup>
                     </Col>
                   </Col>
-                </Row>
+                </Row> */}
 
                 {this.state.setuserList && (
                   <Row className="mt-2">

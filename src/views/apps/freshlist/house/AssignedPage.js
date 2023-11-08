@@ -69,7 +69,7 @@ export class AddProduct extends Component {
         this.setState({ quantity: "" });
         // if (response.data.msg === "success") {
         //   swal("Success!", "You Data IS been Submitted", "success");
-        //   this.props.history.push("/app/freshlist/category/categoryList");
+        //   this.props.history.push("/app/mmbaic/category/categoryList");
         // }
       })
       .catch((error) => {

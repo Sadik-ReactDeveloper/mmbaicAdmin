@@ -127,6 +127,7 @@ export default class EditBanner extends Component {
                     onChange={this.onChangeHandler}
                   />
                 </Col>
+
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Banner Type</Label>
                   <CustomInput

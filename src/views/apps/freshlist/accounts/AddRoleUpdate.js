@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Card, Button, Label, Input, Form } from "reactstrap";
+import {
+  Row,
+  Col,
+  Card,
+  Button,
+  Label,
+  Input,
+  Form,
+  CustomInput,
+} from "reactstrap";
 import { Roles } from "./AddRole";
 import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";
@@ -119,6 +128,18 @@ export default function AddRoleNew() {
                       placeholder="Enter Role"
                       className="form-control"
                     />
+                    {/* <CustomInput
+                      required
+                      value={Role}
+                      onChange={(e) => setRole(e.target.value)}
+                      type="select"
+                      placeholder="Enter Role"
+                      className="form-control"
+                    >
+                      <option value="0">--Select--</option>
+                      <option value="1">Master</option>
+                      <option value="2">Developer</option>
+                    </CustomInput> */}
                   </Col>
                   <Col>
                     <Label>Enter Role Description * </Label>

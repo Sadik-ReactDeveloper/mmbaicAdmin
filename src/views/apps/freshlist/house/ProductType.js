@@ -76,22 +76,37 @@ class ProductType extends React.Component {
         },
       },
       {
-        headerName: "FullName",
-        field: "full_name",
+        headerName: "First Name",
+        field: "firstname",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params?.data?.full_name}</span>
+                <span>{params?.data?.firstname}</span>
               </div>
             </div>
           );
         },
       },
       {
-        headerName: "Username",
+        headerName: "Last Name",
+        field: "lastname",
+        filter: "agSetColumnFilter",
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params?.data?.lastname}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "User Name",
         field: "username",
         filter: "agSetColumnFilter",
         width: 150,
@@ -108,7 +123,7 @@ class ProductType extends React.Component {
 
       {
         headerName: "created by",
-        field: "created_by",
+        field: "create_date",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
@@ -116,7 +131,7 @@ class ProductType extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params?.data?.created_by_name}</span>
+                <span>{params?.data?.create_date}</span>
               </div>
             </div>
           );
@@ -153,125 +168,125 @@ class ProductType extends React.Component {
           );
         },
       },
-      {
-        headerName: "Phone No.",
-        field: "phone_no",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.phone_no}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "companyname.",
-        field: "company_name",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.company_name}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "companytype.",
-        field: "company_type",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.company_type}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "GSTIN",
-        field: "company_type",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.gstin_no}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "place of supply.",
-        field: "place_supply",
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.place_supply}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "billing Address.",
-        field: "billing_city",
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              {/* {this.state.billing_street && ( */}
-              <div className="">
-                <span>{params?.data?.billing_street} </span>
-                <span>{params?.data?.billing_city},</span>
-                <span>{params?.data?.billing_state},</span>
-                <span>{params?.data?.billing_country}, </span>
-                <span>{params?.data?.billing_pincode}</span>
-              </div>
-              {/* )} */}
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Shipping Address.",
-        field: "billing_city",
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                {/* {this.state.shipping_city && ( */}
-                <div>
-                  <span>{params?.data?.shipping_street},</span>
-                  <span>{params?.data?.shipping_state},</span>
-                  <span>{params?.data?.shipping_city},</span>
-                  <span>{params?.data?.shipping_country},</span>
-                  <span>{params?.data?.shipping_pincode}</span>
-                </div>
-                {/* )} */}
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Phone No.",
+      //   field: "phone_no",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.phone_no}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "companyname.",
+      //   field: "company_name",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.company_name}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "companytype.",
+      //   field: "company_type",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.company_type}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "GSTIN",
+      //   field: "company_type",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.gstin_no}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "place of supply.",
+      //   field: "place_supply",
+      //   filter: "agSetColumnFilter",
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.place_supply}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "billing Address.",
+      //   field: "billing_city",
+      //   filter: "agSetColumnFilter",
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         {/* {this.state.billing_street && ( */}
+      //         <div className="">
+      //           <span>{params?.data?.billing_street} </span>
+      //           <span>{params?.data?.billing_city},</span>
+      //           <span>{params?.data?.billing_state},</span>
+      //           <span>{params?.data?.billing_country}, </span>
+      //           <span>{params?.data?.billing_pincode}</span>
+      //         </div>
+      //         {/* )} */}
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Shipping Address.",
+      //   field: "billing_city",
+      //   filter: "agSetColumnFilter",
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           {/* {this.state.shipping_city && ( */}
+      //           <div>
+      //             <span>{params?.data?.shipping_street},</span>
+      //             <span>{params?.data?.shipping_state},</span>
+      //             <span>{params?.data?.shipping_city},</span>
+      //             <span>{params?.data?.shipping_country},</span>
+      //             <span>{params?.data?.shipping_pincode}</span>
+      //           </div>
+      //           {/* )} */}
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
 
       {
         headerName: "Status",
@@ -696,23 +711,26 @@ class ProductType extends React.Component {
                       </div>
                     </div>
                     <ContextLayout.Consumer>
-                      {(context) => (
-                        <AgGridReact
-                          gridOptions={{}}
-                          rowSelection="multiple"
-                          defaultColDef={defaultColDef}
-                          columnDefs={columnDefs}
-                          rowData={rowData}
-                          onGridReady={this.onGridReady}
-                          colResizeDefault={"shift"}
-                          animateRows={true}
-                          floatingFilter={false}
-                          pagination={true}
-                          paginationPageSize={this.state.paginationPageSize}
-                          pivotPanelShow="always"
-                          enableRtl={context.state.direction === "rtl"}
-                        />
-                      )}
+                      {(context) => {
+                        console.log(context);
+                        return (
+                          <AgGridReact
+                            gridOptions={{}}
+                            rowSelection="multiple"
+                            defaultColDef={defaultColDef}
+                            columnDefs={columnDefs}
+                            rowData={rowData}
+                            onGridReady={this.onGridReady}
+                            colResizeDefault={"shift"}
+                            animateRows={true}
+                            floatingFilter={false}
+                            pagination={true}
+                            paginationPageSize={this.state.paginationPageSize}
+                            pivotPanelShow="always"
+                            enableRtl={context.state.direction === "rtl"}
+                          />
+                        );
+                      }}
                     </ContextLayout.Consumer>
                   </div>
                 )}

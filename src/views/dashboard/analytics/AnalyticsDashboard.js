@@ -180,11 +180,11 @@ class AnalyticsDashboard extends React.Component {
                 this.state.product?.map((ele, i) => {
                   let bgcolor = "";
                   if ((i + 1) % 3 === 0) {
-                    bgcolor = "#62b5cfab";
+                    bgcolor = "#5bf7b9";
                   } else if ((i + 1) % 2 === 0) {
                     bgcolor = "#4c4c9b4a";
                   } else {
-                    bgcolor = "#0000ff8a";
+                    bgcolor = "#5bf7b9";
                   }
 
                   return (
@@ -197,7 +197,7 @@ class AnalyticsDashboard extends React.Component {
                           <CardTitle
                             className="mb-1 d-flex"
                             // tag="h6"
-                            style={{ color: "black", padding: "30px 30px" }}
+                            style={{ color: "black", padding: "60px 30px" }}
                           >
                             <FcOk />
                             <CardText

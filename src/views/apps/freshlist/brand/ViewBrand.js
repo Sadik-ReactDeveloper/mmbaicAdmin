@@ -25,11 +25,11 @@ class ViewBrand extends React.Component {
     let { id } = this.props.match.params;
     axiosConfig
       .get(`/admin/viewone_brand/${id}`)
-      .then(response => {
+      .then((response) => {
         console.log(response.data.data);
         this.setState({ data: response.data.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   }
@@ -46,7 +46,7 @@ class ViewBrand extends React.Component {
                     Home
                   </BreadcrumbItem>
                   <BreadcrumbItem
-                    href="/app/freshlist/customer/customerList"
+                    href="/app/mmbaic/services/List"
                     tag="a"
                   >
                     Customer List

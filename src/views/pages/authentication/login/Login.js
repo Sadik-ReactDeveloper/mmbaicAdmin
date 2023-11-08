@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 // import classnames from "classnames";
 // import logo from "../../../../assets/img/logo/logo.ico";
-import logo from "../../../../assets/img/logo/paravilogo.jpeg";
+import logo from "../../../../assets/img/logo/paravilogo.png";
 //import loginImg from "../../../../assets/img/pages/login.png";
 import "../../../../assets/scss/pages/authentication.scss";
 import { history } from "../../../../history";
@@ -47,6 +47,23 @@ class Login extends React.Component {
       // rowData: {},
     };
   }
+  preventBackButton() {
+    window.history.pushState(null, null, window.location.href);
+    this.popstateHandler = function () {
+      window.history.go(1);
+    };
+    window.addEventListener("popstate", this.popstateHandler);
+  }
+  componentWillUnmount() {
+    this.allowBackButton();
+  }
+  allowBackButton() {
+    window.removeEventListener("popstate", this.popstateHandler);
+  }
+  componentDidMount() {
+    this.preventBackButton();
+  }
+
   handlechange = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
@@ -54,11 +71,10 @@ class Login extends React.Component {
 
   loginHandler = (e) => {
     e.preventDefault();
+
     const fromdata = new FormData();
     fromdata.append("username", this.state.email);
     fromdata.append("password", this.state.password);
-    // console.log(this.state.email);
-    // console.log(this.state.password);
     axiosConfig
       .post("/usersign", fromdata)
       .then((response) => {
@@ -67,7 +83,7 @@ class Login extends React.Component {
           localStorage.setItem("userData", JSON.stringify(response.data?.data));
           setTimeout(() => {
             this.props.history.push("/dashboard");
-          }, 2000);
+          }, 1500);
           swal(
             "Sucessfully login",
             "You are LoggedIn!",
@@ -176,8 +192,12 @@ class Login extends React.Component {
               <Row className="m-0">
                 <Col lg="12" md="12" className="p-1">
                   <Card className="rounded-0 mb-0 px-2 login-tabs-container">
-                    <div className="logo-box text-center p-2">
+                    <div
+                      style={{ borderRadius: "10px" }}
+                      className="logo-box text-center bg-dark"
+                    >
                       <img
+                        className="mt-1"
                         src={logo}
                         alt="loginImg"
                         width="100%"

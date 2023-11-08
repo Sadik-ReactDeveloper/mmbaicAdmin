@@ -219,7 +219,7 @@ class CustomerList extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 sm="6" className="float-left">
-                    Customer List
+                    Service List
                   </h1>
                 </Col>
                 <Col>
@@ -230,10 +230,10 @@ class CustomerList extends React.Component {
                         className="float-right"
                         color="primary"
                         onClick={() =>
-                          history.push(`/app/freshlist/customer/AddCustomer`)
+                          history.push(`/app/mmbaic/services/addservices`)
                         }
                       >
-                        Add Customer
+                        Add
                       </Button>
                     )}
                   />

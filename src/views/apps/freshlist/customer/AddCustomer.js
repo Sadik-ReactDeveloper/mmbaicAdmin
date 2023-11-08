@@ -1,117 +1,244 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import {
   Card,
+  CardHeader,
+  CardTitle,
   CardBody,
+  Row,
   Col,
   Form,
-  Row,
-  Input,
   Label,
-  Button,
-  FormGroup,
+  Input,
   CustomInput,
+  Button,
 } from "reactstrap";
-import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
+import swal from "sweetalert";
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "../../../../assets/scss/plugins/extensions/editor.scss";
 import { Route } from "react-router-dom";
 
-const AddCustomer = () => {
-  const [formData, setFormData] = useState({
-    hub_name: "",
-    desc: "",
-    email: "",
-    phone: "",
-    address: "",
-    d_zone: "",
-    cat: "",
-    subcat: "",
-    status: "",
-  });
-  const changeHandler = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+export default class AddCustomer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      banner_title: "",
+      Notice: "",
+      Title: "",
+      PageName: "",
+      selectedFile: undefined,
+      selectedName: "",
+      status: "",
+      description: "",
+      editorState: EditorState.createEmpty(),
+    };
+  }
+  onEditorStateChange = (editorState) => {
+    this.setState({
+      editorState,
+      description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+    });
   };
-
-  const submitHandler = (e) => {
+  onChangeHandler = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
+    this.setState({ selectedName: event.target.files[0].name });
+    console.log(event.target.files[0]);
+  };
+  onChangeHandler = (event) => {
+    this.setState({ selectedFile: event.target.files });
+    this.setState({ selectedName: event.target.files.name });
+    console.log(event.target.files);
+  };
+  changeHandler1 = (e) => {
+    this.setState({ status: e.target.value });
+  };
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  submitHandler = (e) => {
     e.preventDefault();
-    console.log("submitHandler", formData);
-
+    const data = new FormData();
+    data.append("banner_title", this.state.banner_title);
+    data.append("bannertype", this.state.bannertype);
+    data.append("status", this.state.status);
+    for (const file of this.state.selectedFile) {
+      if (this.state.selectedFile !== null) {
+        data.append("banner_img", file, file.name);
+      }
+    }
+    for (var value of data.values()) {
+      console.log(value);
+    }
+    for (var key of data.keys()) {
+      console.log(key);
+    }
     axiosConfig
-      .post("/admin/addcategory", formData)
+      .post("/addbanner", data)
       .then((response) => {
         console.log(response);
-        this.props.history.push("/app/freshlist/order/orderList");
+        swal("Successful!", "You clicked the button!", "success");
+        this.props.history.push("/app/freshlist/banner/bannerList");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  render() {
+    const { banner_title, Notice, Title, PageName, editorState } = this.state;
+    return (
+      <div>
+        <Card>
+          <div className="container mt-1">
+            <Row>
+              <Col>
+                <h2>Add Services</h2>
+              </Col>
 
-  return (
-    <div>
-      <Card>
-        <Row className="m-2">
-          <Col>
-            <h1 col-sm-6 className="float-left">
-              Add Customer
-            </h1>
-          </Col>
-          <Col>
-            <Route
-              render={({ history }) => (
-                <Button
-                  className="btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/freshlist/customer/customerList")
-                  }
-                >
-                  Back
-                </Button>
-              )}
-            />
-          </Col>
-        </Row>
-        <CardBody>
-          <Form className="m-1" onSubmit={submitHandler}>
-            <Row className="mb-2">
-              <Col lg="6" md="6">
-                <FormGroup>
-                  <Label>Customer Name</Label>
+              <Col>
+                <div className="d-flex float-right">
+                  <Route
+                    render={({ history }) => (
+                      <Button
+                        className=" btn btn-danger float-right"
+                        onClick={() =>
+                          history.push("/app/mmbaic/services/List")
+                        }
+                      >
+                        Back
+                      </Button>
+                    )}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </div>
+          <CardHeader></CardHeader>
+          <CardBody>
+            <Form className="m-1" onSubmit={this.submitHandler}>
+              <Row>
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Title</Label>
                   <Input
+                    required
                     type="text"
-                    placeholder="Customer_Name"
-                    name="customer_name"
-                    value={formData.customer_name}
-                    onChange={changeHandler}
+                    className="form-control"
+                    name="Title"
+                    placeholder="Enter Header Title"
+                    value={Title}
+                    onChange={this.changeHandler}
                   />
-                </FormGroup>
-              </Col>
-              <Col lg="6" md="6">
-                <FormGroup>
-                  <Label>Email</Label>
+                </Col>
+
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Image</Label>
                   <Input
-                    type="email"
-                    placeholder="Enter Email"
-                    name="email"
-                    value={formData.email}
-                    onChange={changeHandler}
+                    required
+                    type="file"
+                    className="form-control"
+                    // name="PageName"
+                    // placeholder="Enter PageName"
+                    // value={this.state.PageName}
+                    onChange={this.onChangeHandler}
                   />
-                </FormGroup>
-              </Col>
-              <Col lg="6" md="6">
-                <FormGroup>
-                  <Label>Mobile No.</Label>
+                </Col>
+                <Col lg="12" md="12" sm="12" className="mb-2">
+                  <Label>Enter Details</Label>
+                  <Editor
+                    toolbarClassName="demo-toolbar-absolute"
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    editorState={editorState}
+                    onEditorStateChange={this.onEditorStateChange}
+                  />
+                </Col>
+
+                {/* <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Banner Title</Label>
                   <Input
-                    type="Number"
-                    placeholder="Enter No."
-                    name="phone"
-                    value={formData.phone}
-                    onChange={changeHandler}
+                    required
+                    type="text"
+                    name="banner_title"
+                    placeholder="Enter Banner Title"
+                    value={this.state.banner_title}
+                    onChange={this.changeHandler}
                   />
-                </FormGroup>
-              </Col>
-              <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
+                </Col> */}
+                {/* <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Banner image</Label>
+                  <CustomInput
+                    type="file"
+                    multiple
+                    onChange={this.onChangeHandler}
+                  />
+                </Col> */}
+                {/* <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Banner Type</Label>
+                  <CustomInput
+                    required
+                    type="select"
+                    name="bannertype"
+                    placeholder="Enter Banner Type"
+                    value={this.state.bannertype}
+                    onChange={this.changeHandler}
+                  >
+                    <option value="select">--Select--</option>
+                    <option value="AB">AB</option>
+                    <option value="PV">PV</option>
+                  </CustomInput>
+                </Col> */}
+                {/* <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Banner URL</Label>
+                  <Editor
+                    toolbarClassName="demo-toolbar-absolute"
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    editorState={this.state.editorState}
+                    onEditorStateChange={this.onEditorStateChange}
+                    toolbar={{
+                      options: [
+                        "inline",
+                        "blockType",
+                        "fontSize",
+                        "fontFamily",
+                      ],
+                      inline: {
+                        options: [
+                          "bold",
+                          "italic",
+                          "underline",
+                          "strikethrough",
+                          "monospace",
+                        ],
+                        bold: { className: "bordered-option-classname" },
+                        italic: { className: "bordered-option-classname" },
+                        underline: { className: "bordered-option-classname" },
+                        strikethrough: {
+                          className: "bordered-option-classname",
+                        },
+                        code: { className: "bordered-option-classname" },
+                      },
+                      blockType: {
+                        className: "bordered-option-classname",
+                      },
+                      fontSize: {
+                        className: "bordered-option-classname",
+                      },
+                      fontFamily: {
+                        className: "bordered-option-classname",
+                      },
+                    }}
+                  />
+                </Col> */}
+              </Row>
+              <Col lg="6" md="6" sm="6" className="mb-2">
                 <Label className="mb-1">Status</Label>
-                <div className="form-label-group" onChange={changeHandler}>
+                <div
+                  className="form-label-group"
+                  onChange={(e) => this.changeHandler1(e)}
+                >
                   <input
                     style={{ marginRight: "3px" }}
                     type="radio"
@@ -119,7 +246,6 @@ const AddCustomer = () => {
                     value="Active"
                   />
                   <span style={{ marginRight: "20px" }}>Active</span>
-
                   <input
                     style={{ marginRight: "3px" }}
                     type="radio"
@@ -129,18 +255,21 @@ const AddCustomer = () => {
                   <span style={{ marginRight: "3px" }}>Inactive</span>
                 </div>
               </Col>
-            </Row>
-
-            <Row className="m-2">
-              <Button color="primary" type="submit" className="mr-1 mb-1">
-                Add Customer
-              </Button>
-            </Row>
-          </Form>
-        </CardBody>
-      </Card>
-    </div>
-  );
-};
-
-export default AddCustomer;
+              <Row>
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Button.Ripple
+                    color="primary"
+                    type="submit"
+                    className="mr-1 mb-1"
+                  >
+                    Add
+                  </Button.Ripple>
+                </Col>
+              </Row>
+            </Form>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+}
