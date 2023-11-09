@@ -112,6 +112,20 @@ export class AddCategory extends Component {
           <CardBody>
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row className="mb-2">
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Category Type</Label>
+                  <CustomInput
+                    type="select"
+                    placeholder="Select Type"
+                    name="type"
+                    value={this.state.type}
+                    onChange={this.changeHandler}
+                  >
+                    <option>---Select---</option>
+                    <option value="services">Services</option>
+                    <option value="courses">Courses</option>
+                  </CustomInput>
+                </Col>
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Category Name</Label>
@@ -124,28 +138,13 @@ export class AddCategory extends Component {
                     />
                   </FormGroup>
                 </Col>
-                {/* <Col lg="6" md="6" className="mb-2">
-                  <Label>Type</Label>
-                  <CustomInput
-                    type="select"
-                    placeholder="Select Type"
-                    name="type"
-                    value={this.state.type}
-                    onChange={this.changeHandler}
-                  >
-                    <option>---Select---</option>
-                    <option value="veg">Veg</option>
-                    <option value="nonveg">Non-Veg</option>
-                    <option value="egg">Egg only</option>
-                  </CustomInput>
-                </Col> */}
 
-                {/* <Col lg="6" md="6">
+                <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Category Image </Label>
                     <CustomInput type="file" onChange={this.onChangeHandler1} />
                   </FormGroup>
-                </Col> */}
+                </Col>
 
                 {/* <Col lg="6" md="6">
                   <FormGroup>
@@ -167,22 +166,22 @@ export class AddCategory extends Component {
                   </FormGroup>
                 </Col> */}
 
-                {/* <Col lg="6" md="6" className="mb-2">
+                <Col lg="6" md="6" className="mb-2">
                   <Label>Description</Label>
-                  <input
+                  <textarea
                     type="text"
                     className="form-control"
                     name="feature"
                     value={this.state.feature}
                     onChange={this.changeHandler}
                   />
-                </Col> */}
+                </Col>
 
-                {/* <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
+                <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
                   <Label className="mb-0">Status</Label>
                   <div
                     className="form-label-group"
-                    onChange={this.handleChange}
+                    onChange={this.changeHandler1}
                   >
                     <input
                       style={{ marginRight: "3px" }}
@@ -200,7 +199,7 @@ export class AddCategory extends Component {
                     />
                     <span style={{ marginRight: "3px" }}>Deactive</span>
                   </div>
-                </Col> */}
+                </Col>
               </Row>
 
               <Row>

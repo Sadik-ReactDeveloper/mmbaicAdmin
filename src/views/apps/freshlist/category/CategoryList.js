@@ -315,7 +315,7 @@ class CategoryList extends React.Component {
                 </Button>
               </Col> */}
 
-              <Col>
+              {/* <Col>
                 {this.state.Createpermisson && (
                   <Route
                     render={({ history }) => (
@@ -331,7 +331,7 @@ class CategoryList extends React.Component {
                     )}
                   />
                 )}
-              </Col>
+              </Col> */}
               <Col>
                 {" "}
                 <div className="d-flex justify-content-end">
