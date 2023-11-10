@@ -67,31 +67,31 @@ class CategoryList extends React.Component {
       //   },
       // },
       {
-        headerName: "Name",
-        field: "category_name",
+        headerName: "Category Name",
+        field: "category",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params?.data?.category_name}</span>
+              <span>{params?.data?.category}</span>
             </div>
           );
         },
       },
-      // {
-      //   headerName: "Type",
-      //   field: "type",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <span>{params.data?.type}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "Type",
+        field: "type",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data?.type}</span>
+            </div>
+          );
+        },
+      },
       // {
       //   headerName: "Featured",
       //   field: "feature",
@@ -215,14 +215,18 @@ class CategoryList extends React.Component {
 
     data.append("user_id", pageparmission?.Userinfo?.id);
     data.append("role", pageparmission?.Userinfo?.role);
-
-    await axiosConfig.post("/getcategory", data).then((response) => {
-      let rowData = response.data.data?.category;
-      console.log(rowData);
-      if (rowData) {
-        this.setState({ rowData });
-      }
-    });
+    await axiosConfig
+      .post("/getcategoryList", data)
+      .then((response) => {
+        let rowData = response.data?.data.category;
+        // console.log(rowData);
+        if (rowData) {
+          this.setState({ rowData });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async runthisfunction(id) {

@@ -26,6 +26,8 @@ export default class AddCustomer extends Component {
     super(props);
     this.state = {
       banner_title: "",
+      rowData: [],
+      Category: "",
       Notice: "",
       Title: "",
       PageName: "",
@@ -42,6 +44,25 @@ export default class AddCustomer extends Component {
       description: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     });
   };
+  async componentDidMount() {
+    const data = new FormData();
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    data.append("role", pageparmission?.Userinfo?.role);
+    await axiosConfig
+      .post("/getcategoryList", data)
+      .then((response) => {
+        let rowData = response.data?.data.category;
+        // console.log(rowData);
+        if (rowData) {
+          this.setState({ rowData });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
     this.setState({ selectedName: event.target.files[0].name });
@@ -61,14 +82,18 @@ export default class AddCustomer extends Component {
   submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("banner_title", this.state.banner_title);
-    data.append("bannertype", this.state.bannertype);
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    // debugger;
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    data.append("cat_id", this.state.Category);
+    data.append("title", this.state.Title);
     data.append("status", this.state.status);
-    for (const file of this.state.selectedFile) {
-      if (this.state.selectedFile !== null) {
-        data.append("banner_img", file, file.name);
-      }
-    }
+    data.append("description", this.state.description);
+    // for (const file of this.state.selectedFile) {
+    // if (this.state.selectedFile !== null) {
+    //   data.append("banner_img", file);
+    // }
+    // }
     for (var value of data.values()) {
       console.log(value);
     }
@@ -76,18 +101,19 @@ export default class AddCustomer extends Component {
       console.log(key);
     }
     axiosConfig
-      .post("/addbanner", data)
+      .post("/addServices", data)
       .then((response) => {
         console.log(response);
-        swal("Successful!", "You clicked the button!", "success");
-        this.props.history.push("/app/freshlist/banner/bannerList");
+        swal("Successful!", "Details Added Successfully", "success");
+        // this.props.history.push("/app/freshlist/banner/bannerList");
       })
       .catch((error) => {
         console.log(error);
       });
   };
   render() {
-    const { banner_title, Notice, Title, PageName, editorState } = this.state;
+    const { banner_title, Notice, Title, PageName, editorState, Category } =
+      this.state;
     return (
       <div>
         <Card>
@@ -120,7 +146,29 @@ export default class AddCustomer extends Component {
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row>
                 <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Title</Label>
+                  <Label> Select Category</Label>
+                  <CustomInput
+                    required
+                    type="select"
+                    className="form-control"
+                    name="Category"
+                    placeholder="Enter Header Category"
+                    value={Category}
+                    onChange={this.changeHandler}
+                  >
+                    <option>--Select--</option>
+                    {this.state.rowData &&
+                      this.state.rowData?.map((ele, i) => {
+                        return (
+                          <option value={ele?.id} key={i}>
+                            {ele?.category}
+                          </option>
+                        );
+                      })}
+                  </CustomInput>
+                </Col>
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label> Service Title</Label>
                   <Input
                     required
                     type="text"
@@ -132,7 +180,7 @@ export default class AddCustomer extends Component {
                   />
                 </Col>
 
-                <Col lg="6" md="6" sm="6" className="mb-2">
+                {/* <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Image</Label>
                   <Input
                     required
@@ -143,7 +191,7 @@ export default class AddCustomer extends Component {
                     // value={this.state.PageName}
                     onChange={this.onChangeHandler}
                   />
-                </Col>
+                </Col> */}
                 <Col lg="12" md="12" sm="12" className="mb-2">
                   <Label>Enter Details</Label>
                   <Editor

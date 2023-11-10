@@ -17,6 +17,7 @@ import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
+import { EditCity } from "./EditCity";
 
 const selectItem1 = [];
 
@@ -28,6 +29,7 @@ export class EditProductType extends Component {
       Address: "",
       FirstName: "",
       Lastname: "",
+      postalCode: "",
       UserName: "",
       Mobile_no: "",
       email: "",
@@ -81,10 +83,10 @@ export class EditProductType extends Component {
         if (response.data.data?.city_id) {
           myArray = response.data.data?.city_id.split(",");
         }
-        console.log(myArray);
-        if (this.state.B_Street === this.state.S_Street) {
-          this.setState({ checkbox: true });
-        }
+        // console.log(myArray);
+        // if (this.state.B_Street === this.state.S_Street) {
+        //   this.setState({ checkbox: true });
+        // }
         const formdata = new FormData();
         formdata.append("state_id", response.data.data.state_id);
         axiosConfig
@@ -126,29 +128,32 @@ export class EditProductType extends Component {
           });
         this.setState({
           SelectedState: response.data.data.state_id,
-          selectedValue: newdata,
-          B_City: response.data.data.billing_city,
-          GSTIN: response.data.data.gstin_no,
-          B_Country: response.data.data.billing_country,
-          B_PinCode: response.data.data.billing_pincode,
-          B_State: response.data.data.billing_state,
-          B_Street: response.data.data.billing_street,
-          CompanyName: response.data.data.company_name,
-          Companytype: response.data.data.company_type,
-          Role: response.data.data.role,
-          AssignRole: response.data.data.role,
           email: response.data.data.email,
-          fullname: response.data.data.full_name,
-          Mobile_no: response.data.data.mobile,
-          Phone_no: response.data.data.phone_no,
-          Place_of_Supply: response.data.data.place_supply,
-          S_City: response.data.data.shipping_city,
-          S_Country: response.data.data.shipping_country,
-          S_PinCode: response.data.data.shipping_pincode,
-          S_State: response.data.data.shipping_state,
-          S_Street: response.data.data.shipping_street,
+          FirstName: response.data.data.firstname,
+          Lastname: response.data.data.lastname,
           UserName: response.data.data.username,
-          password: response.data.data.password,
+          Mobile_no: response.data.data.mobile,
+          selectedValue: newdata,
+          // B_City: response.data.data.billing_city,
+          // GSTIN: response.data.data.gstin_no,
+          // B_Country: response.data.data.billing_country,
+          // B_PinCode: response.data.data.billing_pincode,
+          // B_State: response.data.data.billing_state,
+          // B_Street: response.data.data.billing_street,
+          // CompanyName: response.data.data.company_name,
+          // Companytype: response.data.data.company_type,
+          // Role: response.data.data.role,
+          // AssignRole: response.data.data.role,
+
+          // fullname: response.data.data.full_name,
+          // Phone_no: response.data.data.phone_no,
+          // Place_of_Supply: response.data.data.place_supply,
+          // S_City: response.data.data.shipping_city,
+          // S_Country: response.data.data.shipping_country,
+          // S_PinCode: response.data.data.shipping_pincode,
+          // S_State: response.data.data.shipping_state,
+          // S_Street: response.data.data.shipping_street,
+          // password: response.data.data.password,
           status: response.data.data.status,
           UserId: response.data.data.id,
         });
@@ -197,37 +202,44 @@ export class EditProductType extends Component {
   changeHandler1 = (e) => {
     this.setState({ status: e.target.value });
   };
-
+  receiveDataFromChild = (data) => {
+    // Handle the data received from the child component
+    // setReceivedData(data);
+    console.log(data);
+    this.setState({ selectedcities: data });
+  };
   submitHandler = (e) => {
     let { id } = this.props.match.params;
     e.preventDefault();
     const formdata = new FormData();
     let uniqueChars = [...new Set(selectItem1)];
+    // formdata.append("username", this.state.UserName);
+    // formdata.append("mobile", this.state.Mobile_no);
+    // formdata.append("email", this.state.email);
+    // formdata.append("state_id", this.state.SelectedState);
     formdata.append("id", id);
-    formdata.append("password", this.state.password);
-    formdata.append("full_name", this.state.fullname);
-    formdata.append("username", this.state.UserName);
-    formdata.append("gstin_no", this.state.GSTIN);
+
+    // formdata.append("password", this.state.password);
+    // formdata.append("full_name", this.state.fullname);
+
+    // formdata.append("gstin_no", this.state.GSTIN);
     formdata.append("city", this.state.B_City);
-    formdata.append("mobile", this.state.Mobile_no);
-    formdata.append("email", this.state.email);
     formdata.append("status", this.state.status);
     formdata.append("role", this.state.AssignRole);
-    formdata.append("company_name", this.state.CompanyName);
-    formdata.append("company_type", this.state.Companytype);
-    formdata.append("place_supply", this.state.Place_of_Supply);
-    formdata.append("billing_street", this.state.B_Street);
-    formdata.append("billing_city", this.state.B_City);
-    formdata.append("billing_state", this.state.B_State);
-    formdata.append("billing_country", this.state.B_Country);
-    formdata.append("billing_pincode", this.state.B_PinCode);
-    formdata.append("shipping_street", this.state.S_Street);
-    formdata.append("shipping_city", this.state.S_City);
-    formdata.append("shipping_state", this.state.S_State);
-    formdata.append("shipping_country", this.state.S_Country);
-    formdata.append("shipping_pincode", this.state.S_PinCode);
-    formdata.append("phone_no", this.state.Phone_no);
-    formdata.append("state_id", this.state.SelectedState);
+    // formdata.append("company_name", this.state.CompanyName);
+    // formdata.append("company_type", this.state.Companytype);
+    // formdata.append("place_supply", this.state.Place_of_Supply);
+    // formdata.append("billing_street", this.state.B_Street);
+    // formdata.append("billing_city", this.state.B_City);
+    // formdata.append("billing_state", this.state.B_State);
+    // formdata.append("billing_country", this.state.B_Country);
+    // formdata.append("billing_pincode", this.state.B_PinCode);
+    // formdata.append("shipping_street", this.state.S_Street);
+    // formdata.append("shipping_city", this.state.S_City);
+    // formdata.append("shipping_state", this.state.S_State);
+    // formdata.append("shipping_country", this.state.S_Country);
+    // formdata.append("shipping_pincode", this.state.S_PinCode);
+    // formdata.append("phone_no", this.state.Phone_no);
     formdata.append("city_id", uniqueChars);
 
     axiosConfig
@@ -309,7 +321,6 @@ export class EditProductType extends Component {
                 Selected User Type :-{" "}
                 {this.state.AssignRole === "Client" ? "Client" : "User"}
               </h4>
-              <Row></Row>
             </div>
 
             <CardBody>
@@ -502,7 +513,7 @@ export class EditProductType extends Component {
                   </Col>
                   <Col lg="6" md="6">
                     <label for="cars">Choose City</label>
-                    <Multiselect
+                    {/* <Multiselect
                       options={this.state.CityList} // Options to display in the dropdown
                       selectedValues={
                         this.state.selectedValue ||
@@ -511,6 +522,13 @@ export class EditProductType extends Component {
                       onSelect={this.onSelect} // Function will trigger on select event
                       onRemove={this.onRemove} // Function will trigger on remove event
                       displayValue="name" // Property name to display in the dropdown options
+                    /> */}
+                    <EditCity
+                      city={this.state.CityList}
+                      selected={this.state.selectedValue}
+                      SelectedSupplierCity={this.state.SelectedSupplierCity}
+                      // Received={Received}
+                      sendDataToParent={this.receiveDataFromChild}
                     />
                   </Col>
                   <Col lg="6" md="6">

@@ -712,7 +712,9 @@ class ProductType extends React.Component {
                     </div>
                     <ContextLayout.Consumer>
                       {(context) => {
-                        console.log(context);
+                        {
+                          /* console.log(context); */
+                        }
                         return (
                           <AgGridReact
                             gridOptions={{}}

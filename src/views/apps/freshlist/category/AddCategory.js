@@ -22,7 +22,7 @@ export class AddCategory extends Component {
     this.state = {
       category_name: "",
       type: "",
-      feature: "",
+      desc: "",
       status: "",
       selectedFile1: null,
       selectedName1: "",
@@ -67,13 +67,15 @@ export class AddCategory extends Component {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     const data = new FormData();
     data.append("user_id", pageparmission?.Userinfo?.id);
-    data.append("category_name", this.state.category_name);
-    data.append("status", "Active");
-
+    // data.append("role", pageparmission?.Userinfo?.role);
+    data.append("type", this.state.type);
+    data.append("category", this.state.category_name);
+    data.append("parent_id", 0);
+    data.append("status", this.state.status);
     axiosConfig
       .post(`/addcategory`, data)
       .then((response) => {
-        console.log(response?.data.success);
+        console.log(response);
         if (response?.data.success) {
           swal("Success!", "You Data Submitted", "Success");
           this.setState({ category_name: "" });
@@ -122,8 +124,8 @@ export class AddCategory extends Component {
                     onChange={this.changeHandler}
                   >
                     <option>---Select---</option>
-                    <option value="services">Services</option>
-                    <option value="courses">Courses</option>
+                    <option value="service">Services</option>
+                    <option value="Caourses">Courses</option>
                   </CustomInput>
                 </Col>
                 <Col lg="6" md="6">
@@ -166,16 +168,16 @@ export class AddCategory extends Component {
                   </FormGroup>
                 </Col> */}
 
-                <Col lg="6" md="6" className="mb-2">
+                {/* <Col lg="6" md="6" className="mb-2">
                   <Label>Description</Label>
                   <textarea
                     type="text"
                     className="form-control"
-                    name="feature"
-                    value={this.state.feature}
+                    name="desc"
+                    value={this.state.desc}
                     onChange={this.changeHandler}
                   />
-                </Col>
+                </Col> */}
 
                 <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
                   <Label className="mb-0">Status</Label>

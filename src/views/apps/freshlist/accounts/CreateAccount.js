@@ -114,8 +114,7 @@ const CreateAccount = () => {
     let selectedOption = [...new Set(selectedOptions)];
 
     const formdata = new FormData();
-
-    formdata.append("created_by", pageparmission?.Userinfo?.id);
+    formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", AssignRole);
     formdata.append("firstname", firstname);
     formdata.append("lastname", Lastname);
@@ -213,6 +212,7 @@ const CreateAccount = () => {
         selectedOptions.push(selectedList[i].id);
       }
     }
+    debugger;
 
     let arr = selectedList.map((ele) => ele.id);
     setmultiSelect(arr);
@@ -486,7 +486,7 @@ const CreateAccount = () => {
                   <Label for="cars">City * </Label>
                   <Multiselect
                     required
-                    singleSelect
+                    // singleSelect
                     options={CityList} // Options to display in the dropdown
                     // selectedValues={selectedValue} // Preselected value to persist in dropdown
                     onSelect={onSelect} // Function will trigger on select event
