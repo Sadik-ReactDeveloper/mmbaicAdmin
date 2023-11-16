@@ -18,6 +18,7 @@ import { history } from "../../../../history";
 import axiosConfig from "../../../../axiosConfig";
 import Multiselect from "multiselect-react-dropdown";
 import Select from "react-select";
+import { useHistory } from "react-router-dom";
 
 import swal from "sweetalert";
 import "../../../../../src/layouts/assets/scss/pages/users.scss";
@@ -68,6 +69,7 @@ const CreateAccount = () => {
   const [productName, setproductName] = useState([]);
   const [City, setCity] = useState("");
   const [Lastname, setLastname] = useState("");
+  const navigate = useHistory();
 
   useEffect(() => {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
@@ -152,6 +154,8 @@ const CreateAccount = () => {
       .post("/createuser", formdata)
       .then((response) => {
         if (response.data?.success) {
+          navigate.push("/app/freshlist/house/userlist");
+
           swal("Success!", "Submitted SuccessFull!", "success");
           setAssignRole("");
           setstatus("");
@@ -342,7 +346,7 @@ const CreateAccount = () => {
                     <Label>Mobile Number *</Label>
                     <Input
                       required
-                      type="number"
+                      type="text"
                       maxLength={12}
                       onKeyDown={(e) =>
                         ["e", "E", "+", "-"].includes(e.key) &&
@@ -350,10 +354,17 @@ const CreateAccount = () => {
                       }
                       size={10}
                       min={0}
-                      placeholder="0123456789"
+                      placeholder="+910000000000"
                       name="Mobile_no"
                       value={Mobile_no}
-                      onChange={(e) => setMobile_no(e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Use regular expression to allow only numbers
+                        const numericValue = value.replace(/\D/g, "");
+
+                        setMobile_no(numericValue);
+                      }}
+                      // onChange={(e) => setMobile_no(e.target.value)}
                     />
                   </FormGroup>
                 </Col>
@@ -521,7 +532,13 @@ const CreateAccount = () => {
                       placeholder="Enter Postal code"
                       name="postalcode"
                       value={Postalcode}
-                      onChange={(e) => setPostalCode(e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Use regular expression to allow only numbers
+                        const numericValue = value.replace(/\D/g, "");
+                        setPostalCode(numericValue);
+                      }}
+                      // onChange={(e) => setPostalCode(e.target.value)}
                     />
                   </FormGroup>
                 </Col>

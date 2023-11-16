@@ -63,7 +63,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        // navLink: "/app/Trupee/account/CreateAccount",
+        // navLink: "/app/mmbaic/account/CreateAccount",
       },
       {
         id: "CategoryAffiliatted",
@@ -72,6 +72,27 @@ const navigationConfig = [
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
         // navLink: "/app/freshlist/house/userlist",
+      },
+    ],
+  },
+  {
+    type: "groupHeader",
+    groupTitle: "Sales CRM",
+    title: "Sales CRM",
+  },
+  {
+    id: "SalesCRM",
+    title: "Sales CRM",
+    type: "collapse",
+    icon: <FaProductHunt size={15} />,
+    children: [
+      {
+        id: "salesCrm",
+        title: "All List",
+        type: "item",
+        icon: <FaCircle size={8} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/mmbaic/house/SalesCRM",
       },
     ],
   },
@@ -92,7 +113,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/Trupee/account/CreateAccount",
+        navLink: "/app/mmbaic/account/CreateAccount",
       },
       {
         id: "producttype",
@@ -153,7 +174,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        // navLink: "/app/Trupee/account/CreateAccount",
+        // navLink: "/app/mmbaic/account/CreateAccount",
       },
       {
         id: "Coursecompleted",
@@ -191,7 +212,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        // navLink: "/app/Trupee/account/CreateAccount",
+        // navLink: "/app/mmbaic/account/CreateAccount",
       },
       {
         id: "AddProduct",
@@ -199,7 +220,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        // navLink: "/app/Trupee/account/CreateAccount",
+        // navLink: "/app/mmbaic/account/CreateAccount",
       },
       {
         id: "Product List",

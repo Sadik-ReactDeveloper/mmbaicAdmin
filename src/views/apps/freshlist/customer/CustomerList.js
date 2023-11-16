@@ -21,6 +21,7 @@ import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
+import HtmlParser from "react-html-parser";
 
 class CustomerList extends React.Component {
   state = {
@@ -46,54 +47,67 @@ class CustomerList extends React.Component {
         filter: true,
       },
       {
-        headerName: "Customer Name",
-        field: "username",
+        headerName: "Categotry Name",
+        field: "category",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.username}</span>
+              <span>{params.data?.category}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Email",
-        field: "email",
+        headerName: "Description",
+        field: "description",
         filter: true,
         width: 190,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{HtmlParser(params.data?.description)}</span>
             </div>
           );
         },
       },
 
       // {
-      //     headerName: "Total Order",
-      //     field: "lastname",
-      //     filter: true,
-      //     width: 200,
-      //     cellRendererFramework: (params) => {
-      //         return (
-      //             <div>
-      //                 <span>{params.data.lastname}</span>
-      //             </div>
-      //         );
-      //     },
+      //   headerName: "Mobile No.",
+      //   field: "mobile",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div>
+      //         <span>{params.data.mobile}</span>
+      //       </div>
+      //     );
+      //   },
       // },
       {
-        headerName: "Mobile No.",
-        field: "mobile",
+        headerName: "Created date",
+        field: "created_date",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              <span>{params.data?.created_date}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Updated date",
+        field: "updated_date",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data?.updated_date}</span>
             </div>
           );
         },
@@ -104,13 +118,13 @@ class CustomerList extends React.Component {
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "true" ? (
+          return params.data?.status == "Active" ? (
             <div className="badge badge-pill badge-success">
-              {params.data.status}
+              {params.data?.status}
             </div>
-          ) : params.value === "false" ? (
+          ) : params.data?.status === "Inactive" ? (
             <div className="badge badge-pill badge-warning">
-              {params.data.status}
+              {params.data?.status}
             </div>
           ) : null;
         },
@@ -123,7 +137,7 @@ class CustomerList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Route
+              {/* <Route
                 render={({ history }) => (
                   <Eye
                     className="mr-50"
@@ -131,12 +145,12 @@ class CustomerList extends React.Component {
                     color="green"
                     onClick={() =>
                       history.push(
-                        `/app/freshlist/customer/viewCustomer/${params.data._id}`
+                        `/app/mmbaic/services/editService/${params.data.id}/`
                       )
                     }
                   />
                 )}
-              />
+              /> */}
               <Route
                 render={({ history }) => (
                   <Edit
@@ -145,7 +159,7 @@ class CustomerList extends React.Component {
                     color="blue"
                     onClick={() =>
                       history.push(
-                        `/app/freshlist/customer/editCustomer/${params.data._id}`
+                        `/app/mmbaic/services/editService/${params.data.id}`
                       )
                     }
                   />
@@ -169,9 +183,14 @@ class CustomerList extends React.Component {
   };
 
   async componentDidMount() {
-    await axiosConfig.get("/user/userlist").then((response) => {
-      let rowData = response.data.data;
-      // console.log("CustomerList", response);
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    console.log(pageparmission?.Userinfo?.id);
+    const data = new FormData();
+
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    await axiosConfig.post("/getServicesList", data).then((response) => {
+      let rowData = response?.data?.data?.services;
+      console.log("List", rowData);
       this.setState({ rowData });
     });
   }

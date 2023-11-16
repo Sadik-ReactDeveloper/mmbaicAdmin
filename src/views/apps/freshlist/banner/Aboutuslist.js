@@ -10,13 +10,19 @@ import {
   DropdownItem,
   DropdownToggle,
   Button,
+  Badge,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Table,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import ReactHtmlParser from "react-html-parser";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
-import { Trash2, ChevronDown } from "react-feather";
+import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
+
 //import classnames from "classnames";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
@@ -24,13 +30,20 @@ import "../../../../assets/scss/pages/users.scss";
 // import Moment from "react-moment";
 import "moment-timezone";
 import { Route } from "react-router-dom";
+import ListofLesson from "./ListofLesson";
+import swal from "sweetalert";
 
 class TAndCList extends React.Component {
   state = {
     rowData: [],
+    LessonList: [],
+    SelectedRow: {},
     paginationPageSize: 20,
+    Loader: false,
     currenPageSize: "",
     getPageSize: "",
+    modal: false,
+
     defaultColDef: {
       sortable: true,
       editable: true,
@@ -50,32 +63,177 @@ class TAndCList extends React.Component {
       },
 
       {
-        headerName: " T&C Description",
-        field: "description",
+        headerName: "Image",
+        field: "Image",
 
         filter: "agSetColumnFilter",
-        width: 500,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{ReactHtmlParser(params.data.description)}</span>
+                {/* <span>{ReactHtmlParser(params.data?.category)}</span> */}
+                {params?.data?.image && (
+                  <>
+                    <img
+                      style={{ borderRadius: "8px" }}
+                      src={params?.data?.image}
+                      height={40}
+                      width={50}
+                      alt="image"
+                    />
+                  </>
+                )}
               </div>
             </div>
           );
         },
       },
       {
+        headerName: "Category",
+        field: "category",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.category)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Course Title",
+        field: "course_title",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.course_title)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "URL",
+        field: "course_url",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.course_url)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "DesCription",
+        field: "description",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.description)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Status",
+        field: "status",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return params.data.status === "Active" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.data.status === "Inactive" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : null;
+        },
+      },
+      {
         headerName: "Actions",
+        field: "sortorder",
         field: "transactions",
-        width: 150,
+        width: 400,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
+              <Route
+                render={({ history }) => (
+                  <Badge
+                    style={{ cursor: "pointer" }}
+                    title="Add more data "
+                    className="px-1 mr-1"
+                    onClick={() =>
+                      history.push(
+                        // `/app/mmbaic/services/editService/${params.data.id}/`
+                        `/app/mmbaic/AddInsidecourse/${params.data?.id}`
+                      )
+                    }
+                    color="primary"
+                  >
+                    + Add
+                  </Badge>
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={(e) => {
+                      this.handleListlession(e, params.data);
+                    }}
+                    // onClick={() =>
+                    //   history.push(
+                    //     // `/app/mmbaic/services/editService/${params.data.id}/`
+                    //     `/app/mmbaic/addcourse/${params.data?.id}`
+                    //   )
+                    // }
+                  />
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() =>
+                      history.push(
+                        `/app/mmbaic/addcourse/${params.data?.id}`
+                        // `/app/mmbaic/services/editService/${params.data.id}`
+                      )
+                    }
+                  />
+                )}
+              />
               <Trash2
                 className="mr-50"
                 size="25px"
-                color="Red"
+                color="red"
                 onClick={() => {
                   let selectedData = this.gridApi.getSelectedRows();
                   this.runthisfunction(params.data._id);
@@ -86,14 +244,65 @@ class TAndCList extends React.Component {
           );
         },
       },
+      // {
+      //   headerName: "Actions",
+      //   field: "transactions",
+      //   width: 400,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         <Trash2
+      //           className="mr-50"
+      //           size="25px"
+      //           color="Red"
+      //           onClick={() => {
+      //             let selectedData = this.gridApi.getSelectedRows();
+      //             this.runthisfunction(params.data._id);
+      //             this.gridApi.updateRowData({ remove: selectedData });
+      //           }}
+      //         />
+
+      //       </div>
+      //     );
+      //   },
+      // },
     ],
   };
+  handleListlession = (e, value) => {
+    console.log(value);
+    e.preventDefault();
+    this.toggleModal();
+    // this.setState({ Loader: true });
 
+    this.setState({ SelectedRow: value });
+
+    // getLessons
+  };
+  toggleModal = () => {
+    this.setState((prevState) => ({
+      modal: !prevState.modal,
+    }));
+  };
+  handleAddDetails = (e, data) => {
+    console.log(e);
+    console.log(data);
+  };
   async componentDidMount() {
-    await axiosConfig.get("/gettermsconditions").then((response) => {
-      let rowData = response.data.data;
-      this.setState({ rowData });
-    });
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    const data = new FormData();
+
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    data.append("role", pageparmission?.Userinfo?.role);
+    await axiosConfig
+      .post("/getCourses", data)
+      .then((response) => {
+        let rowData = response.data.data?.courses;
+        this.setState({ rowData });
+        console.log(rowData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async runthisfunction(id) {
@@ -127,7 +336,8 @@ class TAndCList extends React.Component {
     }
   };
   render() {
-    const { rowData, columnDefs, defaultColDef } = this.state;
+    const { rowData, columnDefs, defaultColDef, LessonList, SelectedRow } =
+      this.state;
     return (
       <Row className="app-user-list">
         <Col sm="12"></Col>
@@ -150,7 +360,7 @@ class TAndCList extends React.Component {
                           history.push("/app/mmbaic/category/addCategory")
                         }
                       >
-                        + category
+                        + Category
                       </Button>
                     )}
                   />
@@ -161,7 +371,7 @@ class TAndCList extends React.Component {
                   render={({ history }) => (
                     <Button
                       className="btn btn-success float-right"
-                      onClick={() => history.push("/app/mmbaic/addcourse")}
+                      onClick={() => history.push("/app/mmbaic/addcourse/0")}
                     >
                       Add Course
                     </Button>
@@ -261,6 +471,123 @@ class TAndCList extends React.Component {
             </CardBody>
           </Card>
         </Col>
+        <Modal
+          className="modal-dialog modal-xl"
+          size="lg"
+          isOpen={this.state.modal}
+          toggle={this.toggleModal}
+          // className={this.props.className}
+          // style={{ maxWidth: "1050px" }}
+        >
+          <ModalHeader toggle={this.toggleModal}>Lessons</ModalHeader>
+          <ModalBody>
+            <>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h2>Lesson List</h2>
+                <div>
+                  <Route
+                    render={({ history }) => (
+                      <Badge
+                        style={{ cursor: "pointer" }}
+                        title="Add more data "
+                        className="px-1 mr-1"
+                        onClick={() =>
+                          history.push(
+                            `/app/mmbaic/AddInsidecourse/${this.state.SelectedRow?.id}`
+                          )
+                        }
+                        color="primary"
+                      >
+                        + Add
+                      </Badge>
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="">
+                <ListofLesson
+                  SelectedRow={SelectedRow}
+                  LessonList={LessonList}
+                />
+              </div>
+            </>
+
+            {/* <div className="p-1">
+              <Table hover>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>image</th>
+
+                   
+                    <th>Title</th>
+                    <th>Lesson URL</th>
+             
+                    <th>description</th>
+                    <th>status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.LessonList &&
+                    this.state.LessonList?.map((ele, i) => {
+                     
+                      return (
+                        <tr key={i}>
+                          <th>{i + 1}</th>
+                          <th>
+                            {ele?.image && ele?.image ? (
+                              <>
+                                <img
+                                  src={ele?.image}
+                                  height={50}
+                                  width={50}
+                                  alt="image"
+                                />
+                              </>
+                            ) : (
+                              "NA"
+                            )}
+                          </th>
+                       
+                          <th>{ele?.title}</th>
+                          <th>{ele?.lesson_url}</th>
+                          <th>
+                            {ReactHtmlParser(ele?.description)?.slice(0, 30)}
+                          </th>
+
+                          <th>
+                            {" "}
+                            {ele.status === "Active" ? (
+                              <div className="badge badge-pill badge-success">
+                                {ele.status}
+                              </div>
+                            ) : ele.status === "Inactive" ? (
+                              <div className="badge badge-pill badge-warning">
+                                {ele.status}
+                              </div>
+                            ) : null}
+                            <Trash2
+                              className="mr-50"
+                              size="25px"
+                              color="red"
+                              onClick={() => {
+                                let selectedData =
+                                  this.gridApi.getSelectedRows();
+                                this.runthisfunction(ele?._id);
+                                this.gridApi.updateRowData({
+                                  remove: selectedData,
+                                });
+                              }}
+                            />
+                          </th>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+            </div> */}
+          </ModalBody>
+        </Modal>
       </Row>
     );
   }

@@ -14,6 +14,8 @@ import {
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import swal from "sweetalert";
+// import {  EditorState, ContentState, convertFromHTML } from "draft-js";
+import "draft-js/dist/Draft.css";
 import {
   ContentState,
   EditorState,
@@ -54,7 +56,7 @@ export default class AddBanner extends Component {
     let { id } = this.props?.match?.params;
     // console.log(id);
     let types = JSON.parse(localStorage.getItem("SelectedCmsdata"));
-    console.log(types?.image);
+    // console.log(types?.image);
     if (types?.image) {
       this.setState({ image: types?.image });
     }
@@ -64,16 +66,40 @@ export default class AddBanner extends Component {
     }
     this.setState({ banner_title: types?.type });
     if (types?.description) {
-      const contentState = ContentState.createFromBlockArray(
-        convertFromHTML(types?.description)
+      const newContent = types?.description;
+      const blocksFromHTML = convertFromHTML(newContent);
+      const newContentState = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
       );
-      // Create EditorState with ContentState
-      const editorState = EditorState.createWithContent(contentState);
+      const newEditorState = EditorState.createWithContent(newContentState);
+      console.log(newEditorState);
       this.setState({
         description: types?.description,
-        editorState: editorState,
+        editorState: newEditorState,
       });
+      //   const contentState = ContentState.createFromBlockArray(
+      //     convertFromHTML(types?.description)
+      //   );
+      //   // Create EditorState with ContentState
+      //   const editorState = EditorState.createWithContent(contentState);
+      //   this.setState({
+      //     description: types?.description,
+      //     editorState: editorState,
+      //   });
     }
+
+    // if (types?.description) {
+    //   const contentState = ContentState.createFromBlockArray(
+    //     convertFromHTML(types?.description)
+    //   );
+    //   // Create EditorState with ContentState
+    //   const editorState = EditorState.createWithContent(contentState);
+    //   this.setState({
+    //     description: types?.description,
+    //     editorState: editorState,
+    //   });
+    // }
     if (types?.title) {
       this.setState({ Title: types?.title });
     }
@@ -143,8 +169,13 @@ export default class AddBanner extends Component {
     }
     // for (const file of selectedFile) {
     if (selectedFile !== null) {
-      data.append("images", selectedFile);
+      data.append("image", selectedFile);
     }
+    // else {
+    //   if (this.state.image) {
+    //     data.append("image", this.state.image);
+    //   }
+    // }
     // }
     // for (var value of data.values()) {
     //   console.log(value);
@@ -309,7 +340,6 @@ export default class AddBanner extends Component {
                     <Col lg="6" md="6" sm="6" className="mb-2">
                       <Label>Image</Label>
                       <Input
-                        required
                         type="file"
                         className="form-control"
                         // name="PageName"

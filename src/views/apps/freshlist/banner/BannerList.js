@@ -46,6 +46,65 @@ class BannerList extends React.Component {
         width: 150,
       },
       {
+        headerName: "Actions",
+        field: "sortorder",
+        width: 150,
+        cellRendererFramework: (params) => {
+          // console.log(params);
+          return (
+            <div className="actions cursor-pointer">
+              {/* <Route
+                render={({ history }) => (
+                  <Eye
+                    className="mr-50"
+                    size="25px"
+                    color="green"
+                    onClick={() =>
+                      history.push(
+                        `/app/freshlist/banner/viewBanner/${params.data._id}`
+                      )
+                    }
+                  />
+                )}
+              /> */}
+
+              <Route
+                render={({ history }) => (
+                  <Edit
+                    className="mr-50"
+                    size="25px"
+                    color="blue"
+                    onClick={() => {
+                      localStorage.setItem(
+                        "SelectedCmsdata",
+                        JSON.stringify(params.data?.data)
+                      );
+                      history.push(
+                        `/app/mmbaic/slider/EditCMS/${params.data?.id}`
+                      );
+                    }}
+                  />
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Trash2
+                    className="mr-50"
+                    size="25px"
+                    color="red"
+                    onClick={() => {
+                      let selectedData = this.gridApi.getSelectedRows();
+                      this.runthisfunction(params.data._id);
+                      this.gridApi.updateRowData({ remove: selectedData });
+                    }}
+                  />
+                )}
+              />
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Type",
         field: "data.type",
         filter: true,
@@ -198,65 +257,6 @@ class BannerList extends React.Component {
           ) : null;
         },
       },
-      {
-        headerName: "Actions",
-        field: "sortorder",
-        width: 150,
-        cellRendererFramework: (params) => {
-          // console.log(params);
-          return (
-            <div className="actions cursor-pointer">
-              {/* <Route
-                render={({ history }) => (
-                  <Eye
-                    className="mr-50"
-                    size="25px"
-                    color="green"
-                    onClick={() =>
-                      history.push(
-                        `/app/freshlist/banner/viewBanner/${params.data._id}`
-                      )
-                    }
-                  />
-                )}
-              /> */}
-
-              <Route
-                render={({ history }) => (
-                  <Edit
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    onClick={() => {
-                      localStorage.setItem(
-                        "SelectedCmsdata",
-                        JSON.stringify(params.data?.data)
-                      );
-                      history.push(
-                        `/app/mmbaic/slider/EditCMS/${params.data?.id}`
-                      );
-                    }}
-                  />
-                )}
-              />
-              <Route
-                render={({ history }) => (
-                  <Trash2
-                    className="mr-50"
-                    size="25px"
-                    color="red"
-                    onClick={() => {
-                      let selectedData = this.gridApi.getSelectedRows();
-                      this.runthisfunction(params.data._id);
-                      this.gridApi.updateRowData({ remove: selectedData });
-                    }}
-                  />
-                )}
-              />
-            </div>
-          );
-        },
-      },
     ],
   };
 
@@ -280,7 +280,7 @@ class BannerList extends React.Component {
     data.append("role", pageparmission?.Userinfo?.role);
     await axiosConfig.post("/getCmsList", data).then((response) => {
       const rowData = response?.data?.data?.content;
-      console.log(rowData);
+      // console.log(rowData);
       this.setState({ rowData });
     });
   }

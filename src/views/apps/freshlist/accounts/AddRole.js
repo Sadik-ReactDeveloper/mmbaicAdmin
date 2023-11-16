@@ -22,6 +22,19 @@ export const Roles = [
     ],
   },
   {
+    title: "Sales CRM",
+    TabName: [
+      {
+        title: "All List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      // {
+      //   title: "Category",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
+    ],
+  },
+  {
     title: "Accounts",
     TabName: [
       {

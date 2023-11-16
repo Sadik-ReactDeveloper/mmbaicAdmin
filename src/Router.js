@@ -25,6 +25,9 @@ const CustomerGroup = lazy(() =>
 const AddCustomer = lazy(() =>
   import("./views/apps/freshlist/customer/AddCustomer")
 );
+const EditService = lazy(() =>
+  import("./views/apps/freshlist/customer/EditService")
+);
 
 const CustomerList = lazy(() =>
   import("./views/apps/freshlist/customer/CustomerList")
@@ -83,6 +86,12 @@ const Aboutuslist = lazy(() =>
 );
 const Addaboutus = lazy(() =>
   import("./views/apps/freshlist/banner/Addaboutus")
+);
+const AddInsidecourse = lazy(() =>
+  import("./views/apps/freshlist/banner/AddInsidecourse")
+);
+const EditInsideCourses = lazy(() =>
+  import("./views/apps/freshlist/banner/EditInsideCourses")
 );
 const ViewBanner = lazy(() =>
   import("./views/apps/freshlist/banner/ViewBanner")
@@ -458,6 +467,7 @@ const ServiceMaster = lazy(() =>
 const ProductType = lazy(() =>
   import("./views/apps/freshlist/house/ProductType")
 );
+const SalesCRM = lazy(() => import("./views/apps/freshlist/house/SalesCRM"));
 const SupplierList = lazy(() =>
   import("./views/apps/freshlist/house/SupplierList")
 );
@@ -816,6 +826,10 @@ class AppRouter extends React.Component {
             path="/app/mmbaic/services/addservices"
             component={AddCustomer}
           />
+          <AppRoute
+            path="/app/mmbaic/services/editService/:id"
+            component={EditService}
+          />
           <AppRoute path="/app/mmbaic/services/List" component={CustomerList} />
           <AppRoute
             path="/app/freshlist/customer/viewCustomer/:id"
@@ -861,7 +875,15 @@ class AppRouter extends React.Component {
           {/* Banner */}
           <AppRoute path="/app/mmbaic/slider/addSlider" component={AddBanner} />
           <AppRoute path="/app/mmbaic/slider/EditCMS/:id" component={EditCMS} />
-          <AppRoute path="/app/mmbaic/addcourse" component={Addaboutus} />
+          <AppRoute path="/app/mmbaic/addcourse/:id" component={Addaboutus} />
+          <AppRoute
+            path="/app/mmbaic/AddInsidecourse/:id"
+            component={AddInsidecourse}
+          />
+          <AppRoute
+            path="/app/mmbaic/EditInsideCourses/:id/:courseid"
+            component={EditInsideCourses}
+          />
           <AppRoute path="/app/mmbaic/courseslist" component={Aboutuslist} />
           <AppRoute
             path="/app/freshlist/banner/viewBanner/:id"
@@ -1288,7 +1310,7 @@ class AppRouter extends React.Component {
           />
           {/* create Account */}
           <AppRoute
-            path="/app/Trupee/account/CreateAccount"
+            path="/app/mmbaic/account/CreateAccount"
             component={CreateAccount}
           />
           <AppRoute path="/app/Trupee/account/RoleList" component={RoleList} />
@@ -1360,6 +1382,7 @@ class AppRouter extends React.Component {
             path="/app/freshlist/house/userlist"
             component={ProductType}
           />
+          <AppRoute path="/app/mmbaic/house/SalesCRM" component={SalesCRM} />
           <AppRoute
             path="/app/freshlist/house/SupplierList"
             component={SupplierList}

@@ -144,7 +144,7 @@ class TAndCList extends React.Component {
                   render={({ history }) => (
                     <Button
                       className=" btn btn-danger float-right"
-                      onClick={() => history.push("/app/mmbaic/addcourse")}
+                      onClick={() => history.push("/app/mmbaic/addcourse/0")}
                     >
                       Add Aboutus
                     </Button>

@@ -106,26 +106,26 @@ export class EditProductType extends Component {
           .catch((err) => {
             console.log(err);
           });
-        formdata.append("state_id", response.data.data.billing_state);
-        axiosConfig
-          .post(`/getcity`, formdata)
-          .then((res) => {
-            // console.log(res?.data?.cities);
-            this.setState({ CityList: res?.data?.cities });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        formdata.append("state_id", response.data.data.shipping_state);
-        axiosConfig
-          .post(`/getcity`, formdata)
-          .then((res) => {
-            // console.log(res?.data?.cities);
-            this.setState({ CityList: res?.data?.cities });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // formdata.append("state_id", response.data.data.billing_state);
+        // axiosConfig
+        //   .post(`/getcity`, formdata)
+        //   .then((res) => {
+        //     // console.log(res?.data?.cities);
+        //     this.setState({ CityList: res?.data?.cities });
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+        // formdata.append("state_id", response.data.data.shipping_state);
+        // axiosConfig
+        //   .post(`/getcity`, formdata)
+        //   .then((res) => {
+        //     // console.log(res?.data?.cities);
+        //     this.setState({ CityList: res?.data?.cities });
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
         this.setState({
           SelectedState: response.data.data.state_id,
           email: response.data.data.email,
@@ -374,7 +374,7 @@ export class EditProductType extends Component {
                       <Label>Mobile Number *</Label>
                       <Input
                         required
-                        type="number"
+                        type="text"
                         onKeyDown={(e) =>
                           ["e", "E", "+", "-"].includes(e.key) &&
                           e.preventDefault()
@@ -385,7 +385,13 @@ export class EditProductType extends Component {
                         placeholder="0123456789"
                         name="Mobile_no"
                         value={this.state.Mobile_no}
-                        onChange={this.changeHandler.bind(this)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Use regular expression to allow only numbers
+                          const numericValue = value.replace(/\D/g, "");
+                          this.setState({ Mobile_no: numericValue });
+                        }}
+                        // onChange={this.changeHandler.bind(this)}
                       />
                     </FormGroup>
                   </Col>
@@ -541,11 +547,17 @@ export class EditProductType extends Component {
                           e.preventDefault()
                         }
                         min={0}
-                        type="number"
+                        type="text"
                         placeholder="452001"
                         name="postalCode"
                         value={this.state.postalCode}
-                        onChange={this.changeHandler}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Use regular expression to allow only numbers
+                          const numericValue = value.replace(/\D/g, "");
+                          this.setState({ postalCode: numericValue });
+                        }}
+                        // onChange={this.changeHandler}
                       />
                     </FormGroup>
                   </Col>
