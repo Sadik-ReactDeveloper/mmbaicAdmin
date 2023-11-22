@@ -31,8 +31,8 @@ export default class AddCustomer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // banner_title: "",
-      // Notice: "",
+      courseduration: "",
+      CoursePrice: "",
       Title: "",
       heading: "",
       shortDescription: "",
@@ -85,6 +85,8 @@ export default class AddCustomer extends Component {
             CourseURL: data?.course_url,
             status: data?.status,
             iamgeurl: data?.image,
+            CoursePrice: data?.price,
+            courseduration: data?.course_duration,
           });
         })
         .catch((err) => {
@@ -146,6 +148,8 @@ export default class AddCustomer extends Component {
     data.append("description", this.state.description);
     data.append("edit_id", id);
     data.append("status", this.state.status);
+    data.append("course_duration", this.state.courseduration);
+    data.append("price", this.state.CoursePrice);
     // for (const file of this.state.selectedFile) {
     if (this.state.selectedFile !== null) {
       data.append("images", this.state.selectedFile);
@@ -174,10 +178,10 @@ export default class AddCustomer extends Component {
       Notice,
       Title,
       CategoyList,
-      // PageName,
+      courseduration,
       editorState,
       shortDescription,
-      // CourseDescription,
+      CoursePrice,
       CourserCategory,
       CourseURL,
       heading,
@@ -245,28 +249,29 @@ export default class AddCustomer extends Component {
                     onChange={this.changeHandler}
                   />
                 </Col>
-                {/* <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Description*</Label>
-                  <textarea
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Course Duraration</Label>
+                  <input
                     type="text"
                     className="form-control"
-                    name="shortDescription"
-                    placeholder="Enter short Description"
-                    value={shortDescription}
+                    name="courseduration"
+                    placeholder="Enter course Duration"
+                    value={courseduration}
                     onChange={this.changeHandler}
                   />
                 </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Course Description*</Label>
+                  <Label>Course Price*</Label>
                   <Input
+                    required
                     type="text"
                     className="form-control"
-                    name="CourseDescription"
-                    placeholder="Enter Description"
-                    value={CourseDescription}
+                    name="CoursePrice"
+                    placeholder="Enter Course Price"
+                    value={CoursePrice}
                     onChange={this.changeHandler}
                   />
-                </Col> */}
+                </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Course URL *</Label>
                   <Input

@@ -468,6 +468,12 @@ const ProductType = lazy(() =>
   import("./views/apps/freshlist/house/ProductType")
 );
 const SalesCRM = lazy(() => import("./views/apps/freshlist/house/SalesCRM"));
+const ProgramCRm = lazy(() =>
+  import("./views/apps/freshlist/house/ProgramCRm")
+);
+const AffiliatedCRM = lazy(() =>
+  import("./views/apps/freshlist/house/AffiliatedCRM")
+);
 const SupplierList = lazy(() =>
   import("./views/apps/freshlist/house/SupplierList")
 );
@@ -1383,6 +1389,14 @@ class AppRouter extends React.Component {
             component={ProductType}
           />
           <AppRoute path="/app/mmbaic/house/SalesCRM" component={SalesCRM} />
+          <AppRoute
+            path="/app/mmbaic/house/programcrm"
+            component={ProgramCRm}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/AffiliatedCRM"
+            component={AffiliatedCRM}
+          />
           <AppRoute
             path="/app/freshlist/house/SupplierList"
             component={SupplierList}

@@ -169,7 +169,7 @@ export default class AddBanner extends Component {
     }
     // for (const file of selectedFile) {
     if (selectedFile !== null) {
-      data.append("image", selectedFile);
+      data.append("images", selectedFile);
     }
     // else {
     //   if (this.state.image) {

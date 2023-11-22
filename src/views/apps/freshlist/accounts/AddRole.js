@@ -12,26 +12,35 @@ export const Roles = [
     title: "Program CRM",
     TabName: [
       {
-        title: "Affiliated",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Category",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-    ],
-  },
-  {
-    title: "Sales CRM",
-    TabName: [
-      {
-        title: "All List",
+        title: "Program CRM List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       // {
       //   title: "Category",
       //   permission: ["View", "Create", "Edit", "Delete"],
       // },
+    ],
+  },
+  {
+    title: "Affiliated CRM",
+    TabName: [
+      {
+        title: "Affiliated CRM List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      // {
+      //   title: "Category",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
+    ],
+  },
+  {
+    title: "Sales CRM",
+    TabName: [
+      {
+        title: "Sales CRM List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
     ],
   },
   {
@@ -59,17 +68,50 @@ export const Roles = [
     title: "Memberships",
     TabName: [
       {
+        title: "All Membership",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
         title: "Member list",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Course Completed",
+        title: "Affiliated Member List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Subscription Plan",
+        title: "Franchisee List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
+      // {
+      //   title: "Subscription Plan",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
+    ],
+  },
+  {
+    title: "Affiliated",
+    TabName: [
+      {
+        title: "ALL MEMBERSHIP",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Affiliated wallet list",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Commision Request List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Affiliated Payment Transaction",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      // {
+      //   title: "Subscription Plan",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
     ],
   },
   {
@@ -87,18 +129,26 @@ export const Roles = [
         title: "Product List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
+      {
+        title: "Assign Product List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Deleted Product List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
     ],
   },
 
   {
-    title: "E-Commerce",
+    title: "Operations",
     TabName: [
       {
-        title: "Stock Inventory",
+        title: "Operation Product List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Order Received List",
+        title: "Sold Product List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
@@ -106,7 +156,7 @@ export const Roles = [
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Order Completed List",
+        title: "Inventory",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],
@@ -115,15 +165,77 @@ export const Roles = [
     title: "Billing",
     TabName: [
       {
-        title: "Receipt",
+        title: "Billing Membership List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Invoices",
+        title: "Paid Membership List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Transaction Status list",
+        title: "Membership Receipt List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Refferal Payment List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Affiliated Payment List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "All Transaction",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "REFERRAL USER",
+    TabName: [
+      {
+        title: "All Referral List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Wallet",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Membership Receipt List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Total Balance",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Payment Transaction",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "AFFILAITED",
+    TabName: [
+      {
+        title: "All Affiliated List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Affiliated Wallet",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Total Balance",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Commsion Request",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Payment Transaction",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],
@@ -160,10 +272,10 @@ export const Roles = [
         title: "Payment Raise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      {
-        title: "Commission Rate Master",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+      // {
+      //   title: "Commission Rate Master",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
       {
         title: "Request Transaction List",
         permission: ["View", "Create", "Edit", "Delete"],
@@ -178,10 +290,6 @@ export const Roles = [
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Services",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
         title: "Category List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
@@ -189,6 +297,11 @@ export const Roles = [
         title: "Category",
         permission: ["View", "Create", "Edit", "Delete"],
       },
+      {
+        title: "Services",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+
       {
         title: "Courses",
         permission: ["View", "Create", "Edit", "Delete"],
@@ -216,6 +329,19 @@ export const Roles = [
       },
       {
         title: "City Wise",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    title: "Notification",
+    TabName: [
+      {
+        title: "General Notification",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Notification Pre List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],

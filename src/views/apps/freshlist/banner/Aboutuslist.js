@@ -106,6 +106,38 @@ class TAndCList extends React.Component {
         },
       },
       {
+        headerName: "Price",
+        field: "price",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.price)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Duration",
+        field: "course_duration",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.course_duration)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Course Title",
         field: "course_title",
 
@@ -160,13 +192,13 @@ class TAndCList extends React.Component {
         filter: "agSetColumnFilter",
         width: 200,
         cellRendererFramework: (params) => {
-          return params.data.status === "Active" ? (
+          return params.data?.status === "Active" ? (
             <div className="badge badge-pill badge-success">
-              {params.data.status}
+              {params.data?.status}
             </div>
-          ) : params.data.status === "Inactive" ? (
+          ) : params.data?.status === "Inactive" ? (
             <div className="badge badge-pill badge-warning">
-              {params.data.status}
+              {params.data?.status}
             </div>
           ) : null;
         },
@@ -297,7 +329,9 @@ class TAndCList extends React.Component {
       .post("/getCourses", data)
       .then((response) => {
         let rowData = response.data.data?.courses;
-        this.setState({ rowData });
+        if (rowData) {
+          this.setState({ rowData });
+        }
         console.log(rowData);
       })
       .catch((err) => {

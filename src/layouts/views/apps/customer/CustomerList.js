@@ -264,8 +264,8 @@ class CustomerList extends React.Component {
                             0
                               ? this.state.currenPageSize *
                                 this.state.getPageSize
-                              : this.state.rowData.length}{" "}
-                            of {this.state.rowData.length}
+                              : this.state.rowData?.length}{" "}
+                            of {this.state.rowData?.length}
                             <ChevronDown className="ml-50" size={15} />
                           </DropdownToggle>
                           <DropdownMenu right>

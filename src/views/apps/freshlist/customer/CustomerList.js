@@ -159,7 +159,7 @@ class CustomerList extends React.Component {
                     color="blue"
                     onClick={() =>
                       history.push(
-                        `/app/mmbaic/services/editService/${params.data.id}`
+                        `/app/mmbaic/services/editService/${params.data?.id}`
                       )
                     }
                   />
@@ -191,7 +191,9 @@ class CustomerList extends React.Component {
     await axiosConfig.post("/getServicesList", data).then((response) => {
       let rowData = response?.data?.data?.services;
       console.log("List", rowData);
-      this.setState({ rowData });
+      if (rowData) {
+        this.setState({ rowData });
+      }
     });
   }
   async runthisfunction(id) {
