@@ -34,6 +34,7 @@ export default class AddInsidecourse extends Component {
       // banner_title: "",
       // Notice: "",
       Title: "",
+      CourseHeading: "",
       heading: "",
       shortDescription: "",
       CategoyList: [],
@@ -90,23 +91,24 @@ export default class AddInsidecourse extends Component {
           console.log(err);
         });
     }
-    // const data = new FormData();
-    // let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    const data = new FormData();
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
 
-    // data.append("user_id", pageparmission?.Userinfo?.id);
-    // data.append("role", pageparmission?.Userinfo?.role);
-    // await axiosConfig
-    //   .post("/getcategoryList", data)
-    //   .then((response) => {
-    //     let CategoyList = response.data?.data.category;
-    //     // console.log(CategoyList);
-    //     if (CategoyList) {
-    //       this.setState({ CategoyList });
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    data.append("role", pageparmission?.Userinfo?.role);
+    data.append("course_id", id);
+    await axiosConfig
+      .post("/getCourseHeadings", data)
+      .then((response) => {
+        let CategoyList = response.data?.data;
+        // console.log(CategoyList);
+        if (CategoyList) {
+          this.setState({ CategoyList });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   onEditorStateChange = (editorState) => {
     this.setState({
@@ -144,7 +146,7 @@ export default class AddInsidecourse extends Component {
     data.append("title", this.state.Title);
     data.append("lesson_url", this.state.CourseURL);
     data.append("description", this.state.description);
-    // data.append("edit_id", id);
+    data.append("heading_id", this.state.CourseHeading);
     data.append("status", this.state.status);
     // for (const file of this.state.selectedFile) {
     if (this.state.selectedFile !== null) {
@@ -177,7 +179,8 @@ export default class AddInsidecourse extends Component {
       // PageName,
       editorState,
       shortDescription,
-      // CourseDescription,
+      // CourseHeading,
+      CourseHeading,
       CourserCategory,
       CourseURL,
       heading,
@@ -211,27 +214,27 @@ export default class AddInsidecourse extends Component {
           <CardBody>
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row>
-                {/* <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Category List*</Label>
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Heading List*</Label>
                   <CustomInput
                     required
                     type="select"
                     className="form-control"
-                    name="CourserCategory"
+                    name="CourseHeading"
                     onChange={this.changeHandler}
                     // onChange={(e) => {
                     // this.setState({ searchvalue: e.target.value });
                     // this.updateSearchQuery(e.target.value);
                     // }}
-                    value={CourserCategory}
+                    value={CourseHeading}
                   >
                     <option value="">--Select--</option>
                     {CategoyList &&
                       CategoyList?.map((ele, i) => {
-                        return <option value={ele?.id}>{ele?.category}</option>;
+                        return <option value={ele?.id}>{ele?.headings}</option>;
                       })}
                   </CustomInput>
-                </Col> */}
+                </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Title*</Label>
 

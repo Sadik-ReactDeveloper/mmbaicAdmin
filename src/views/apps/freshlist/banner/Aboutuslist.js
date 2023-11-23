@@ -15,6 +15,7 @@ import {
   ModalHeader,
   ModalBody,
   Table,
+  Form,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import ReactHtmlParser from "react-html-parser";
@@ -32,6 +33,7 @@ import "moment-timezone";
 import { Route } from "react-router-dom";
 import ListofLesson from "./ListofLesson";
 import swal from "sweetalert";
+import { FaHeading } from "react-icons/fa";
 
 class TAndCList extends React.Component {
   state = {
@@ -40,6 +42,8 @@ class TAndCList extends React.Component {
     SelectedRow: {},
     paginationPageSize: 20,
     Loader: false,
+    Addheading: false,
+    heading: "",
     currenPageSize: "",
     getPageSize: "",
     modal: false,
@@ -237,14 +241,24 @@ class TAndCList extends React.Component {
                     color="green"
                     onClick={(e) => {
                       this.handleListlession(e, params.data);
+                      this.setState({ Addheading: false });
                     }}
-                    // onClick={() =>
-                    //   history.push(
-                    //     // `/app/mmbaic/services/editService/${params.data.id}/`
-                    //     `/app/mmbaic/addcourse/${params.data?.id}`
-                    //   )
-                    // }
                   />
+                )}
+              />
+              <Route
+                render={({ history }) => (
+                  <Badge
+                    className="mr-50"
+                    size="25px"
+                    color="primary"
+                    onClick={(e) => {
+                      this.handleListlession(e, params.data);
+                      this.setState({ Addheading: true });
+                    }}
+                  >
+                    + heading
+                  </Badge>
                 )}
               />
               <Route
@@ -345,7 +359,29 @@ class TAndCList extends React.Component {
       console.log(response);
     });
   }
+  handleAddHeading = async (e) => {
+    e.preventDefault();
+    // console.log(this.state.heading);
+    // console.log(this.state.SelectedRow?.id);
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    const data = new FormData();
 
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    data.append("role", pageparmission?.Userinfo?.role);
+    data.append("headings", this.state.heading);
+    data.append("course_id", this.state.SelectedRow?.id);
+    await axiosConfig
+      .post("/addCoursesHeadings", data)
+      .then((res) => {
+        console.log(res);
+        swal("Heading Added Successfully");
+        this.setState({ heading: "" });
+      })
+      .catch((err) => {
+        console.log(err);
+        swal("Something went wrong");
+      });
+  };
   onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -506,8 +542,9 @@ class TAndCList extends React.Component {
           </Card>
         </Col>
         <Modal
-          className="modal-dialog modal-xl"
+          className="modal-dialog modal-lg"
           size="lg"
+          // size="lg"
           isOpen={this.state.modal}
           toggle={this.toggleModal}
           // className={this.props.className}
@@ -516,34 +553,70 @@ class TAndCList extends React.Component {
           <ModalHeader toggle={this.toggleModal}>Lessons</ModalHeader>
           <ModalBody>
             <>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h2>Lesson List</h2>
-                <div>
-                  <Route
-                    render={({ history }) => (
-                      <Badge
-                        style={{ cursor: "pointer" }}
-                        title="Add more data "
-                        className="px-1 mr-1"
-                        onClick={() =>
-                          history.push(
-                            `/app/mmbaic/AddInsidecourse/${this.state.SelectedRow?.id}`
-                          )
-                        }
-                        color="primary"
-                      >
-                        + Add
-                      </Badge>
-                    )}
-                  />
-                </div>
-              </div>
-              <div className="">
-                <ListofLesson
-                  SelectedRow={SelectedRow}
-                  LessonList={LessonList}
-                />
-              </div>
+              {this.state.Addheading ? (
+                <>
+                  <div className="">
+                    <h2 className="mx-2">Add Heading</h2>
+                  </div>
+
+                  <div className="p-2">
+                    <Form onSubmit={this.handleAddHeading}>
+                      <Row>
+                        <Col lg="4" md="4" sm="4" xs="12">
+                          <input
+                            required
+                            className="form-control"
+                            type="text"
+                            name="heading"
+                            value={this.state.heading}
+                            onChange={(e) =>
+                              this.setState({ heading: e.target.value })
+                            }
+                          />
+                        </Col>
+                        <Col lg="4" md="4" sm="4" xs="12">
+                          <Button color="primary" type="submit">
+                            Submit
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <h2>Lesson List</h2>
+                    <div>
+                      <Route
+                        render={({ history }) => (
+                          <Badge
+                            style={{ cursor: "pointer" }}
+                            title="Add more data "
+                            className="px-1 mr-1"
+                            onClick={() =>
+                              history.push(
+                                `/app/mmbaic/AddInsidecourse/${this.state.SelectedRow?.id}`
+                              )
+                            }
+                            color="primary"
+                          >
+                            + Add
+                          </Badge>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="">
+                    <ListofLesson
+                      SelectedRow={SelectedRow}
+                      LessonList={LessonList}
+                    />
+                  </div>
+                </>
+              )}
             </>
 
             {/* <div className="p-1">
