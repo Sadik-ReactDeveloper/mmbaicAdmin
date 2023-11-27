@@ -235,6 +235,23 @@ class TAndCList extends React.Component {
               />
               <Route
                 render={({ history }) => (
+                  <Badge
+                    style={{ cursor: "pointer" }}
+                    title="Add more data "
+                    className="px-1 mr-1"
+                    onClick={() =>
+                      history.push(
+                        `/app/mmbaic/category/AddQuiz/${params.data?.id}/${0}`
+                      )
+                    }
+                    color="primary"
+                  >
+                    + Add Quiz
+                  </Badge>
+                )}
+              />
+              <Route
+                render={({ history }) => (
                   <Eye
                     className="mr-50"
                     size="25px"

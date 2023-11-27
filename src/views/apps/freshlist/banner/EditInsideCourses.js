@@ -31,6 +31,7 @@ export default class AddInsidecourse extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      duration: "",
       Title: "",
       heading: "",
       shortDescription: "",
@@ -83,6 +84,7 @@ export default class AddInsidecourse extends Component {
             CourseURL: data?.lesson_url,
             status: data?.status,
             iamgeurl: data?.image,
+            duration: data?.lesson_duration,
           });
         })
         .catch((err) => {
@@ -120,6 +122,7 @@ export default class AddInsidecourse extends Component {
     data.append("lesson_url", this.state.CourseURL);
     data.append("description", this.state.description);
     data.append("edit_id", id);
+    data.append("lesson_duration", this.state.duration);
     data.append("status", this.state.status);
     // for (const file of this.state.selectedFile) {
     if (this.state.selectedFile !== null) {
@@ -152,7 +155,7 @@ export default class AddInsidecourse extends Component {
       // PageName,
       editorState,
       shortDescription,
-      // CourseDescription,
+      duration,
       CourserCategory,
       CourseURL,
       heading,
@@ -209,6 +212,19 @@ export default class AddInsidecourse extends Component {
                     name="CourseURL"
                     placeholder="Enter URL"
                     value={CourseURL}
+                    onChange={this.changeHandler}
+                  />
+                </Col>
+
+                <Col lg="6" md="6" sm="6" className="mb-2">
+                  <Label>Course Duration *</Label>
+                  <Input
+                    // required
+                    type="text"
+                    className="form-control"
+                    name="duration"
+                    placeholder="Enter Duration"
+                    value={duration}
                     onChange={this.changeHandler}
                   />
                 </Col>

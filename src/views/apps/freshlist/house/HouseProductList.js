@@ -229,7 +229,7 @@ class HouseProductList extends React.Component {
                         className="btn  float-right"
                         color="primary"
                         onClick={() =>
-                          history.push("/app/freshlist/house/addHouseProduct")
+                          history.push("/app/freshlist/house/AddProduct")
                         }
                       >
                         Add Product

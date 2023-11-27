@@ -100,6 +100,22 @@ class ListofLesson extends React.Component {
         },
       },
       {
+        headerName: "Duration",
+        field: "lesson_duration",
+
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.lesson_duration)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Title",
         field: "title",
 

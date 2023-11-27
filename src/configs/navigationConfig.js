@@ -298,7 +298,8 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        // navLink: "/app/mmbaic/account/CreateAccount",
+        // navLink: "/app/mmbaic/category/AddProducts",
+        navLink: "/app/freshlist/house/AddProduct",
       },
       {
         id: "Product List",
@@ -306,7 +307,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/freshlist/house/houseProductList",
       },
       {
         id: "Assign Product List",
@@ -898,7 +899,8 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
+        navLink: "/app/mmbaic/category/AddGrade/1",
+        // navLink: "/app/mmbaic/category/GradeList",
       },
       {
         id: "Forums",
@@ -914,7 +916,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
+        navLink: "/app/mmbaic/category/QuizList",
       },
       {
         id: "Reviews",

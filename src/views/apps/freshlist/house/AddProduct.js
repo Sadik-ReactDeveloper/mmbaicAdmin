@@ -56,7 +56,7 @@ export class AddProduct extends Component {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     data.append("user_id", pageparmission?.Userinfo?.id);
     data.append("role", pageparmission?.Userinfo?.role);
-    await axiosConfig.post("/getcategory", data).then((response) => {
+    await axiosConfig.post("/getcategoryList", data).then((response) => {
       let rowData = response.data.data?.category;
       console.log(rowData);
       if (rowData) {
@@ -122,11 +122,11 @@ export class AddProduct extends Component {
   //   console.log(event.target.files[0]);
   // };
   onChangeHandler3 = (event) => {
-    let selectedName = Array.from(event.target.files);
-    console.log(selectedName);
-    this.setState({ selectedFile3: selectedName });
+    // let selectedName = Array.from(event.target.files);
+    // console.log(selectedName);
+    // this.setState({ selectedFile3: selectedName });
 
-    // this.setState({ selectedFile3: event.target.files });
+    this.setState({ selectedFile3: event.target.files });
     // this.setState({ selectedName3: event.target.files[0].name });
     // console.log(event.target.files);
   };
@@ -200,7 +200,7 @@ export class AddProduct extends Component {
           <h1 className="p-2 ">Product Upload</h1>
           <Row className="m-2">
             <Col>
-              <h2>Basic Information</h2>
+              <h2>Add Product Information</h2>
             </Col>
             {/* <Col>
               <Route
@@ -236,7 +236,7 @@ export class AddProduct extends Component {
                       {this.state.rowData &&
                         this.state.rowData?.map((val, i) => (
                           <option key={i} value={val?.id}>
-                            {val?.category_name}
+                            {val?.category}
                           </option>
                         ))}
                     </select>
@@ -250,7 +250,7 @@ export class AddProduct extends Component {
                     /> */}
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Choose Type *</Label>
 
@@ -268,17 +268,10 @@ export class AddProduct extends Component {
                           </option>
                         ))}
                     </select>
-                    {/* <Input
-                      type="text"
-                      placeholder="Title"
-                      name="category_name"
-                      bsSize="lg"
-                      value={this.state.category_name}
-                      onChange={this.changeHandler}
-                    /> */}
+                    
                   </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
+                </Col> */}
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Choose Brand *</Label>
 
@@ -298,10 +291,10 @@ export class AddProduct extends Component {
                         ))}
                     </select>
                   </FormGroup>
-                </Col>
+                </Col> */}
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Title</Label>
+                    <Label>Product Title</Label>
                     <Input
                       type="text"
                       placeholder="Title"
@@ -312,21 +305,7 @@ export class AddProduct extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="12" md="12">
-                  <FormGroup>
-                    <Label>Description</Label>
-                    <textarea
-                      type="text"
-                      rows={5}
-                      className="form-control"
-                      placeholder="Description ..."
-                      name="description"
-                      bsSize="lg"
-                      value={this.state.description}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
+
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label> PRICE (₹)</Label>
@@ -336,16 +315,22 @@ export class AddProduct extends Component {
                         e.preventDefault()
                       }
                       min={0}
-                      type="number"
+                      type="text"
                       placeholder="Amount In Number"
                       name="Price"
                       bsSize="lg"
                       value={this.state.Price}
-                      onChange={this.changeHandler}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Use regular expression to allow only numbers
+                        const numericValue = value.replace(/\D/g, "");
+                        this.setState({ Price: numericValue });
+                      }}
+                      // onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <Row>
                     <Col lg="2" sm="2" md="2">
                       <div>
@@ -365,21 +350,13 @@ export class AddProduct extends Component {
                           Add
                         </Button>
 
-                        {/* <Label>Variety</Label>
-                        <Input
-                          type="text"
-                          placeholder="Variety..."
-                          name="variety"
-                          bsSize="lg"
-                          value={this.state.variety}
-                          onChange={this.changeHandler}
-                        /> */}
+                       
                       </FormGroup>
                     </Col>
                   </Row>
-                </Col>{" "}
-              </Row>
-              {this.state.Addmore ? (
+                </Col>{" "} */}
+
+                {/* {this.state.Addmore ? (
                 <>
                   <Row>
                     <Col lg="12">
@@ -437,9 +414,8 @@ export class AddProduct extends Component {
                     </Col>
                   </Row>
                 </>
-              ) : null}
+              ) : null} */}
 
-              <Row>
                 {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Quantity </Label>
@@ -462,16 +438,20 @@ export class AddProduct extends Component {
                         e.preventDefault()
                       }
                       min={0}
-                      type="number"
+                      type="text"
                       placeholder="Discount Price"
                       name="DiscountPrice"
                       bsSize="lg"
                       value={this.state.DiscountPrice}
-                      onChange={this.changeHandler}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const numericValue = value.replace(/\D/g, "");
+                        this.setState({ DiscountPrice: numericValue });
+                      }}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>SHIPPING FEE(₹)</Label>
                     <Input
@@ -519,12 +499,12 @@ export class AddProduct extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
               </Row>
               <Row>
                 <Col lg="6" sm="6">
                   <FormGroup>
-                    <Label>Media & Published (Select multiple files)</Label>
+                    <Label>Product Image</Label>
                     <CustomInput
                       multiple
                       style={{ cursor: "pointer" }}
@@ -535,15 +515,32 @@ export class AddProduct extends Component {
                     />
                   </FormGroup>
                 </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Description</Label>
+                    <textarea
+                      type="text"
+                      rows={5}
+                      className="form-control"
+                      placeholder="Description ..."
+                      name="description"
+                      bsSize="lg"
+                      value={this.state.description}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
               </Row>
               <Row>
-                <Button.Ripple
-                  color="primary"
-                  type="submit"
-                  className="mr-1 mb-1"
-                >
-                  Add Product
-                </Button.Ripple>
+                <div className="d-flex justify-content-center">
+                  <Button.Ripple
+                    color="primary"
+                    type="submit"
+                    className="mr-1 mb-1"
+                  >
+                    Add Product
+                  </Button.Ripple>
+                </div>
               </Row>
             </Form>
           </CardBody>
