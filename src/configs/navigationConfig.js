@@ -891,7 +891,8 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/brand/BrandList",
+        // navLink: "/app/freshlist/brand/BrandList",
+        navLink: "/app/mmbaic/AssignmentList",
       },
       {
         id: "Grades",
@@ -924,7 +925,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
+        navLink: "/app/freshlist/brand/BrandList",
       },
     ],
   },

@@ -281,7 +281,9 @@ class BannerList extends React.Component {
     await axiosConfig.post("/getCmsList", data).then((response) => {
       const rowData = response?.data?.data?.content;
       // console.log(rowData);
-      this.setState({ rowData });
+      if (rowData) {
+        this.setState({ rowData });
+      }
     });
   }
 
@@ -357,12 +359,12 @@ class BannerList extends React.Component {
                             : "" * this.state.getPageSize -
                               (this.state.getPageSize - 1)}{" "}
                           -{" "}
-                          {this.state.rowData.length -
+                          {this.state.rowData?.length -
                             this.state.currenPageSize * this.state.getPageSize >
                           0
                             ? this.state.currenPageSize * this.state.getPageSize
-                            : this.state.rowData.length}{" "}
-                          of {this.state.rowData.length}
+                            : this.state.rowData?.length}{" "}
+                          of {this.state.rowData?.length}
                           <ChevronDown className="ml-50" size={15} />
                         </DropdownToggle>
                         <DropdownMenu right>

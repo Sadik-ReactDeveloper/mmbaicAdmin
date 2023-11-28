@@ -341,6 +341,9 @@ const CategoryList = lazy(() =>
   import("./views/apps/freshlist/category/CategoryList")
 );
 const QuizList = lazy(() => import("./views/apps/freshlist/category/QuizList"));
+const AssignmentList = lazy(() =>
+  import("./views/apps/freshlist/category/AssignmentList")
+);
 const GradeList = lazy(() =>
   import("./views/apps/freshlist/category/GradeList")
 );
@@ -348,6 +351,9 @@ const AddCategory = lazy(() =>
   import("./views/apps/freshlist/category/AddCategory")
 );
 const AddQuiz = lazy(() => import("./views/apps/freshlist/category/AddQuiz"));
+const AddAssignemnt = lazy(() =>
+  import("./views/apps/freshlist/category/AddAssignemnt")
+);
 const AddProducts = lazy(() =>
   import("./views/apps/freshlist/category/AddProduct")
 );
@@ -1229,12 +1235,20 @@ class AppRouter extends React.Component {
           />
           <AppRoute path="/app/mmbaic/category/QuizList" component={QuizList} />
           <AppRoute
+            path="/app/mmbaic/AssignmentList"
+            component={AssignmentList}
+          />
+          <AppRoute
             path="/app/mmbaic/category/GradeList"
             component={GradeList}
           />
           <AppRoute
             path="/app/mmbaic/category/AddQuiz/:id/:editid"
             component={AddQuiz}
+          />
+          <AppRoute
+            path="/app/mmbaic/category/AddAssignemnt/:id/:editid"
+            component={AddAssignemnt}
           />
           <AppRoute
             path="/app/mmbaic/category/AddProducts"
