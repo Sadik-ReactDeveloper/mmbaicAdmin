@@ -79,7 +79,17 @@ const HubSales = lazy(() => import("./views/apps/freshlist/sales/HubSales"));
 const BannerList = lazy(() =>
   import("./views/apps/freshlist/banner/BannerList")
 );
+const MemberPlanList = lazy(() =>
+  import("./views/apps/freshlist/banner/MemberPlanList")
+);
+const MemberShipList = lazy(() =>
+  import("./views/apps/freshlist/banner/MemberShipList")
+);
+
 const AddBanner = lazy(() => import("./views/apps/freshlist/banner/AddBanner"));
+const AddmemberPlan = lazy(() =>
+  import("./views/apps/freshlist/banner/AddmemberPlan")
+);
 const EditCMS = lazy(() => import("./views/apps/freshlist/banner/EditCMS"));
 const Aboutuslist = lazy(() =>
   import("./views/apps/freshlist/banner/Aboutuslist")
@@ -895,6 +905,10 @@ class AppRouter extends React.Component {
           />
           {/* Banner */}
           <AppRoute path="/app/mmbaic/slider/addSlider" component={AddBanner} />
+          <AppRoute
+            path="/app/mmbaic/Add/AddmemberPlan/:id"
+            component={AddmemberPlan}
+          />
           <AppRoute path="/app/mmbaic/slider/EditCMS/:id" component={EditCMS} />
           <AppRoute path="/app/mmbaic/addcourse/:id" component={Addaboutus} />
           <AppRoute
@@ -913,6 +927,14 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/mmbaic/banner/headerCMS"
             component={BannerList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/MemberPlanList"
+            component={MemberPlanList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/MemberShipList"
+            component={MemberShipList}
           />
           <AppRoute
             path="/app/freshlist/banner/editBanner/:id"
@@ -1366,7 +1388,7 @@ class AppRouter extends React.Component {
             component={HouseProductList}
           />
           <AppRoute
-            path="/app/freshlist/house/AddProduct"
+            path="/app/freshlist/house/AddProduct/:id"
             component={AddProduct}
           />
           <AppRoute

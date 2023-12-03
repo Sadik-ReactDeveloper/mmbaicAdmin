@@ -81,11 +81,15 @@ const CreateAccount = () => {
     setEditpermisson(newparmisson?.permission.includes("Edit"));
 
     setDeletepermisson(newparmisson?.permission.includes("Delete"));
+    let formdata = new FormData();
+    formdata.append("user_id", pageparmission?.Userinfo.id);
+    formdata.append("role", pageparmission?.Userinfo.role);
     axiosConfig
-      .get("/getroleNamelist")
+      .post("/getrolelistdropdown", formdata)
+      // .get("/getroleNamelist")
       .then((res) => {
         console.log(res?.data.data);
-        setproductName(res?.data.data);
+        setproductName(res?.data.data?.roles);
       })
       .catch((err) => {
         console.log(err);
@@ -216,7 +220,6 @@ const CreateAccount = () => {
         selectedOptions.push(selectedList[i].id);
       }
     }
-    debugger;
 
     let arr = selectedList.map((ele) => ele.id);
     setmultiSelect(arr);
@@ -494,10 +497,11 @@ const CreateAccount = () => {
                   </FormGroup>
                 </Col>
                 <Col lg="6" md="6">
-                  <Label for="cars">City * </Label>
+                  <Label>City*</Label>
                   <Multiselect
                     required
                     // singleSelect
+                    selectionLimit={1}
                     options={CityList} // Options to display in the dropdown
                     // selectedValues={selectedValue} // Preselected value to persist in dropdown
                     onSelect={onSelect} // Function will trigger on select event

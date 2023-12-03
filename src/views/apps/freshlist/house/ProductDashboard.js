@@ -73,7 +73,7 @@ class ProductDashboard extends React.Component {
                     style={{ borderRadius: "12px" }}
                     width="60px"
                     height="40px"
-                    src={params?.data?.product_images[0]}
+                    src={params?.data?.product_images}
                     alt="image"
                   />
                 ) : (
@@ -84,36 +84,36 @@ class ProductDashboard extends React.Component {
           );
         },
       },
-      {
-        headerName: "Brand",
-        field: "brand_name",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data?.brand_name}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Type",
-        field: "product_type",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data?.product_type}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Brand",
+      //   field: "brand_name",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data?.brand_name}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Type",
+      //   field: "product_type",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data?.product_type}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Product",
         field: "title",
@@ -131,14 +131,14 @@ class ProductDashboard extends React.Component {
       },
       {
         headerName: "category",
-        field: "category_name",
+        field: "category",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params.data?.category_name}</span>
+                <span>{params.data?.category}</span>
               </div>
             </div>
           );
@@ -189,51 +189,51 @@ class ProductDashboard extends React.Component {
           );
         },
       },
-      {
-        headerName: "Shipping Fee",
-        field: "shipping_fee",
-        filter: "agSetColumnFilter",
-        width: 140,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data?.shipping_fee}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Tax Rate",
-        field: "tax_rate",
-        filter: "agSetColumnFilter",
-        width: 120,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data?.tax_rate}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Tags",
-        field: "tags",
-        filter: "agSetColumnFilter",
-        width: 120,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data?.tags}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Shipping Fee",
+      //   field: "shipping_fee",
+      //   filter: "agSetColumnFilter",
+      //   width: 140,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data?.shipping_fee}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Tax Rate",
+      //   field: "tax_rate",
+      //   filter: "agSetColumnFilter",
+      //   width: 120,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data?.tax_rate}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
+      // {
+      //   headerName: "Tags",
+      //   field: "tags",
+      //   filter: "agSetColumnFilter",
+      //   width: 120,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params.data?.tags}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "STOCK",
         field: "stock",
@@ -346,7 +346,6 @@ class ProductDashboard extends React.Component {
 
   async componentDidMount() {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
-
     let newparmisson = pageparmission?.role?.find(
       (value) => value?.pageName === "Product List"
     );
@@ -531,23 +530,21 @@ class ProductDashboard extends React.Component {
                     Product Dashboard
                   </h1>
                 </Col>
-                {/* <Col>
+                <Col>
                   <Route
                     render={({ history }) => (
                       <Button
                         className="float-right"
                         color="primary"
                         onClick={() =>
-                          history.push(
-                            "/app/freshlist/options/ProductDashboard"
-                          )
+                          history.push(`/app/freshlist/house/AddProduct/${0}`)
                         }
                       >
-                        Add Type
+                        + Product
                       </Button>
                     )}
                   />
-                </Col> */}
+                </Col>
               </Row>
               <CardBody>
                 {this.state.rowData === null ? null : (

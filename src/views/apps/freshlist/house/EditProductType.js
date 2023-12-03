@@ -88,7 +88,7 @@ export class EditProductType extends Component {
         //   this.setState({ checkbox: true });
         // }
         const formdata = new FormData();
-        formdata.append("state_id", response.data.data.state_id);
+        formdata.append("state_id", response.data.data?.state_id);
         axiosConfig
           .post(`/getcity`, formdata)
           .then((res) => {
@@ -134,6 +134,9 @@ export class EditProductType extends Component {
           UserName: response.data.data.username,
           Mobile_no: response.data.data.mobile,
           selectedValue: newdata,
+          postalCode: response.data.data.postal_code,
+          status: response.data.data.status,
+          UserId: response.data.data.id,
           // B_City: response.data.data.billing_city,
           // GSTIN: response.data.data.gstin_no,
           // B_Country: response.data.data.billing_country,
@@ -154,8 +157,6 @@ export class EditProductType extends Component {
           // S_State: response.data.data.shipping_state,
           // S_Street: response.data.data.shipping_street,
           // password: response.data.data.password,
-          status: response.data.data.status,
-          UserId: response.data.data.id,
         });
       })
       .catch((error) => {
@@ -208,24 +209,32 @@ export class EditProductType extends Component {
     console.log(data);
     this.setState({ selectedcities: data });
   };
+
   submitHandler = (e) => {
     let { id } = this.props.match.params;
     e.preventDefault();
     const formdata = new FormData();
     let uniqueChars = [...new Set(selectItem1)];
-    // formdata.append("username", this.state.UserName);
-    // formdata.append("mobile", this.state.Mobile_no);
-    // formdata.append("email", this.state.email);
-    // formdata.append("state_id", this.state.SelectedState);
-    formdata.append("id", id);
 
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    formdata.append("user_id", pageparmission?.Userinfo?.id);
+    formdata.append("email", this.state.email);
+    formdata.append("firstname", this.state.FirstName);
+    formdata.append("lastname", this.state.Lastname);
+    formdata.append("username", this.state.UserName);
+    formdata.append("mobile", this.state.Mobile_no);
+    formdata.append("postal_code", this.state.postalCode);
+    // formdata.append("city", this.state.selectedValue);
+    formdata.append("status", this.state.status);
+    // formdata.append("role", this.state.AssignRole);
+    formdata.append("state_id", this.state.SelectedState);
+    formdata.append("edit_id", id);
+    formdata.append("city_id", this.state.selectedcities[0].id);
+    debugger;
     // formdata.append("password", this.state.password);
     // formdata.append("full_name", this.state.fullname);
 
     // formdata.append("gstin_no", this.state.GSTIN);
-    formdata.append("city", this.state.B_City);
-    formdata.append("status", this.state.status);
-    formdata.append("role", this.state.AssignRole);
     // formdata.append("company_name", this.state.CompanyName);
     // formdata.append("company_type", this.state.Companytype);
     // formdata.append("place_supply", this.state.Place_of_Supply);
@@ -240,7 +249,6 @@ export class EditProductType extends Component {
     // formdata.append("shipping_country", this.state.S_Country);
     // formdata.append("shipping_pincode", this.state.S_PinCode);
     // formdata.append("phone_no", this.state.Phone_no);
-    formdata.append("city_id", uniqueChars);
 
     axiosConfig
       .post("/usereditsubmit", formdata)

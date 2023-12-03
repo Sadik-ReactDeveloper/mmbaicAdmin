@@ -244,7 +244,7 @@ export class AddQuiz extends Component {
                   <Col lg="5" md="5" sm="5">
                     <div className="d-flex ">
                       <input
-                        required
+                        // required
                         className="form-control"
                         placeholder="Enter Answer here..."
                         name="AnswerOne"
@@ -272,7 +272,7 @@ export class AddQuiz extends Component {
                   <Col lg="5" md="5" sm="5">
                     <div className="d-flex ">
                       <input
-                        required
+                        // required
                         className="form-control"
                         name="Answertwo"
                         placeholder="Enter Answer here..."
@@ -300,7 +300,7 @@ export class AddQuiz extends Component {
                   <Col lg="5" md="5" sm="5">
                     <div className="d-flex ">
                       <input
-                        required
+                        // required
                         className="form-control"
                         name="Answerthree"
                         placeholder="Enter Answer here..."
@@ -330,7 +330,7 @@ export class AddQuiz extends Component {
                   <Col lg="5" md="5" sm="5">
                     <div className="d-flex ">
                       <input
-                        required
+                        // required
                         className="form-control"
                         name="Answerfour"
                         placeholder="Enter Answer here..."

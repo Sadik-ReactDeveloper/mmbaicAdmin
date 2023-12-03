@@ -26,6 +26,7 @@ export class AddProduct extends Component {
       Brand: "",
       P_Title: "",
       Type: "",
+      heading: "Add",
       Price: "",
       stock: "",
       Regularprice: "",
@@ -52,6 +53,13 @@ export class AddProduct extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
+    let { id } = this.props.match.params;
+    console.log(id);
+    if (id == 0) {
+      this.setState({ heading: "Add" });
+    } else {
+      this.setState({ heading: "Edit" });
+    }
     const data = new FormData();
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     data.append("user_id", pageparmission?.Userinfo?.id);
@@ -124,9 +132,9 @@ export class AddProduct extends Component {
   onChangeHandler3 = (event) => {
     // let selectedName = Array.from(event.target.files);
     // console.log(selectedName);
-    // this.setState({ selectedFile3: selectedName });
+    this.setState({ selectedFile3: event.target.files[0] });
 
-    this.setState({ selectedFile3: event.target.files });
+    // this.setState({ selectedFile3: event.target.files });
     // this.setState({ selectedName3: event.target.files[0].name });
     // console.log(event.target.files);
   };
@@ -145,31 +153,37 @@ export class AddProduct extends Component {
   submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();
+    let { id } = this.props.match.params;
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
-    // console.log(pageparmission?.Userinfo?.id);
     data.append("user_id", pageparmission?.Userinfo?.id);
-    data.append("brand_id", this.state.Brand);
-    data.append("product_type_id", this.state.Type);
-    data.append("title", this.state.P_Title);
-    if (this.state.formValues.length > 0) {
-      data.append("veriety", JSON.stringify(this.state.formValues));
-    }
     data.append("category_id", this.state.category_name);
-    // data.append("stock", this.state.stock);
+    data.append("title", this.state.P_Title);
+    data.append("description", this.state.description);
     data.append("price", this.state.Price);
     data.append("discountprice", this.state.DiscountPrice);
-    data.append("description", this.state.description);
-    data.append("shipping_fee", this.state.shipmentfee);
-    data.append("tax_rate", this.state.taxrate);
-    data.append("tags", this.state.Tags);
+    // console.log(pageparmission?.Userinfo?.id);
+    // data.append("Edit_id", id);
+    data.append("images", this.state.selectedFile3);
+    // data.append("role", pageparmission?.Userinfo?.role);
     data.append("status", "Active");
+
+    // for (let i = 0; i < this.state.selectedFile3?.length; i++) {
+    //   data.append("images[]", this.state.selectedFile3[i]);
+    // }
+
+    // data.append("brand_id", this.state.Brand);
+    // data.append("product_type_id", this.state.Type);
+    // if (this.state.formValues.length > 0) {
+    //   data.append("veriety", JSON.stringify(this.state.formValues));
+    // }
+    // data.append("stock", this.state.stock);
+    // data.append("shipping_fee", this.state.shipmentfee);
+    // data.append("tax_rate", this.state.taxrate);
+    // data.append("tags", this.state.Tags);
     // this.state.selectedFile3.forEach((image, index) => {
     //   data.append(`image`, image);
     // });
     // debugger;
-    for (let i = 0; i < this.state.selectedFile3?.length; i++) {
-      data.append("images[]", this.state.selectedFile3[i]);
-    }
     // for (const file of this.state.selectedFile3) {
     //   if (this.state.selectedFile3 !== null) {
     //     data.append("image_name", file);
@@ -185,8 +199,8 @@ export class AddProduct extends Component {
       .then((response) => {
         console.log(response);
         if (response.data.success) {
-          swal("Success!", "You Data is been Submitted", "success");
-          // this.props.history.push("/app/mmbaic/category/categoryList");
+          swal("Success!", "You Data has been Submitted", "success");
+          this.props.history.push("/app/freshlist/house/houseProductList");
         }
       })
       .catch((error) => {
@@ -197,10 +211,10 @@ export class AddProduct extends Component {
     return (
       <div>
         <Card>
-          <h1 className="p-2 ">Product Upload</h1>
+          <h1 className="p-2 ">{this.state.heading} Product</h1>
           <Row className="m-2">
             <Col>
-              <h2>Add Product Information</h2>
+              <h2>{this.state.heading} Product Information</h2>
             </Col>
             {/* <Col>
               <Route
@@ -296,6 +310,7 @@ export class AddProduct extends Component {
                   <FormGroup>
                     <Label>Product Title</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Title"
                       name="P_Title"
@@ -310,6 +325,7 @@ export class AddProduct extends Component {
                   <FormGroup>
                     <Label> PRICE (₹)</Label>
                     <Input
+                      required
                       onKeyDown={(e) =>
                         ["e", "E", "+", "-"].includes(e.key) &&
                         e.preventDefault()
@@ -509,7 +525,7 @@ export class AddProduct extends Component {
                       multiple
                       style={{ cursor: "pointer" }}
                       accept="image/png,image/jpeg,image/jpg"
-                      name="image[]"
+                      name="images"
                       type="file"
                       onChange={this.onChangeHandler3}
                     />

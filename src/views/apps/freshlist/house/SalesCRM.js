@@ -13,6 +13,7 @@ import {
   CardTitle,
   CardText,
   Label,
+  CustomInput,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import ReactHtmlParser from "react-html-parser";
@@ -38,6 +39,7 @@ import swal from "sweetalert";
 class SalesCRM extends React.Component {
   state = {
     rowData: [],
+    AllData: [],
     Viewpermisson: null,
     Editpermisson: null,
     Createpermisson: null,
@@ -167,33 +169,128 @@ class SalesCRM extends React.Component {
           );
         },
       },
+      // {
+      //   headerName: "status",
+      //   field: "status",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     console.log(params);
+      //     return params.data?.status == "Active" ? (
+      //       <div className="badge badge-pill badge-success">
+      //         {params.data?.status}
+      //       </div>
+      //     ) : params.data?.status === "Closed" ? (
+      //       <div className="badge badge-pill badge-success">
+      //         {params.data?.status}
+      //       </div>
+      //     ) : params.data?.status === "Hold" ? (
+      //       <div className="badge badge-pill badge-danger">
+      //         {params.data?.status}
+      //       </div>
+      //     ) : params.data?.status === "Accepted" ? (
+      //       <div className="badge badge-pill badge-success">
+      //         {params.data?.status}
+      //       </div>
+      //     ) : params.data?.status === "Pending" ? (
+      //       <div className="badge badge-pill badge-warning">
+      //         {params.data?.status}
+      //       </div>
+      //     ) : null;
+      //   },
+      // },
       {
-        headerName: "status",
-        field: "status",
+        headerName: "Crm status",
+        field: "crm_status",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
-          return params.data?.status == "Active" ? (
+          console.log(params?.data);
+          return params.data?.crm_status == "Active" ? (
             <div className="badge badge-pill badge-success">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Closed" ? (
+          ) : params.data?.crm_status === "Closed" ? (
             <div className="badge badge-pill badge-success">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Hold" ? (
+          ) : params.data?.crm_status === "Rejected" ? (
             <div className="badge badge-pill badge-danger">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Accepted" ? (
+          ) : params.data?.crm_status === "Accepted" ? (
             <div className="badge badge-pill badge-success">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Pending" ? (
+          ) : params.data?.crm_status === "Pending" ? (
             <div className="badge badge-pill badge-warning">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
           ) : null;
+        },
+      },
+      {
+        headerName: "Change Status",
+        field: "Change Status",
+        filter: "agSetColumnFilter",
+        width: 190,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                {params.data?.crm_status == "Accepted" ||
+                params.data?.crm_status == "Rejected" ? (
+                  <>{params.data?.crm_status}</>
+                ) : (
+                  <>
+                    <CustomInput
+                      type="select"
+                      name="changestatus"
+                      // value={this.state.currenstatus}
+                      onChange={(e) => {
+                        let pageparmission = JSON.parse(
+                          localStorage.getItem("userData")
+                        );
+                        const formdata = new FormData();
+                        formdata.append("member_id", params?.data?.id);
+                        formdata.append("crm_status", e.target.value);
+                        axiosConfig
+                          .post("/change_member_status", formdata)
+                          .then((response) => {
+                            let rowData = response?.data;
+                            // this.setState({ rowData });
+                            console.log(rowData);
+                            this.Alllist();
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      <option>--Select--</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Rejected">Rejected</option>
+                    </CustomInput>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Payment Status",
+        field: "payment_status",
+        filter: "agSetColumnFilter",
+        width: 190,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params?.data?.device}</span>
+              </div>
+            </div>
+          );
         },
       },
       // {
@@ -411,7 +508,7 @@ class SalesCRM extends React.Component {
 
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "User List"
+      (value) => value?.pageName === "Sales CRM List"
     );
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });
     this.setState({
@@ -427,16 +524,14 @@ class SalesCRM extends React.Component {
 
   Alllist = async () => {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
-
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
     formdata.append("member_status", this.state.Leadtype);
-
     await axiosConfig.post("/getMemberlist", formdata).then((response) => {
-      console.log(response?.data?.data);
       let rowData = response?.data?.data;
       this.setState({ rowData });
+      this.setState({ AllData: rowData });
     });
   };
 
@@ -645,19 +740,23 @@ class SalesCRM extends React.Component {
                       this.setState({ Leadtype: e.target.value })
                     }
                   >
-                    <option value="All">--Select All--</option>
+                    <option value="All">--Select--</option>
                     <option value="Accepted">Accepted</option>
-                    <option value="Active">Active</option>
-                    <option value="Hold">Hold</option>
+                    {/* <option value="Active">Active</option> */}
+                    <option value="Rejected">Rejected</option>
                     <option value="Pending">Pending</option>
-                    <option value="Closed">Closed</option>
                   </Input>
                 </Col>
                 <Col lg="2" md="2" sm="2" className="mb-1 ">
                   <Button
                     onClick={(e) => {
                       e.preventDefault();
-                      this.Alllist();
+                      if (e.target.value == "All") {
+                        // this.Alllist();
+                        this.setState({ rowData: this.state.AllData });
+                      } else {
+                        this.updateSearchQuery(this.state.Leadtype);
+                      }
                     }}
                     className="float-right mt-2"
                     color="primary"

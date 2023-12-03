@@ -33,7 +33,7 @@ export class EditProduct extends Component {
       Addmore: false,
       rowData: [],
       TypeList: [],
-      images: [],
+      images: {},
       description: "",
       variety: "",
       Brand: "",
@@ -51,33 +51,33 @@ export class EditProduct extends Component {
     let { id } = this.props?.match.params;
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     const formdata = new FormData();
-    formdata.append("user_id", pageparmission?.Userinfo?.id);
+    // formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("product_id", id);
-
     await axiosConfig
       .post("/editproductview", formdata)
       .then((response) => {
-        console.log(response.data.data[0]);
-        let getProduct = response.data.data[0];
+        debugger;
+        console.log(response.data.data);
+        let getProduct = response.data.data;
         this.setState({ Product: response.data.data });
         // this.setState({ category_name: response.data.data?.category_name });
         this.setState({ category_name: getProduct?.category_id });
         this.setState({ P_Title: getProduct?.title });
         this.setState({ Price: getProduct?.price });
-        this.setState({ stock: getProduct?.stock });
+        // this.setState({ stock: getProduct?.stock });
         this.setState({ DiscountPrice: getProduct?.discountprice });
         this.setState({ description: getProduct?.description });
 
         // this.setState({ Type: getProduct?.product_type });
-        this.setState({ Type: getProduct?.product_type_id });
-        this.setState({ Brand: getProduct?.brand_id });
+        // this.setState({ Type: getProduct?.product_type_id });
+        // this.setState({ Brand: getProduct?.brand_id });
         // this.setState({ Brand: getProduct?.brand_name });
-        this.setState({
-          formValues: JSON.parse(getProduct?.veriety),
-        });
-        this.setState({ shipmentfee: getProduct?.shipping_fee });
-        this.setState({ Tags: getProduct?.tags });
-        this.setState({ taxrate: getProduct?.tax_rate });
+        // this.setState({
+        //   formValues: JSON.parse(getProduct?.veriety),
+        // });
+        // this.setState({ shipmentfee: getProduct?.shipping_fee });
+        // this.setState({ Tags: getProduct?.tags });
+        // this.setState({ taxrate: getProduct?.tax_rate });
         this.setState({ status: getProduct?.status });
         this.setState({
           images: getProduct?.product_images,
@@ -98,8 +98,9 @@ export class EditProduct extends Component {
     data.append("user_id", pageparmission?.Userinfo?.id);
     data.append("role", pageparmission?.Userinfo?.role);
 
-    await axiosConfig.post("/getcategory", data).then((response) => {
+    await axiosConfig.post("/getcategoryList", data).then((response) => {
       let rowData = response.data.data?.category;
+      debugger;
       console.log(rowData);
       if (rowData) {
         this.setState({ rowData });
@@ -153,9 +154,9 @@ export class EditProduct extends Component {
   }
 
   onChangeHandler3 = (event) => {
-    let selectedName = Array.from(event.target.files);
-    console.log(selectedName);
-    this.setState({ selectedFile3: selectedName });
+    // let selectedName = Array.from(event.target.files);
+    // console.log(selectedName);
+    this.setState({ selectedFile3: event.target.files[0] });
   };
 
   changeHandler1 = (e) => {
@@ -168,32 +169,35 @@ export class EditProduct extends Component {
     e.preventDefault();
     const data = new FormData();
     let Product = JSON.parse(localStorage.getItem("EditProduct"));
-    data.append("id", Product?.id);
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+
+    data.append("edit_id", Product?.id);
+    data.append("user_id", pageparmission?.Userinfo?.id);
+
     data.append("title", this.state.P_Title);
-    data.append("veriety", JSON.stringify(this.state.formValues));
+    // data.append("veriety", JSON.stringify(this.state.formValues));
     data.append("category_id", this.state.category_name);
-    data.append("brand_id", this.state.Brand);
-    data.append("product_type_id", this.state.Type);
+    // data.append("brand_id", this.state.Brand);
+    // data.append("product_type_id", this.state.Type);
     // data.append("stock", this.state.stock);
     data.append("price", this.state.Price);
     data.append("discountprice", this.state.DiscountPrice);
     data.append("description", this.state.description);
-    data.append("shipping_fee", this.state.shipmentfee);
-    data.append("tax_rate", this.state.taxrate);
-    data.append("tags", this.state.Tags);
+    // data.append("shipping_fee", this.state.shipmentfee);
+    // data.append("tax_rate", this.state.taxrate);
+    // data.append("tags", this.state.Tags);
     data.append("status", "Active");
-
-    for (let i = 0; i < this.state.selectedFile3?.length; i++) {
-      data.append("images[]", this.state.selectedFile3[i]);
-    }
+    data.append("images", this.state.selectedFile3);
+    // for (let i = 0; i < this.state.selectedFile3?.length; i++) {
+    //   data.append("images[]", this.state.selectedFile3[i]);
+    // }
     // for (const file of this.state.selectedFile3) {
     //   if (this.state.selectedFile3 !== null) {
     //     data.append("image_name", file);
     //   }
     // }
     axiosConfig
-      .post(`/editproduct`, data, {
-        //   .post(`/addproduct`, data, {
+      .post(`/addproduct`, data, {
         headers: {
           "Content-Type": "multipart/form-data; ",
         },
@@ -256,7 +260,7 @@ export class EditProduct extends Component {
                             key={i}
                             value={val?.id}
                           >
-                            {val?.category_name}
+                            {val?.category}
                           </option>
                         ))}
                     </select>
@@ -270,7 +274,7 @@ export class EditProduct extends Component {
                     /> */}
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Choose Type *</Label>
 
@@ -292,17 +296,10 @@ export class EditProduct extends Component {
                           </option>
                         ))}
                     </select>
-                    {/* <Input
-                      type="text"
-                      placeholder="Title"
-                      name="category_name"
-                      bsSize="lg"
-                      value={this.state.category_name}
-                      onChange={this.changeHandler}
-                    /> */}
+                   
                   </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
+                </Col> */}
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Choose Brand *</Label>
 
@@ -326,7 +323,7 @@ export class EditProduct extends Component {
                         ))}
                     </select>
                   </FormGroup>
-                </Col>
+                </Col> */}
                 {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Choose Category</Label>
@@ -386,7 +383,7 @@ export class EditProduct extends Component {
                   <FormGroup>
                     <Label> PRICE (₹)</Label>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Amount In Number"
                       name="Price"
                       onKeyDown={(e) =>
@@ -395,12 +392,16 @@ export class EditProduct extends Component {
                       }
                       bsSize="lg"
                       min={0}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const numericValue = value.replace(/\D/g, "");
+                        this.setState({ Price: numericValue });
+                      }}
                       value={this.state.Price}
-                      onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <Row>
                     <Col lg="2" sm="2" md="2">
                       <div>
@@ -420,21 +421,13 @@ export class EditProduct extends Component {
                           Add
                         </Button>
 
-                        {/* <Label>Variety</Label>
-                        <Input
-                          type="text"
-                          placeholder="Variety..."
-                          name="variety"
-                          bsSize="lg"
-                          value={this.state.variety}
-                          onChange={this.changeHandler}
-                        /> */}
+                       
                       </FormGroup>
                     </Col>
                   </Row>
-                </Col>{" "}
+                </Col>{" "} */}
               </Row>
-              {this.state.Addmore ? (
+              {/* {this.state.Addmore ? (
                 <>
                   <Row>
                     <Col lg="12">
@@ -492,15 +485,16 @@ export class EditProduct extends Component {
                     </Col>
                   </Row>
                 </>
-              ) : null}
+              ) : null} */}
 
               <Row>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label> Stock </Label>
                     <Input
                       type="number"
                       min={0}
+                      disabled
                       placeholder="Amount In Number"
                       name="stock"
                       onKeyDown={(e) =>
@@ -512,12 +506,12 @@ export class EditProduct extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Discount Price</Label>
                     <Input
-                      type="number"
+                      type="text"
                       min={0}
                       placeholder="Discount Price"
                       name="DiscountPrice"
@@ -527,11 +521,16 @@ export class EditProduct extends Component {
                       }
                       bsSize="lg"
                       value={this.state.DiscountPrice}
-                      onChange={this.changeHandler}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const numericValue = value.replace(/\D/g, "");
+                        this.setState({ DiscountPrice: numericValue });
+                      }}
+                      // onChange={this.changeHandler}
                     />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>SHIPPING FEE(₹)</Label>
                     <Input
@@ -548,8 +547,8 @@ export class EditProduct extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
+                </Col> */}
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>TAX RATE (%)</Label>
                     <Input
@@ -579,17 +578,17 @@ export class EditProduct extends Component {
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
               </Row>
               <Row>
                 <Col lg="4" sm="4">
                   <FormGroup>
-                    <Label>Media & Published (Select multiple files)</Label>
+                    <Label>images</Label>
                     <CustomInput
-                      multiple
+                      // multiple
                       style={{ cursor: "pointer" }}
                       accept="image/png,image/jpeg,image/jpg"
-                      name="image[]"
+                      name="image"
                       type="file"
                       onChange={this.onChangeHandler3}
                     />
@@ -600,20 +599,19 @@ export class EditProduct extends Component {
                   <Col lg="8" sm="8">
                     <Label>Existing Images</Label>
                     <FormGroup>
-                      {this.state.images?.map((value) => {
-                        console.log(value);
-                        return (
-                          <span className="mx-1">
-                            <img
-                              style={{ borderRadius: "12px" }}
-                              src={value}
-                              width="150px"
-                              height="150px"
-                              alt="images"
-                            />
-                          </span>
-                        );
-                      })}
+                      {/* {this.state.images?.map((value) => { */}
+                      {/* console.log(value);
+                        return ( */}
+                      <span className="mx-1">
+                        <img
+                          style={{ borderRadius: "12px" }}
+                          src={this.state.images}
+                          width="150px"
+                          height="150px"
+                          alt="images"
+                        />
+                      </span>
+                      {/* })} */}
                     </FormGroup>
                   </Col>
                 )}

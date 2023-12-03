@@ -154,6 +154,21 @@ class ProductType extends React.Component {
         },
       },
       {
+        headerName: "Postal Code",
+        field: "email",
+        filter: "agSetColumnFilter",
+        width: 230,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params?.data?.email}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Mobile No.",
         field: "mobile",
         filter: "agSetColumnFilter",
