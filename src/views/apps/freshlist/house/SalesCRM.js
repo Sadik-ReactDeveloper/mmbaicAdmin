@@ -67,7 +67,7 @@ class SalesCRM extends React.Component {
         headerName: "firstname",
         field: "firstname",
         filter: "agSetColumnFilter",
-        width: 120,
+        width: 160,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -158,7 +158,7 @@ class SalesCRM extends React.Component {
         headerName: "Device",
         field: "device",
         filter: "agSetColumnFilter",
-        width: 150,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -169,36 +169,103 @@ class SalesCRM extends React.Component {
           );
         },
       },
+      {
+        headerName: "Purchase Date",
+        field: "purchase_date",
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>
+                  {params?.data?.purchase_date &&
+                  params?.data?.purchase_date ? (
+                    <>{params?.data?.purchase_date}</>
+                  ) : (
+                    "NA"
+                  )}
+                </span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Transaction Id",
+        field: "transaction_id",
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>
+                  {params?.data?.transaction_id &&
+                  params?.data?.transaction_id ? (
+                    <>{params?.data?.transaction_id}</>
+                  ) : (
+                    "NA"
+                  )}
+                </span>
+              </div>
+            </div>
+          );
+        },
+      },
       // {
-      //   headerName: "status",
-      //   field: "status",
+      //   headerName: "Payment Status",
+      //   field: "pay_status",
       //   filter: "agSetColumnFilter",
-      //   width: 150,
+      //   width: 200,
       //   cellRendererFramework: (params) => {
-      //     console.log(params);
-      //     return params.data?.status == "Active" ? (
-      //       <div className="badge badge-pill badge-success">
-      //         {params.data?.status}
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>
+      //             {params?.data?.pay_status && params?.data?.pay_status ? (
+      //               <>{params?.data?.pay_status}</>
+      //             ) : (
+      //               "NA"
+      //             )}
+      //           </span>
+      //         </div>
       //       </div>
-      //     ) : params.data?.status === "Closed" ? (
-      //       <div className="badge badge-pill badge-success">
-      //         {params.data?.status}
-      //       </div>
-      //     ) : params.data?.status === "Hold" ? (
-      //       <div className="badge badge-pill badge-danger">
-      //         {params.data?.status}
-      //       </div>
-      //     ) : params.data?.status === "Accepted" ? (
-      //       <div className="badge badge-pill badge-success">
-      //         {params.data?.status}
-      //       </div>
-      //     ) : params.data?.status === "Pending" ? (
-      //       <div className="badge badge-pill badge-warning">
-      //         {params.data?.status}
-      //       </div>
-      //     ) : null;
+      //     );
       //   },
       // },
+      {
+        headerName: "Payment Status",
+        field: "pay_status",
+        filter: "agSetColumnFilter",
+        width: 180,
+        cellRendererFramework: (params) => {
+          console.log(params);
+          return params.data?.pay_status == "Completed" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data?.pay_status}
+            </div>
+          ) : params.data?.pay_status === "Unpaid" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data?.pay_status}
+            </div>
+          ) : params.data?.pay_status === "Hold" ? (
+            <div className="badge badge-pill badge-danger">
+              {params.data?.pay_status}
+            </div>
+          ) : params.data?.pay_status === "Accepted" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data?.pay_status}
+            </div>
+          ) : params.data?.pay_status === "Pending" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data?.pay_status}
+            </div>
+          ) : (
+            "NA"
+          );
+        },
+      },
       {
         headerName: "Crm status",
         field: "crm_status",
@@ -246,7 +313,6 @@ class SalesCRM extends React.Component {
                     <CustomInput
                       type="select"
                       name="changestatus"
-                      // value={this.state.currenstatus}
                       onChange={(e) => {
                         let pageparmission = JSON.parse(
                           localStorage.getItem("userData")
@@ -254,6 +320,11 @@ class SalesCRM extends React.Component {
                         const formdata = new FormData();
                         formdata.append("member_id", params?.data?.id);
                         formdata.append("crm_status", e.target.value);
+                        formdata.append(
+                          "sale_crm_id",
+                          pageparmission?.Userinfo?.id
+                        );
+
                         axiosConfig
                           .post("/change_member_status", formdata)
                           .then((response) => {
@@ -278,21 +349,7 @@ class SalesCRM extends React.Component {
           );
         },
       },
-      {
-        headerName: "Payment Status",
-        field: "payment_status",
-        filter: "agSetColumnFilter",
-        width: 190,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.device}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+
       // {
       //   headerName: "companyname.",
       //   field: "company_name",
@@ -527,7 +584,8 @@ class SalesCRM extends React.Component {
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
-    formdata.append("member_status", this.state.Leadtype);
+    formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
+    // formdata.append("member_status", this.state.Leadtype);
     await axiosConfig.post("/getMemberlist", formdata).then((response) => {
       let rowData = response?.data?.data;
       this.setState({ rowData });
@@ -725,7 +783,7 @@ class SalesCRM extends React.Component {
               </Row> */}
               <Row className="m-2">
                 <Col lg="7" sm="7" md="7">
-                  <h1 className="float-left">Sales CRM List</h1>
+                  <h1 className="float-left">Generated Member Lead List</h1>
                 </Col>
                 <Col lg="3" md="3" sm="3" className="mb-1 ">
                   <Label className="">Choose Type</Label>

@@ -64,14 +64,14 @@ class Invetory extends React.Component {
 
       {
         headerName: "Category name",
-        field: "itemname",
+        field: "category",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params.data?.category_name}</span>
+                <span>{params.data?.category}</span>
               </div>
             </div>
           );
@@ -108,7 +108,7 @@ class Invetory extends React.Component {
                       style={{ borderRadius: "12px" }}
                       width="60px"
                       height="40px"
-                      src={params.data?.product_images[0]}
+                      src={params.data?.product_images}
                       alt="image"
                     />
                   </>
@@ -120,22 +120,7 @@ class Invetory extends React.Component {
           );
         },
       },
-      {
-        headerName: "Type",
-        field: "product_type",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center flex-wrap cursor-pointer">
-              <div className="">
-                {/* <span>{ReactHtmlParser(params.data.volume)}</span> */}
-                <span>{params?.data?.product_type}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+
       {
         headerName: " Price",
         field: "price",
@@ -153,21 +138,21 @@ class Invetory extends React.Component {
           );
         },
       },
-      // {
-      //   headerName: "Discount Price",
-      //   field: "discountprice",
-      //   filter: "agSetColumnFilter",
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div className="">
-      //           <span>{ReactHtmlParser(params.data?.discountprice)}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "Discount Price",
+        field: "discountprice",
+        filter: "agSetColumnFilter",
+        width: 190,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{ReactHtmlParser(params.data?.discountprice)}</span>
+              </div>
+            </div>
+          );
+        },
+      },
       // {
       //   headerName: "shipping fee",
       //   field: "shipping_fee",
@@ -304,20 +289,20 @@ class Invetory extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {this.state.Editpermisson && (
-                <Edit
-                  className="mr-50"
-                  size="25px"
-                  color="blue"
-                  onClick={() =>
-                    this.props.history.push({
-                      pathname: `/app/freshlist/house/editinventory/${params.data?.id}`,
-                      state: params.data,
-                    })
-                  }
-                />
-              )}
-              {this.state.Deletepermisson && (
+              {/* {this.state.Editpermisson && ( */}
+              <Edit
+                className="mr-50"
+                size="25px"
+                color="blue"
+                onClick={() =>
+                  this.props.history.push({
+                    pathname: `/app/freshlist/house/editinventory/${params.data?.id}`,
+                    state: params.data,
+                  })
+                }
+              />
+              {/* )} */}
+              {/* {this.state.Deletepermisson && (
                 <Trash2
                   className="mr-50"
                   size="25px"
@@ -326,7 +311,7 @@ class Invetory extends React.Component {
                     this.runthisfunction(params.data._id);
                   }}
                 />
-              )}
+              )} */}
             </div>
           );
         },
@@ -358,13 +343,11 @@ class Invetory extends React.Component {
     });
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
-    // formdata.append("role", pageparmission?.Userinfo?.role);
+    formdata.append("role", pageparmission?.Userinfo?.role);
     await axiosConfig
-      .post("/getproductinventory", formdata)
+      .post("/productInventorylistapi", formdata)
       .then((response) => {
-        // await axiosConfig.get("/getproductinventory").then((response) => {
         let rowData = response.data.data;
-        console.log(response.data.data);
         this.setState({ rowData });
       });
   }

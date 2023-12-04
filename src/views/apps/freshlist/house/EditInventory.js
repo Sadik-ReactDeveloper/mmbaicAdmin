@@ -38,14 +38,9 @@ export class EditInventory extends Component {
       Tags: "",
       taxrate: "",
       status: "",
-      // selectedFile1: null,
-      // selectedName1: "",
-      // selectedFile2: null,
-      // selectedName2: "",
+
       selectedFile3: [],
       selectedName3: "",
-      // selectedFile4: null,
-      // selectedName4: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -54,48 +49,9 @@ export class EditInventory extends Component {
     console.log(id);
 
     console.log(this.props?.location?.state);
-    // console.log(JSON.parse(this.props?.location?.state?.veriety));
-    // let variety = JSON.parse(this.props?.location?.state?.veriety);
-    // if (variety.length > 0) {
-    //   this.setState({ Addmore: true });
-    // }
-    // const formdata = new FormData();
-    // formdata.append("")
-    // axiosConfig
-    //   .post(``)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
 
-    // this.setState({
-    //   category_name: this.props?.location?.state?.category_name,
-    // });
-    // this.setState({ P_Title: this.props?.location?.state?.title });
     this.setState({ Inventory: this.props?.location?.state?.HSN_SAC });
     this.setState({ stock: this.props?.location?.state?.quantity });
-
-    // this.setState({ Price: this.props?.location?.state?.price });
-    // this.setState({ stock: this.props?.location?.state?.stock });
-
-    // this.setState({
-    //   DiscountPrice: this.props?.location?.state?.discountprice,
-    // });
-    // this.setState({ description: this.props?.location?.state?.description });
-    // this.setState({
-    //   formValues: JSON.parse(this.props?.location?.state?.veriety),
-    // });
-    // this.setState({ shipmentfee: this.props?.location?.state?.shipping_fee });
-    // this.setState({ Tags: this.props?.location?.state?.tags });
-    // this.setState({ taxrate: this.props?.location?.state?.tax_rate });
-    // this.setState({ status: this.props?.location?.state?.status });
-    // await axiosConfig.get("/getcategory").then((response) => {
-    //   let rowData = response.data.data?.category;
-    //   console.log(rowData);
-    //   this.setState({ rowData });
-    // });
   }
 
   handleChange(i, e) {
@@ -144,35 +100,18 @@ export class EditInventory extends Component {
     data.append("HSN_SAC", this.state.Inventory);
     data.append("product_id", id);
 
-    // data.append("id", id);
-
-    // data.append("id", this.props?.location?.state?.id);
-    // data.append("title", this.state.P_Title);
-    // data.append("veriety", JSON.stringify(this.state.formValues));
-    // data.append("category_id", this.state.category_name);
-    // data.append("stock", this.state.stock);
-    // data.append("price", this.state.Price);
-    // data.append("discountprice", this.state.DiscountPrice);
-    // data.append("description", this.state.description);
-    // data.append("shipping_fee", this.state.shipmentfee);
-    // data.append("tax_rate", this.state.taxrate);
-    // data.append("tags", this.state.Tags);
-    // data.append("status", "Active");
-    // this.state.selectedFile3.forEach((image, index) => {
-    //   data.append(`image`, image);
-    // });
-    // if (this.state.stock) {
     axiosConfig
       .post(`/updateinventory`, data)
       .then((response) => {
         console.log(response);
         if (response.data.success) {
-          swal("Success!", "You Data iS been Submitted", "success");
+          swal("Success!", "You Inventory has been Updated", "success");
           this.props.history.push("/app/freshlist/house/inventory");
         }
       })
       .catch((error) => {
         console.log(error);
+        swal("Some thing went wrong please try again after some time");
       });
     // } else {
     //   swal("Enter Value in field");
@@ -193,11 +132,7 @@ export class EditInventory extends Component {
                   <Button
                     className=" float-right"
                     color="danger"
-                    onClick={
-                      () => history.goBack()
-                      // () => history.push("/app/freshlist/order/delivered")
-                      // history.push("/app/freshlist/order/addOrder")
-                    }
+                    onClick={() => history.goBack()}
                   >
                     Back
                   </Button>
@@ -224,14 +159,18 @@ export class EditInventory extends Component {
               <Row>
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label> Quantity </Label>
+                    <Label> Quantity</Label>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Quantity In Number"
                       name="stock"
-                      bsSize="lg"
                       value={this.state.stock}
-                      onChange={this.changeHandler}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Use regular expression to allow only numbers
+                        const numericValue = value.replace(/\D/g, "");
+                        this.setState({ stock: numericValue });
+                      }}
                     />
                   </FormGroup>
                 </Col>

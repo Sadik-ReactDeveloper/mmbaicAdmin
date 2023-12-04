@@ -292,14 +292,6 @@ const navigationConfig = [
     type: "collapse",
     icon: <FaProductHunt size={15} />,
     children: [
-      {
-        id: " AddCategory",
-        title: "Add Category",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        // navLink: "/app/mmbaic/account/CreateAccount",
-      },
       // {
       //   id: "AddProduct",
       //   title: "Add Product",
@@ -894,15 +886,15 @@ const navigationConfig = [
     type: "collapse",
     icon: <FaList size={15} />,
     children: [
-      {
-        id: "Assignment",
-        title: "Assignment",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        // navLink: "/app/freshlist/brand/BrandList",
-        navLink: "/app/mmbaic/AssignmentList",
-      },
+      // {
+      //   id: "Assignment",
+      //   title: "Assignment",
+      //   type: "item",
+      //   icon: <FaCircle size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   // navLink: "/app/freshlist/brand/BrandList",
+      //   navLink: "/app/mmbaic/AssignmentList",
+      // },
       {
         id: "Grades",
         title: "Grades",
@@ -912,14 +904,14 @@ const navigationConfig = [
         navLink: "/app/mmbaic/category/AddGrade/1",
         // navLink: "/app/mmbaic/category/GradeList",
       },
-      {
-        id: "Forums",
-        title: "Forums",
-        type: "item",
-        icon: <FaList size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
-      },
+      // {
+      //   id: "Forums",
+      //   title: "Forums",
+      //   type: "item",
+      //   icon: <FaList size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/mmbaic/category/categoryList",
+      // },
       {
         id: "Quiz",
         title: "Quiz",
@@ -928,14 +920,14 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/app/mmbaic/category/QuizList",
       },
-      {
-        id: "Reviews",
-        title: "Reviews",
-        type: "item",
-        icon: <FaList size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/brand/BrandList",
-      },
+      // {
+      //   id: "Reviews",
+      //   title: "Reviews",
+      //   type: "item",
+      //   icon: <FaList size={8} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/freshlist/brand/BrandList",
+      // },
     ],
   },
 

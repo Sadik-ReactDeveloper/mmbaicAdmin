@@ -203,7 +203,7 @@ const POInVoice = ({
                     Place of Supply
                   </Text>{" "}
                   <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                    : {place_supply}
+                    : {place_supply && place_supply}
                   </Text>
                 </View>
               </View>

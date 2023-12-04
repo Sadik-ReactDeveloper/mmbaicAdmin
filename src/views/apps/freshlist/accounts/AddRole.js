@@ -68,11 +68,11 @@ export const Roles = [
     title: "Memberships",
     TabName: [
       {
-        title: "All Membership",
+        title: "Member list",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Member list",
+        title: "MemberPlan list",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
@@ -349,26 +349,26 @@ export const Roles = [
   {
     title: "Explore",
     TabName: [
-      {
-        title: "Assignment",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+      // {
+      //   title: "Assignment",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
       {
         title: "Grades",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      {
-        title: "Forums",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+      // {
+      //   title: "Forums",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
       {
         title: "Quiz",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      {
-        title: "Reviews",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+      // {
+      //   title: "Reviews",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
     ],
   },
   {
