@@ -9,7 +9,8 @@ import {
   Image,
   Rect,
 } from "@react-pdf/renderer";
-import logo from "../../../../assets/img/logo/paravilogo.jpeg";
+// import logo from "../../../../assets/img/logo/paravilogo.jpeg";
+import logo from "../../../../assets/img/logo/paravilogo.png";
 import signature from "../../../../assets/img/logo/signature.png";
 
 const styles = StyleSheet.create({
@@ -96,11 +97,22 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
                 height: "100px",
               }}
             >
-              <Image
-                style={{ width: "200px", padding: "25px 10px" }}
-                src={logo}
-                // style={styles.image}
-              ></Image>
+              <View
+                style={{
+                  padding: "22px 10px",
+                }}
+              >
+                <Image
+                  style={{
+                    width: "200px",
+                    borderRadius: "12px",
+
+                    backgroundColor: "black",
+                  }}
+                  src={logo}
+                  // style={styles.image}
+                ></Image>
+              </View>
               <View style={{ padding: "10px" }}>
                 <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
                   PRAVARI CORPORATE MANAGEMENT SERVICES PVT. LTD.
@@ -316,7 +328,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
                 </View>
               </View>
             </View>
-            <View
+            {/* <View
               style={{
                 flexDirection: "row",
                 borderBottom: "1px solid black",
@@ -364,7 +376,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
                   </Text>
                 </View>
               </View>
-            </View>
+            </View> */}
 
             <View
               style={{

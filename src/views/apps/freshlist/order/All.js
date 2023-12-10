@@ -84,28 +84,12 @@ class All extends React.Component {
       suppressMenu: true,
     },
     columnDefs: [
-      // {
-      //   headerName: "S.No",
-      //   valueGetter: "node.rowIndex + 1",
-      //   field: "node.rowIndex + 1",
-      //   width: 80,
-      //   filter: true,
-      // },
       {
-        headerName: "Order Id ",
-        field: "order_id",
+        headerName: "S.No",
+        valueGetter: "node.rowIndex + 1",
+        field: "node.rowIndex + 1",
+        width: 80,
         filter: true,
-        resizable: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div>
-                <span>{params?.data?.order_id}</span>
-              </div>
-            </div>
-          );
-        },
       },
       {
         headerName: "Status",
@@ -130,59 +114,107 @@ class All extends React.Component {
           ) : null;
         },
       },
-
-      // {
-      //   headerName: "Change Status ",
-      //   field: "Change Status",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 230,
-      //   cellRendererFramework: params => {
-      //     // console.log(params.data?.order_id);
-
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <select
-      //             // className="form-control"
-      //             defaultValue={params.data?.order_status}
-      //             onChange={e => {
-      //               // console.log(e.target.value);
-      //               let data = new FormData();
-      //               data.append("order_id", params.data?.order_id);
-      //               data.append("order_status", e.target.value);
-      //               axiosConfig
-      //                 .post(`/change_order_status`, data)
-      //                 .then(res => {
-      //                   console.log(res?.data.message);
-      //                   if (res?.data.message) {
-      //                     this.componentDidMount();
-      //                     swal("status Updated Succesfully");
-      //                   }
-      //                 })
-      //                 .catch(err => {
-      //                   console.log(err);
-      //                 });
-      //             }}
-      //             name="changestatus"
-      //             id="changeStatus"
-      //           >
-      //             <option value={params.data?.order_status}>
-      //               {params.data?.order_status}
-      //             </option>
-      //             <option value="Pending">--UpdateStatus--</option>
-      //             <option value="Pending">Pending</option>
-      //             <option value="Completed">Completed</option>
-      //             <option value="Rejected">Rejected</option>
-      //             <option value="Cancelled">Cancelled</option>
-      //           </select>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
       {
-        headerName: "Download Bill ",
+        headerName: "Order Id",
+        field: "order_id",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          console.log(params.data);
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div>
+                <span>{params?.data?.order_id}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "First Name",
+        field: "firstname",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div>
+                <span>{params?.data?.firstname}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Last name",
+        field: "lastname",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div>
+                <span>{params?.data?.lastname}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Change Status ",
+        field: "Change Status",
+        filter: true,
+        resizable: true,
+        width: 230,
+        cellRendererFramework: (params) => {
+          // console.log(params.data?.order_id);
+
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div>
+                <select
+                  // className="form-control"
+                  defaultValue={params.data?.order_status}
+                  onChange={(e) => {
+                    let data = new FormData();
+                    data.append("order_id", params.data?.order_id);
+                    data.append("order_status", e.target.value);
+                    axiosConfig
+                      .post(`/change_order_status`, data)
+                      .then((res) => {
+                        console.log(res?.data.message);
+                        if (res?.data.message) {
+                          this.componentDidMount();
+                          swal("status Updated Succesfully");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  }}
+                  name="changestatus"
+                  id="changeStatus"
+                >
+                  <option value={params.data?.order_status}>
+                    {params.data?.order_status}
+                  </option>
+                  <option value="NA">--UpdateStatus--</option>
+                  {/* <option value="Pending">Pending</option> */}
+                  <option value="Completed">Completed</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Download Bill",
         field: "order_id",
         filter: true,
         resizable: true,
@@ -220,25 +252,25 @@ class All extends React.Component {
       //   },
       // },
 
-      {
-        headerName: "Supplier",
-        field: "supplier_name",
-        filter: true,
-        resizable: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div>
-                <span>{params.data?.supplier_name}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Supplier",
+      //   field: "supplier_name",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div>
+      //           <span>{params.data?.supplier_name}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Order Date",
-        field: "order_date",
+        field: "created_date",
         filter: true,
         resizable: true,
         width: 180,
@@ -246,7 +278,7 @@ class All extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div>
-                <span>{params.data?.order_date}</span>
+                <span>{params.data?.created_date}</span>
               </div>
             </div>
           );
@@ -254,7 +286,7 @@ class All extends React.Component {
       },
       {
         headerName: "Subtotal",
-        field: "sub_total",
+        field: "subtotal",
         filter: true,
         resizable: true,
         width: 150,
@@ -262,7 +294,7 @@ class All extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div>
-                <span>{params.data?.sub_total}</span>
+                <span>{params.data?.subtotal}</span>
               </div>
             </div>
           );
@@ -692,10 +724,10 @@ class All extends React.Component {
   };
 
   handleBillDownload = (data) => {
-    console.log(data.sub_total);
+    console.log(data.subtotal);
     this.setState({ PrintData: data });
     const toWords = new ToWords();
-    let words = toWords.convert(Number(data.sub_total), { currency: true });
+    let words = toWords.convert(Number(data.subtotal), { currency: true });
     this.setState({ wordsNumber: words });
     console.log(words);
     // console.log("object");
@@ -716,10 +748,16 @@ class All extends React.Component {
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
+    if (pageparmission?.Userinfo?.postal_code) {
+      formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
+    } else {
+      swal("user Does not have Postal Code please update it");
+    }
     await axiosConfig
       .post(`/orderlist`, formdata)
       .then((res) => {
-        // console.log(res.data.data);
+        console.log(res.data.data);
+        // debugger;
         let rowData = res?.data?.data;
         this.setState({ rowData });
       })

@@ -90,28 +90,28 @@ export const Roles = [
     ],
   },
   {
-    title: "Affiliated",
+    title: "Franchisee",
     TabName: [
       {
         title: "ALL MEMBERSHIP",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Affiliated wallet list",
+        title: "Affiliated list",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Commision Request List",
+        title: "Billings",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Affiliated Payment Transaction",
+        title: "Reports",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      // {
-      //   title: "Subscription Plan",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
+      {
+        title: "Logs",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
     ],
   },
   {
@@ -201,10 +201,10 @@ export const Roles = [
         title: "Wallet",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      {
-        title: "Membership Receipt List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+      // {
+      //   title: "Membership Receipt List",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
       {
         title: "Total Balance",
         permission: ["View", "Create", "Edit", "Delete"],
@@ -216,7 +216,7 @@ export const Roles = [
     ],
   },
   {
-    title: "AFFILAITED",
+    title: "FRANCHISEE",
     TabName: [
       {
         title: "All Affiliated List",
@@ -306,10 +306,14 @@ export const Roles = [
         title: "Courses",
         permission: ["View", "Create", "Edit", "Delete"],
       },
+      {
+        title: "Promotional List",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
     ],
   },
   {
-    title: "Reports",
+    title: "All Reports",
     TabName: [
       {
         title: "Filtering Tab",
@@ -320,15 +324,27 @@ export const Roles = [
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Product Category",
+        title: "Branch Wise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Associate Wise",
+        title: "Franchisee Wise",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "State Wise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
         title: "City Wise",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Pincode Wise",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Affiliated Wise",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],

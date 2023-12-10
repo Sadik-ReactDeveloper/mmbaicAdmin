@@ -94,6 +94,9 @@ const EditCMS = lazy(() => import("./views/apps/freshlist/banner/EditCMS"));
 const Aboutuslist = lazy(() =>
   import("./views/apps/freshlist/banner/Aboutuslist")
 );
+const PromotionalLists = lazy(() =>
+  import("./views/apps/freshlist/banner/PromotionalList")
+);
 const Addaboutus = lazy(() =>
   import("./views/apps/freshlist/banner/Addaboutus")
 );
@@ -920,6 +923,10 @@ class AppRouter extends React.Component {
             component={EditInsideCourses}
           />
           <AppRoute path="/app/mmbaic/courseslist" component={Aboutuslist} />
+          <AppRoute
+            path="/app/mmbaic/promotionlist"
+            component={PromotionalLists}
+          />
           <AppRoute
             path="/app/freshlist/banner/viewBanner/:id"
             component={ViewBanner}

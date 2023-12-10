@@ -13,6 +13,7 @@ import {
   CardTitle,
   CardText,
   Label,
+  CustomInput,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import ReactHtmlParser from "react-html-parser";
@@ -65,7 +66,7 @@ class AffiliatedCRM extends React.Component {
         headerName: "firstname",
         field: "firstname",
         filter: "agSetColumnFilter",
-        width: 120,
+        width: 160,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -121,21 +122,21 @@ class AffiliatedCRM extends React.Component {
           );
         },
       },
-      {
-        headerName: "User Name",
-        field: "username",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.username}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "User Name",
+      //   field: "username",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.username}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
 
       {
         headerName: "Email",
@@ -147,6 +148,36 @@ class AffiliatedCRM extends React.Component {
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
                 <span>{params?.data?.email}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "State",
+        field: "state_title",
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params?.data?.state_title}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "City",
+        field: "city_title",
+        filter: "agSetColumnFilter",
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params?.data?.city_title}</span>
               </div>
             </div>
           );
@@ -169,31 +200,84 @@ class AffiliatedCRM extends React.Component {
       },
       {
         headerName: "status",
-        field: "status",
+        field: "crm_status",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
-          return params.data?.status == "Active" ? (
+          return params.data?.crm_status == "Active" ? (
             <div className="badge badge-pill badge-success">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Closed" ? (
+          ) : params.data?.crm_status === "Closed" ? (
             <div className="badge badge-pill badge-success">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Hold" ? (
+          ) : params.data?.crm_status === "Hold" ? (
             <div className="badge badge-pill badge-danger">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Accepted" ? (
+          ) : params.data?.crm_status === "Accepted" ? (
             <div className="badge badge-pill badge-success">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
-          ) : params.data?.status === "Pending" ? (
+          ) : params.data?.crm_status === "Pending" ? (
             <div className="badge badge-pill badge-warning">
-              {params.data?.status}
+              {params.data?.crm_status}
             </div>
           ) : null;
+        },
+      },
+      {
+        headerName: "Change Status",
+        field: "Change Status",
+        filter: "agSetColumnFilter",
+        width: 190,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                {params.data?.crm_status == "Accepted" ||
+                params.data?.crm_status == "Rejected" ? (
+                  <>{params.data?.crm_status}</>
+                ) : (
+                  <>
+                    <CustomInput
+                      type="select"
+                      name="changestatus"
+                      onChange={(e) => {
+                        let pageparmission = JSON.parse(
+                          localStorage.getItem("userData")
+                        );
+                        const formdata = new FormData();
+                        formdata.append("affiliated_id", params?.data?.id);
+                        formdata.append("crm_status", e.target.value);
+                        formdata.append(
+                          "affiliated_crm_id",
+                          pageparmission?.Userinfo?.id
+                        );
+
+                        axiosConfig
+                          .post("/changeAffiliatedStatus", formdata)
+                          .then((response) => {
+                            let rowData = response?.data;
+                            // this.setState({ rowData });
+                            console.log(rowData);
+                            this.Alllist();
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      <option>--Select--</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Rejected">Rejected</option>
+                    </CustomInput>
+                  </>
+                )}
+              </div>
+            </div>
+          );
         },
       },
       // {
@@ -431,13 +515,18 @@ class AffiliatedCRM extends React.Component {
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
-    formdata.append("member_status", this.state.Leadtype);
+    formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
+    // formdata.append("member_status", this.state.Leadtype);
 
-    await axiosConfig.post("/getMemberlist", formdata).then((response) => {
-      console.log(response?.data?.data);
-      let rowData = response?.data?.data;
-      this.setState({ rowData });
-    });
+    await axiosConfig
+      .post("/getAffiliatedMember", formdata)
+      .then((response) => {
+        console.log(response?.data?.data);
+        let rowData = response?.data?.data;
+        if (rowData) {
+          this.setState({ rowData });
+        }
+      });
   };
 
   runthisfunction(id) {
@@ -645,12 +734,10 @@ class AffiliatedCRM extends React.Component {
                       this.setState({ Leadtype: e.target.value })
                     }
                   >
-                    <option value="All">--Select All--</option>
+                    <option value={null}>--Select All--</option>
                     <option value="Accepted">Accepted</option>
-                    <option value="Active">Active</option>
-                    <option value="Hold">Hold</option>
                     <option value="Pending">Pending</option>
-                    <option value="Closed">Closed</option>
+                    <option value="Rejected">Rejected</option>
                   </Input>
                 </Col>
                 <Col lg="2" md="2" sm="2" className="mb-1 ">

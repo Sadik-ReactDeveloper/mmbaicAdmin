@@ -342,7 +342,7 @@ class NavbarUser extends React.PureComponent {
             </>
           )}
         </div>
-        <UncontrolledDropdown
+        {/* <UncontrolledDropdown
           tag="li"
           className="dropdown-notification nav-item"
         >
@@ -660,13 +660,13 @@ class NavbarUser extends React.PureComponent {
               </DropdownItem>
             </li>
           </DropdownMenu>
-        </UncontrolledDropdown>
+        </UncontrolledDropdown> */}
         <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
           <DropdownToggle tag="a" className="nav-link dropdown-user-link">
             <div className="user-nav d-sm-flex d-none">
               <span className="user-name text-bold-600">
-                {pageparmission?.Userinfo.full_name}
-                <div>{pageparmission?.Userinfo?.role}</div>
+                {pageparmission?.Userinfo.username}
+                {/* <div>{pageparmission?.Userinfo?.role}</div> */}
               </span>
               {/* <span className="user-status">{this.state.userData.name}</span> */}
             </div>

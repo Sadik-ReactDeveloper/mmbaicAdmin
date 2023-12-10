@@ -207,7 +207,8 @@ export class EditProductType extends Component {
     // Handle the data received from the child component
     // setReceivedData(data);
     console.log(data);
-    this.setState({ selectedcities: data });
+    // this.setState({ selectedcities: data });
+    this.setState({ SelectedSupplierCity: data });
   };
 
   submitHandler = (e) => {
@@ -229,8 +230,8 @@ export class EditProductType extends Component {
     // formdata.append("role", this.state.AssignRole);
     formdata.append("state_id", this.state.SelectedState);
     formdata.append("edit_id", id);
-    formdata.append("city_id", this.state.selectedcities[0].id);
-    debugger;
+    // console.log(this.state.SelectedSupplierCity);
+    formdata.append("city_id", this.state.SelectedSupplierCity[0].id);
     // formdata.append("password", this.state.password);
     // formdata.append("full_name", this.state.fullname);
 

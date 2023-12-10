@@ -155,14 +155,14 @@ class ProductType extends React.Component {
       },
       {
         headerName: "Postal Code",
-        field: "email",
+        field: "postal_code",
         filter: "agSetColumnFilter",
-        width: 230,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params?.data?.email}</span>
+                <span>{params?.data?.postal_code}</span>
               </div>
             </div>
           );
