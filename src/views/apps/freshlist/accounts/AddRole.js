@@ -71,10 +71,7 @@ export const Roles = [
         title: "Member list",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      {
-        title: "MemberPlan list",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
+
       {
         title: "Affiliated Member List",
         permission: ["View", "Create", "Edit", "Delete"],
@@ -216,7 +213,7 @@ export const Roles = [
     ],
   },
   {
-    title: "FRANCHISEE",
+    title: "Affiliated",
     TabName: [
       {
         title: "All Affiliated List",
@@ -295,6 +292,10 @@ export const Roles = [
       },
       {
         title: "Category",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "MemberPlan list",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {

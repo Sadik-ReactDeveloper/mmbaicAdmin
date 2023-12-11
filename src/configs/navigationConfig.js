@@ -184,14 +184,7 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/app/mmbaic/plan/MemberShipList",
       },
-      {
-        id: "memberplanlist",
-        title: "MemberPlan list",
-        type: "item",
-        icon: <FaCircle size={8} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/plan/MemberPlanList",
-      },
+
       {
         id: "Affiliated",
         title: "Affiliated Member List",
@@ -216,7 +209,7 @@ const navigationConfig = [
     title: "Franchisee",
   },
   {
-    id: "franchisee",
+    id: "Franchisee",
     title: "Franchisee",
     type: "collapse",
     icon: <FaProductHunt size={15} />,
@@ -581,12 +574,12 @@ const navigationConfig = [
   },
   {
     type: "groupHeader",
-    groupTitle: "FRANCHISEE MANAGEMENT",
-    title: "FRANCHISEE",
+    groupTitle: "Affiliated MANAGEMENT",
+    title: "Affiliated",
   },
   {
-    id: "FRANCHISEE",
-    title: "FRANCHISEE",
+    id: "Affiliated",
+    title: "Affiliated",
     type: "collapse",
     icon: <FaList size={15} />,
     children: [
@@ -740,6 +733,14 @@ const navigationConfig = [
         icon: <BsImage size={15} />,
         permissions: ["admin", "editor"],
         navLink: "/app/mmbaic/category/categoryList",
+      },
+      {
+        id: "memberplanlist",
+        title: "MemberPlan list",
+        type: "item",
+        icon: <FaCircle size={8} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/mmbaic/plan/MemberPlanList",
       },
 
       {
