@@ -548,8 +548,14 @@ export class EditProductType extends Component {
                   </Col>
                   <Col lg="6" md="6">
                     <FormGroup>
-                      <Label>Postal Code</Label>
-                      <Input
+                      <Label>
+                        Postal Code{" "}
+                        <span style={{ color: "red" }}>
+                          {" "}
+                          (Add Multiple Pincode with comma seprated)
+                        </span>
+                      </Label>
+                      <textarea
                         required
                         onKeyDown={(e) =>
                           ["e", "E", "+", "-"].includes(e.key) &&
@@ -558,13 +564,18 @@ export class EditProductType extends Component {
                         min={0}
                         type="text"
                         placeholder="452001"
+                        className="form-control"
                         name="postalCode"
                         value={this.state.postalCode}
                         onChange={(e) => {
-                          const value = e.target.value;
-                          // Use regular expression to allow only numbers
-                          const numericValue = value.replace(/\D/g, "");
-                          this.setState({ postalCode: numericValue });
+                          // const value = e.target.value;
+                          var currentValue = e.target.value;
+
+                          // Remove spaces from the current value
+                          // var newValue = currentValue.replace(/\s/g, "");
+                          const newValue = currentValue.replace(/[^\d,]/g, "");
+
+                          this.setState({ postalCode: newValue });
                         }}
                         // onChange={this.changeHandler}
                       />

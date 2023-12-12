@@ -187,6 +187,7 @@ const CreateAccount = () => {
       })
       .catch((error) => {
         console.log(error);
+        swal("error", "error");
       });
   };
   // const handleMatchaddress = (e, value) => {
@@ -529,18 +530,28 @@ const CreateAccount = () => {
                 ) : null}
                 <Col lg="6" md="6">
                   <FormGroup>
-                    <Label>Postal Code</Label>
-                    <Input
+                    <Label>
+                      Postal Code
+                      <span style={{ color: "red" }}>
+                        {" "}
+                        (Add Multiple Pincode with comma seprated)
+                      </span>
+                    </Label>
+                    <textarea
                       required
                       type="text"
+                      className="form-control"
                       placeholder="Enter Postal code"
                       name="postalcode"
                       value={Postalcode}
                       onChange={(e) => {
-                        const value = e.target.value;
-                        // Use regular expression to allow only numbers
-                        const numericValue = value.replace(/\D/g, "");
-                        setPostalCode(numericValue);
+                        // const value = e.target.value;
+                        var currentValue = e.target.value;
+
+                        // Remove spaces from the current value
+                        // var newValue = currentValue.replace(/\s/g, "");
+                        const newValue = currentValue.replace(/[^\d,]/g, "");
+                        setPostalCode(newValue);
                       }}
                       // onChange={(e) => setPostalCode(e.target.value)}
                     />
