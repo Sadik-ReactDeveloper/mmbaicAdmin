@@ -1419,7 +1419,7 @@ class AppRouter extends React.Component {
             component={AssignToClientlist}
           />
           <AppRoute
-            path="/app/freshlist/house/ProductDashboard"
+            path="/app/mmbaic/house/ProductDashboard"
             component={ProductDashboard}
           />
           <AppRoute
@@ -1453,10 +1453,7 @@ class AppRouter extends React.Component {
             path="/app/freshlist/house/serviceMaster"
             component={ServiceMaster}
           />
-          <AppRoute
-            path="/app/freshlist/house/userlist"
-            component={ProductType}
-          />
+          <AppRoute path="/app/mmbaic/house/userlist" component={ProductType} />
           <AppRoute path="/app/mmbaic/house/SalesCRM" component={SalesCRM} />
           <AppRoute
             path="/app/mmbaic/house/programcrm"

@@ -121,7 +121,7 @@ const CreateAccount = () => {
 
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
-    formdata.append("role", AssignRole);
+    formdata.append("select_role", AssignRole);
     formdata.append("firstname", firstname);
     formdata.append("lastname", Lastname);
     formdata.append("username", UserName);
@@ -130,22 +130,7 @@ const CreateAccount = () => {
     formdata.append("email", email);
     formdata.append("status", status);
     formdata.append("postal_code", Postalcode);
-    // formdata.append("gstin_no", GSTIN);
-    // formdata.append("city", B_City);
-    // formdata.append("company_name", Postalcode);
-    // formdata.append("company_type", Companytype);
-    // formdata.append("place_supply", Place_of_Supply);
-    // formdata.append("billing_street", B_Street);
-    // formdata.append("billing_city", B_City);
-    // formdata.append("billing_state", B_State);
-    // formdata.append("billing_country", B_Country);
-    // formdata.append("billing_pincode", B_PinCode);
-    // formdata.append("shipping_street", S_Street);
-    // formdata.append("shipping_city", S_City);
-    // formdata.append("shipping_state", S_State);
-    // formdata.append("shipping_country", S_Country);
-    // formdata.append("shipping_pincode", S_PinCode);
-    // formdata.append("phone_no", Phone_no);
+
     if (selectedOption.length > 0) {
       formdata.append("state_id", multiSelect.toString());
     } else {
@@ -157,6 +142,7 @@ const CreateAccount = () => {
     axiosConfig
       .post("/createuser", formdata)
       .then((response) => {
+        debugger;
         if (response.data?.success) {
           navigate.push("/app/freshlist/house/userlist");
 
@@ -168,44 +154,25 @@ const CreateAccount = () => {
           setemail("");
           setCity("");
           setMobile_no("");
-          // setPhone_no("");
-
           setstatus("");
           setUserName("");
           setPostalCode("");
           setSelectedState([]);
-          // setfullname("");
+
           selectItem1 = [];
           setpassword("");
-          // setS_Country("");
-          // setS_State("");
-          // setS_City("");
-          // setS_Street("");
-          // setS_PinCode("");
         }
         // this.props.history.push("/app/freshlist/order/all");
       })
       .catch((error) => {
-        console.log(error);
-        swal("error", "error");
+        console.log(error.response?.data.data);
+        let Existing = error.response?.data.data?.map((ele) => ele);
+        let allExisting = Existing?.flat();
+        debugger;
+        swal("Error", `${allExisting} Existing in DataBase Choose Different `);
       });
   };
-  // const handleMatchaddress = (e, value) => {
-  //   setcheckbox(value);
-  //   if (value) {
-  //     setS_Country(B_Country);
-  //     setS_State(B_State);
-  //     setS_City(B_City);
-  //     setS_Street(B_Street);
-  //     setS_PinCode(B_PinCode);
-  //   } else {
-  //     setS_Country("");
-  //     setS_State("");
-  //     setS_City("");
-  //     setS_Street("");
-  //     setS_PinCode("");
-  //   }
-  // };
+
   const onSelect = (selectedList, selectedItem) => {
     console.log(selectedList);
 
@@ -400,52 +367,6 @@ const CreateAccount = () => {
                   </FormGroup>
                 </Col>
 
-                {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Phone Number </Label>
-                    <Input
-                      required
-                      type="number"
-                      onKeyDown={(e) =>
-                        ["e", "E", "+", "-"].includes(e.key) &&
-                        e.preventDefault()
-                      }
-                      min={0}
-                      maxLength={12}
-                      size={10}
-                      placeholder="0123456789"
-                      name="Phone_no"
-                      value={Phone_no}
-                      onChange={(e) => setPhone_no(e.target.value)}
-                    />
-                  </FormGroup>
-                </Col> */}
-                {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Company Type</Label>
-                    <Input
-                      required
-                      type="text"
-                      placeholder="Enter Companytype"
-                      name="Companytype"
-                      value={Companytype}
-                      onChange={(e) => setCompanytype(e.target.value)}
-                    />
-                  </FormGroup>
-                </Col> */}
-                {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>GSTIN</Label>
-                    <Input
-                      required
-                      type="text"
-                      placeholder="Enter GSTIN No."
-                      name="GSTIN"
-                      value={GSTIN}
-                      onChange={(e) => setGSTIN(e.target.value)}
-                    />
-                  </FormGroup>
-                </Col> */}
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Row></Row>

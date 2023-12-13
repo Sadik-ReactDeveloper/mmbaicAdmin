@@ -129,7 +129,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
       // {
       //   id: "clientAccounts",
@@ -137,7 +137,7 @@ const navigationConfig = [
       //   type: "item",
       //   icon: <FaCircle size={15} />,
       //   permissions: ["admin", "editor"],
-      //   navLink: "/app/freshlist/house/userlist",
+      //   navLink: "/app/mmbaic/house/userlist",
       // },
       // {
       //   id: "accountantaccounts",
@@ -191,7 +191,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
       {
         id: "Franchisee",
@@ -199,7 +199,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
     ],
   },
@@ -236,7 +236,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
       {
         id: "Reports",
@@ -244,7 +244,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
 
       {
@@ -283,7 +283,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/ProductDashboard",
+        navLink: "/app/mmbaic/house/ProductDashboard",
         // navLink: "/app/freshlist/house/houseProductList",
       },
       {
@@ -292,7 +292,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
       {
         id: "Deleted Product List",
@@ -300,7 +300,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/userlist",
+        navLink: "/app/mmbaic/house/userlist",
       },
     ],
   },
@@ -322,7 +322,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/house/ProductDashboard",
+        navLink: "/app/mmbaic/house/ProductDashboard",
       },
       {
         id: "ordercompletedList",
