@@ -480,7 +480,7 @@ class ProgramCRm extends React.Component {
 
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "User List"
+      (value) => value?.pageName === "Program CRM List"
     );
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });
     this.setState({

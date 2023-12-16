@@ -195,11 +195,16 @@ class SalesCRM extends React.Component {
         headerName: "Transaction Id",
         field: "transaction_id",
         filter: "agSetColumnFilter",
-        width: 200,
+        width: 230,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
+              <div
+                onClick={(e) => {
+                  navigator.clipboard.writeText(params?.data?.transaction_id);
+                }}
+                className=""
+              >
                 <span>
                   {params?.data?.transaction_id &&
                   params?.data?.transaction_id ? (
@@ -240,7 +245,7 @@ class SalesCRM extends React.Component {
         filter: "agSetColumnFilter",
         width: 180,
         cellRendererFramework: (params) => {
-          console.log(params);
+          // console.log(params);
           return params.data?.pay_status == "Completed" ? (
             <div className="badge badge-pill badge-success">
               {params.data?.pay_status}
@@ -262,7 +267,7 @@ class SalesCRM extends React.Component {
               {params.data?.pay_status}
             </div>
           ) : (
-            "NA"
+            <div className="badge badge-pill badge-danger">Not Paid</div>
           );
         },
       },
@@ -272,7 +277,7 @@ class SalesCRM extends React.Component {
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
-          console.log(params?.data);
+          // console.log(params?.data);
           return params.data?.crm_status == "Active" ? (
             <div className="badge badge-pill badge-success">
               {params.data?.crm_status}
@@ -330,7 +335,7 @@ class SalesCRM extends React.Component {
                           .then((response) => {
                             let rowData = response?.data;
                             // this.setState({ rowData });
-                            console.log(rowData);
+                            // console.log(rowData);
                             this.Alllist();
                           })
                           .catch((err) => {

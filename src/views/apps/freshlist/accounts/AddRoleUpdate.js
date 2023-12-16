@@ -14,6 +14,7 @@ import axios from "axios";
 import axiosConfig from "../../../../axiosConfig";
 import swal from "sweetalert";
 import { BsFillArrowDownCircleFill } from "react-icons/bs";
+import { CheckPermission } from "../../../../CheckPermission";
 
 export default function AddRoleNew() {
   const [Desc, setDesc] = useState("");
@@ -21,6 +22,7 @@ export default function AddRoleNew() {
   const [Selected, setSelected] = useState([]);
   const [SelectedIndex, setIndex] = useState("");
   const [show, setShow] = useState(false);
+  const [Permissions, setPermissions] = useState({});
 
   // const navigate = useNavigate();
 
@@ -72,6 +74,8 @@ export default function AddRoleNew() {
     }
   };
   useEffect(() => {
+    const InsidePermissions = CheckPermission("Create Role");
+    setPermissions(InsidePermissions);
     console.log(Selected);
   }, [Selected]);
 
@@ -272,19 +276,21 @@ export default function AddRoleNew() {
                       </Col>
                     ))}
                 </Row>
-                <Row>
-                  <Col>
-                    <div className="d-flex justify-content-center mb-2">
-                      <Button
-                        type="submit"
-                        style={{ cursor: "pointer" }}
-                        color="primary"
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                  </Col>
-                </Row>
+                {Permissions && Permissions?.Create && (
+                  <Row>
+                    <Col>
+                      <div className="d-flex justify-content-center mb-2">
+                        <Button
+                          type="submit"
+                          style={{ cursor: "pointer" }}
+                          color="primary"
+                        >
+                          Submit
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
+                )}
               </section>
             </Form>
           </Card>

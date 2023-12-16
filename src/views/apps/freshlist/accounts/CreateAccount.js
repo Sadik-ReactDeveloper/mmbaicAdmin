@@ -50,7 +50,7 @@ const CreateAccount = () => {
   // const [B_Country, setB_Country] = useState("");
   // const [S_Country, setS_Country] = useState("");
   // const [Phone_no, setPhone_no] = useState("");
-  const [Place_of_Supply, setPlace_of_Supply] = useState("");
+  const [discountPercentage, setDiscountPercentage] = useState(0);
   // const [B_State, setB_State] = useState("");
   // const [S_State, setS_State] = useState("");
   // const [B_Street, setB_Street] = useState("");
@@ -79,7 +79,6 @@ const CreateAccount = () => {
     setViewpermisson(newparmisson?.permission.includes("View"));
     setCreatepermisson(newparmisson?.permission.includes("Create"));
     setEditpermisson(newparmisson?.permission.includes("Edit"));
-
     setDeletepermisson(newparmisson?.permission.includes("Delete"));
     let formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo.id);
@@ -112,7 +111,7 @@ const CreateAccount = () => {
         console.log(error.response.data);
       });
   }, []);
-
+  console.log(AssignRole);
   const submitHandler = (e) => {
     e.preventDefault();
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
@@ -130,6 +129,9 @@ const CreateAccount = () => {
     formdata.append("email", email);
     formdata.append("status", status);
     formdata.append("postal_code", Postalcode);
+    if (discountPercentage) {
+      formdata.append("franchise_percentage", discountPercentage);
+    }
 
     if (selectedOption.length > 0) {
       formdata.append("state_id", multiSelect.toString());
@@ -142,34 +144,43 @@ const CreateAccount = () => {
     axiosConfig
       .post("/createuser", formdata)
       .then((response) => {
-        debugger;
         if (response.data?.success) {
-          navigate.push("/app/freshlist/house/userlist");
+          // this.props.history.push("/app/freshlist/house/userlist");
+
+          // navigate.push("/app/freshlist/house/userlist");
 
           swal("Success!", "Submitted SuccessFull!", "success");
           setAssignRole("");
-          setstatus("");
+          // setstatus("");
           setFirstname("");
           setLastname("");
           setemail("");
-          setCity("");
+          // setCity("");
           setMobile_no("");
           setstatus("");
           setUserName("");
           setPostalCode("");
           setSelectedState([]);
 
-          selectItem1 = [];
+          // selectItem1 = [];
           setpassword("");
         }
         // this.props.history.push("/app/freshlist/order/all");
       })
       .catch((error) => {
-        console.log(error.response?.data.data);
-        let Existing = error.response?.data.data?.map((ele) => ele);
-        let allExisting = Existing?.flat();
-        debugger;
-        swal("Error", `${allExisting} Existing in DataBase Choose Different `);
+        console.log(error);
+        console.log(error.response);
+        let arr = error.response?.data?.data;
+        if (arr.length > 0) {
+          let Existing = error.response?.data?.data?.map((ele) => ele);
+          if (Existing !== undefined) {
+            let allExisting = Existing?.flat();
+            swal(
+              "Error",
+              `${allExisting} Existing in DataBase Choose Different `
+            );
+          }
+        }
       });
   };
 
@@ -432,18 +443,23 @@ const CreateAccount = () => {
                   />
                 </Col>
 
-                {AssignRole === "supplier" ? (
+                {AssignRole == 5 ? (
                   <>
                     <Col lg="6" md="6">
                       <FormGroup>
-                        <Label>Place of Supply</Label>
+                        <Label>Commision Percentage</Label>
                         <Input
                           required
                           type="text"
-                          placeholder="Enter Place_of_Supply"
-                          name="Place_of_Supply"
-                          value={Place_of_Supply}
-                          onChange={(e) => setPlace_of_Supply(e.target.value)}
+                          placeholder="Enter Discount Percentage"
+                          name="DiscoutPercentage"
+                          value={discountPercentage}
+                          onChange={(e) => {
+                            const newValue = e.target.value
+                              .replace(/[^0-9]/g, "")
+                              .slice(0, 2);
+                            setDiscountPercentage(newValue);
+                          }}
                         />
                       </FormGroup>
                     </Col>
@@ -739,16 +755,17 @@ const CreateAccount = () => {
                   </div>
                 </Col>
               </Row>
-
-              <Row>
-                <Button.Ripple
-                  color="primary"
-                  type="submit"
-                  className="mr-1 mt-2 mx-2"
-                >
-                  Submit
-                </Button.Ripple>
-              </Row>
+              {Createpermisson && Createpermisson && (
+                <Row>
+                  <Button.Ripple
+                    color="primary"
+                    type="submit"
+                    className="mr-1 mt-2 mx-2"
+                  >
+                    Submit
+                  </Button.Ripple>
+                </Row>
+              )}
             </Form>
           </CardBody>
         </Card>

@@ -495,7 +495,7 @@ class AffiliatedCRM extends React.Component {
 
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "User List"
+      (value) => value?.pageName === "Affiliated CRM"
     );
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });
     this.setState({

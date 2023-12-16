@@ -766,7 +766,7 @@ class All extends React.Component {
       });
 
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "Place Order"
+      (value) => value?.pageName === "Order Dispatch"
     );
 
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });
@@ -849,7 +849,7 @@ class All extends React.Component {
                   Place Order List
                 </h1>
               </Col>
-              <Col>
+              {/* <Col>
                 {this.state.Createpermisson && (
                   <Route
                     render={({ history }) => (
@@ -865,7 +865,7 @@ class All extends React.Component {
                     )}
                   />
                 )}
-              </Col>
+              </Col> */}
             </Row>
             <CardBody>
               {this.state.rowData === null ? null : (

@@ -107,20 +107,20 @@ class MemberShipList extends React.Component {
                   />
                 )}
               /> */}
-              {/* {this.state.Viewpermisson && ( */}
-              <Route
-                render={({ history }) => (
-                  <Download
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    onClick={() => {
-                      this.HandleShowReceipt(params?.data);
-                    }}
-                  />
-                )}
-              />
-              {/* )} */}
+              {this.state.Viewpermisson && (
+                <Route
+                  render={({ history }) => (
+                    <Download
+                      className="mr-50"
+                      size="25px"
+                      color="blue"
+                      onClick={() => {
+                        this.HandleShowReceipt(params?.data);
+                      }}
+                    />
+                  )}
+                />
+              )}
             </div>
           );
         },
@@ -349,7 +349,7 @@ class MemberShipList extends React.Component {
   async componentDidMount() {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "MemberPlan list"
+      (value) => value?.pageName === "Member list"
     );
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });
     this.setState({

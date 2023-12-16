@@ -36,7 +36,7 @@ export class EditProductType extends Component {
       SelectedState: "",
       SelectedSupplierCity: [],
       SelectedSCity: [],
-      postalCode: "",
+      CommisionPercentage: "",
       GSTIN: "",
       B_City: "",
       checkbox: "",
@@ -56,7 +56,9 @@ export class EditProductType extends Component {
       B_PinCode: "",
       S_PinCode: "",
       setuserList: false,
+      Show: false,
       password: "",
+      CommisionPercentage: "",
       status: "",
       AssignRole: "",
       CompanyName: "",
@@ -77,6 +79,9 @@ export class EditProductType extends Component {
       .post("/usereditview", data)
       .then((response) => {
         console.log(response.data.data);
+        if (response.data?.data?.role == 5) {
+          this.setState({ Show: true });
+        }
         // console.log(response.data.data?.city_id);
         let myArray;
         let newdata;
@@ -129,6 +134,7 @@ export class EditProductType extends Component {
         this.setState({
           SelectedState: response.data.data.state_id,
           email: response.data.data.email,
+          CommisionPercentage: response.data.data?.franchise_percentage,
           FirstName: response.data.data.firstname,
           Lastname: response.data.data.lastname,
           UserName: response.data.data.username,
@@ -232,7 +238,10 @@ export class EditProductType extends Component {
     formdata.append("edit_id", id);
     // console.log(this.state.SelectedSupplierCity);
     formdata.append("city_id", this.state.SelectedSupplierCity[0].id);
-    // formdata.append("password", this.state.password);
+
+    if (ths.state.CommisionPercentage) {
+      formdata.append("franchise_percentage", this.state.CommisionPercentage);
+    }
     // formdata.append("full_name", this.state.fullname);
 
     // formdata.append("gstin_no", this.state.GSTIN);
@@ -579,6 +588,35 @@ export class EditProductType extends Component {
                       />
                     </FormGroup>
                   </Col>
+                  {this.state.Show && this.state.Show && (
+                    <Col lg="6" md="6">
+                      <FormGroup>
+                        <Label>Commision percentage </Label>
+                        <Input
+                          required
+                          onKeyDown={(e) =>
+                            ["e", "E", "+", "-"].includes(e.key) &&
+                            e.preventDefault()
+                          }
+                          min={0}
+                          type="text"
+                          placeholder="05"
+                          className="form-control"
+                          name="CommisionPercentage"
+                          value={this.state.CommisionPercentage}
+                          onChange={(e) => {
+                            // const value = e.target.value;
+                            const newValue = e.target.value
+                              .replace(/[^0-9]/g, "")
+                              .slice(0, 2);
+
+                            this.setState({ CommisionPercentage: newValue });
+                          }}
+                          // onChange={this.changeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  )}
                 </Row>
                 <hr />
                 {/* <Row>

@@ -92,23 +92,23 @@ class RoleList extends React.Component {
                 />
               )} */}
 
-              {/* {this.state.Editpermisson && ( */}
-              <Route
-                render={({ history }) => (
-                  <Edit
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    onClick={() =>
-                      history.push({
-                        pathname: `/app/freshlist/account/editRole/${params?.data?.id}`,
-                        data: params,
-                      })
-                    }
-                  />
-                )}
-              />
-              {/* )} */}
+              {this.state.Editpermisson && (
+                <Route
+                  render={({ history }) => (
+                    <Edit
+                      className="mr-50"
+                      size="25px"
+                      color="blue"
+                      onClick={() =>
+                        history.push({
+                          pathname: `/app/freshlist/account/editRole/${params?.data?.id}`,
+                          data: params,
+                        })
+                      }
+                    />
+                  )}
+                />
+              )}
               {/* {this.state.Deletepermisson && (
                 <BsTrash
                   className="mr-50"
