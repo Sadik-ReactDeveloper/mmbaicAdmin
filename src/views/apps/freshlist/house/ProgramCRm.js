@@ -25,13 +25,7 @@ import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import Moment from "react-moment";
-import {
-  FaWallet,
-  Facart,
-  FaCartArrowDown,
-  FaBoxOpen,
-  FaLock,
-} from "react-icons/fa";
+
 import "moment-timezone";
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
@@ -49,7 +43,6 @@ class ProgramCRm extends React.Component {
     getPageSize: "",
     defaultColDef: {
       sortable: true,
-      // editable: true,
       resizable: true,
       suppressMenu: true,
     },
@@ -181,6 +174,23 @@ class ProgramCRm extends React.Component {
               </div>
             </div>
           );
+        },
+      },
+      {
+        headerName: "Seminar Status",
+        field: "attend_seminar",
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return params.data?.attend_seminar == "Yes" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data?.attend_seminar}
+            </div>
+          ) : params.data?.attend_seminar == "No" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data?.attend_seminar}
+            </div>
+          ) : null;
         },
       },
       {

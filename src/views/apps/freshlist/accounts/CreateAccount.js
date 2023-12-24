@@ -1,5 +1,6 @@
 // import React, { Component, useDebugValue } from "react";
 import React, { useEffect, useState } from "react";
+import HtmlParser from "react-html-parser";
 
 import {
   Card,
@@ -144,6 +145,13 @@ const CreateAccount = () => {
     axiosConfig
       .post("/createuser", formdata)
       .then((response) => {
+        console.log(response);
+        if (!response?.data.status) {
+          swal(
+            "error",
+            `The Username and Email field must contain a unique value`
+          );
+        }
         if (response.data?.success) {
           // this.props.history.push("/app/freshlist/house/userlist");
 

@@ -76,7 +76,6 @@ class RoleList extends React.Component {
         field: "transactions",
         width: 160,
         cellRendererFramework: (params) => {
-          console.log(params);
           return (
             <div className="actions cursor-pointer">
               {/* {this.state.Viewpermisson && (

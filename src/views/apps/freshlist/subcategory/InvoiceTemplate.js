@@ -74,11 +74,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
+const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
   const { items, customerName, date, total, place_supply } = invoiceData;
   const curentDate = new Date();
   console.log(invoiceData);
-
+  console.log(BilData);
+  // debugger;
   let day = curentDate.getDate();
   let month = curentDate.getMonth() + 1;
   let year = curentDate.getFullYear();
@@ -115,7 +116,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
               </View>
               <View style={{ padding: "10px" }}>
                 <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                  PRAVARI CORPORATE MANAGEMENT SERVICES PVT. LTD.
+                  Mmbaic CORPORATE MANAGEMENT SERVICES PVT. LTD.
                 </Text>
 
                 <Text
@@ -212,7 +213,9 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
                     Place of Supply
                   </Text>{" "}
                   <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                    : {place_supply}
+                    :{" "}
+                    {BilData?.PrintData?.billing_zip &&
+                      BilData?.PrintData?.billing_zip}
                   </Text>
                 </View>
               </View>
@@ -288,7 +291,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    {invoiceData?.billing_country}
+                    {BilData?.PrintData?.billing_state_id}
                   </Text>{" "}
                   <Text
                     style={{
@@ -297,9 +300,12 @@ const InvoiceTemplate = ({ tableList, invoiceData, CurrentWords }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    {invoiceData?.billing_street},{invoiceData?.billing_city}
-                    {invoiceData?.billing_state} ,{invoiceData?.company_name} ,
-                    {invoiceData?.billing_pincode}
+                    {BilData?.PrintData?.billing_firstName},
+                    {BilData?.PrintData?.billing_lastName} ,
+                    {BilData?.PrintData?.billing_address} ,
+                    {BilData?.PrintData?.billing_city_id} ,
+                    {BilData?.PrintData?.billing_phone},
+                    {BilData?.PrintData?.billing_zip}
                   </Text>
                 </View>
               </View>

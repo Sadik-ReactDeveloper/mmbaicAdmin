@@ -162,7 +162,7 @@ export const Roles = [
     title: "Billing",
     TabName: [
       {
-        title: "Billing Membership List",
+        title: "All Membership List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
@@ -254,31 +254,31 @@ export const Roles = [
       },
     ],
   },
-  {
-    title: "Associate",
-    TabName: [
-      {
-        title: "Commission Rate Master",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Commission Rate List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Payment Raise",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      // {
-      //   title: "Commission Rate Master",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
-      {
-        title: "Request Transaction List",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-    ],
-  },
+  // {
+  //   title: "Associate",
+  //   TabName: [
+  //     {
+  //       title: "Commission Rate Master",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //     {
+  //       title: "Commission Rate List",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //     {
+  //       title: "Payment Raise",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //     // {
+  //     //   title: "Commission Rate Master",
+  //     //   permission: ["View", "Create", "Edit", "Delete"],
+  //     // },
+  //     {
+  //       title: "Request Transaction List",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //   ],
+  // },
   {
     title: "CMS Management",
     TabName: [
@@ -353,12 +353,12 @@ export const Roles = [
   {
     title: "Notification",
     TabName: [
+      // {
+      //   title: "General Notification",
+      //   permission: ["View", "Create", "Edit", "Delete"],
+      // },
       {
-        title: "General Notification",
-        permission: ["View", "Create", "Edit", "Delete"],
-      },
-      {
-        title: "Notification Pre List",
+        title: "Notification List",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],

@@ -276,21 +276,21 @@ export default function AddRoleNew() {
                       </Col>
                     ))}
                 </Row>
-                {Permissions && Permissions?.Create && (
-                  <Row>
-                    <Col>
-                      <div className="d-flex justify-content-center mb-2">
-                        <Button
-                          type="submit"
-                          style={{ cursor: "pointer" }}
-                          color="primary"
-                        >
-                          Submit
-                        </Button>
-                      </div>
-                    </Col>
-                  </Row>
-                )}
+                {/* {Permissions && Permissions?.Create && ( */}
+                <Row>
+                  <Col>
+                    <div className="d-flex justify-content-center mb-2">
+                      <Button
+                        type="submit"
+                        style={{ cursor: "pointer" }}
+                        color="primary"
+                      >
+                        Submit
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+                {/* )} */}
               </section>
             </Form>
           </Card>

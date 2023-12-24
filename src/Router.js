@@ -85,6 +85,12 @@ const MemberPlanList = lazy(() =>
 const MemberShipList = lazy(() =>
   import("./views/apps/freshlist/banner/MemberShipList")
 );
+const BillingMembershipList = lazy(() =>
+  import("./views/apps/freshlist/banner/BillingMembershipList")
+);
+const BillingPaidMemberlist = lazy(() =>
+  import("./views/apps/freshlist/banner/BillingPaidMemberlist")
+);
 
 const AddBanner = lazy(() => import("./views/apps/freshlist/banner/AddBanner"));
 const AddmemberPlan = lazy(() =>
@@ -353,6 +359,9 @@ const TaxReport = lazy(() => import("./views/apps/freshlist/report/TaxReport"));
 const CategoryList = lazy(() =>
   import("./views/apps/freshlist/category/CategoryList")
 );
+const NotificationList = lazy(() =>
+  import("./views/apps/freshlist/category/NotificationList")
+);
 const QuizList = lazy(() => import("./views/apps/freshlist/category/QuizList"));
 const AssignmentList = lazy(() =>
   import("./views/apps/freshlist/category/AssignmentList")
@@ -362,6 +371,9 @@ const GradeList = lazy(() =>
 );
 const AddCategory = lazy(() =>
   import("./views/apps/freshlist/category/AddCategory")
+);
+const AddNotificaton = lazy(() =>
+  import("./views/apps/freshlist/category/AddNotificaton")
 );
 const AddQuiz = lazy(() => import("./views/apps/freshlist/category/AddQuiz"));
 const AddAssignemnt = lazy(() =>
@@ -495,12 +507,30 @@ const ServiceMaster = lazy(() =>
 const ProductType = lazy(() =>
   import("./views/apps/freshlist/house/ProductType")
 );
+const Franchiseelist = lazy(() =>
+  import("./views/apps/freshlist/house/Franchiseelist")
+);
+const FranchiseeMemberList = lazy(() =>
+  import("./views/apps/freshlist/house/FranchiseeMemberList")
+);
+const FranChiseeAffiliated = lazy(() =>
+  import("./views/apps/freshlist/house/FranChiseeAffiliated")
+);
+const FranciseeAffiliatedInsiderMembers = lazy(() =>
+  import("./views/apps/freshlist/house/FranciseeAffiliatedInsiderMembers")
+);
 const SalesCRM = lazy(() => import("./views/apps/freshlist/house/SalesCRM"));
 const ProgramCRm = lazy(() =>
   import("./views/apps/freshlist/house/ProgramCRm")
 );
 const AffiliatedCRM = lazy(() =>
   import("./views/apps/freshlist/house/AffiliatedCRM")
+);
+const AffiliatedmemberList = lazy(() =>
+  import("./views/apps/freshlist/house/AffiliatedmemberList")
+);
+const AffiliatedAffimemberList = lazy(() =>
+  import("./views/apps/freshlist/house/AffiliatedAffimemberList")
 );
 const SupplierList = lazy(() =>
   import("./views/apps/freshlist/house/SupplierList")
@@ -944,6 +974,14 @@ class AppRouter extends React.Component {
             component={MemberShipList}
           />
           <AppRoute
+            path="/app/mmbaic/plan/BillingMembershipList"
+            component={BillingMembershipList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/BillingPaidMemberlist"
+            component={BillingPaidMemberlist}
+          />
+          <AppRoute
             path="/app/freshlist/banner/editBanner/:id"
             component={EditBanner}
           />
@@ -1255,12 +1293,20 @@ class AppRouter extends React.Component {
           />
           {/* category */}
           <AppRoute
+            path="/app/mmbaic/category/NotificationList"
+            component={NotificationList}
+          />
+          <AppRoute
             path="/app/mmbaic/category/categoryList"
             component={CategoryList}
           />
           <AppRoute
             path="/app/mmbaic/category/addCategory"
             component={AddCategory}
+          />
+          <AppRoute
+            path="/app/mmbaic/category/AddNotificaton/:id"
+            component={AddNotificaton}
           />
           <AppRoute path="/app/mmbaic/category/QuizList" component={QuizList} />
           <AppRoute
@@ -1454,6 +1500,22 @@ class AppRouter extends React.Component {
             component={ServiceMaster}
           />
           <AppRoute path="/app/mmbaic/house/userlist" component={ProductType} />
+          <AppRoute
+            path="/app/mmbaic/house/Franchiseelist"
+            component={Franchiseelist}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/FranChiseeAffiliated"
+            component={FranChiseeAffiliated}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/FranciseeAffiliatedInsiderMembers/:id/:Name"
+            component={FranciseeAffiliatedInsiderMembers}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/FranchiseeMemberList"
+            component={FranchiseeMemberList}
+          />
           <AppRoute path="/app/mmbaic/house/SalesCRM" component={SalesCRM} />
           <AppRoute
             path="/app/mmbaic/house/programcrm"
@@ -1462,6 +1524,14 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/mmbaic/house/AffiliatedCRM"
             component={AffiliatedCRM}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/AffiliatedmemberList"
+            component={AffiliatedmemberList}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/AffiliatedAffimemberList"
+            component={AffiliatedAffimemberList}
           />
           <AppRoute
             path="/app/freshlist/house/SupplierList"
@@ -1505,7 +1575,7 @@ class AppRouter extends React.Component {
             component={DateWiseReport}
           />
           <AppRoute
-            path="/app/freshlist/cart/Clientwisereport"
+            path="/app/mmbaic/cart/membershiplistReport"
             component={Clientwisereport}
           />
           <AppRoute
@@ -1533,10 +1603,10 @@ class AppRouter extends React.Component {
             component={SubscriberList}
           />
           {/* Mobile */}
-          {/* <AppRoute
-            path="/app/freshlist/mobile/Notification"
-            component={Notification}
-          /> */}
+          <AppRoute
+            path="/app/mmbaic/mobile/Notification"
+            component={AddNotification}
+          />
           <AppRoute
             path="/app/freshlist/mobile/bannerSection"
             component={BannerSection}
