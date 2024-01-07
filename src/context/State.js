@@ -7,7 +7,7 @@ const State = (props) => {
 
   useEffect(() => {
     let userCredential = JSON.parse(localStorage.getItem("userData"));
-    console.log(userCredential);
+    // console.log(userCredential);
     setUserData(userCredential);
   }, []);
 

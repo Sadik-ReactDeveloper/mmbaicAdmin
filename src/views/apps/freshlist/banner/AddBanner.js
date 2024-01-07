@@ -30,12 +30,14 @@ export default class AddBanner extends Component {
       Notice: "",
       Title: "",
       PageName: "",
+      formValues: [{ Title: "", Description: "" }],
       selectedFile: null,
       selectedName: "",
       status: "Active",
       description: "",
       editorState: EditorState.createEmpty(),
     };
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
   onEditorStateChange = (editorState) => {
     this.setState({
@@ -48,6 +50,24 @@ export default class AddBanner extends Component {
   //   this.setState({ selectedName: event.target.files[0].name });
   //   console.log(event.target.files[0]);
   // };
+
+  handleChange(i, e) {
+    let formValues = this.state.formValues;
+    formValues[i][e.target.name] = e.target.value;
+    this.setState({ formValues });
+  }
+
+  addFormFields() {
+    this.setState({
+      formValues: [...this.state.formValues, { Title: "", Description: "" }],
+    });
+  }
+
+  removeFormFields(i) {
+    let formValues = this.state.formValues;
+    formValues.splice(i, 1);
+    this.setState({ formValues });
+  }
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
     this.setState({ selectedName: event.target.files.name });
@@ -61,6 +81,7 @@ export default class AddBanner extends Component {
   };
   submitHandler = (e) => {
     e.preventDefault();
+    console.log(this.state.formValues);
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     const {
       banner_title,
@@ -92,6 +113,9 @@ export default class AddBanner extends Component {
     }
     if (description) {
       data.append("description", description);
+    }
+    if (this.state.formValues) {
+      data.append("more_cms_content", JSON.stringify(this.state.formValues));
     }
     // for (const file of selectedFile) {
     // }
@@ -192,6 +216,13 @@ export default class AddBanner extends Component {
                     <option value="ContactUS">ContactUS</option>
                     <option value="HowItWorks">How It Works</option>
                     <option value="Blogs">Blogs</option>
+                    {/* <option value="overview">ABOUT US–OVERVIEW</option>
+                    <option value="who_we_are">Who we are</option>
+                    <option value="what_we_do">What we do</option>
+                    <option value="Vision_and_Misson">
+                      Vision and Mission
+                    </option>
+                    <option value="leadership">leaderShip</option> */}
 
                     <option value="Footer">Footer</option>
                   </CustomInput>
@@ -466,6 +497,61 @@ export default class AddBanner extends Component {
                   />
                 </Col> */}
               </Row>
+              {banner_title == "Aboutus" || banner_title == "Opportunity" ? (
+                <Form>
+                  {this.state.formValues?.map((element, index) => (
+                    <>
+                      <Row key={index}>
+                        <Col lg="4" md="4" sm="6">
+                          <Label>Title</Label>
+
+                          <Input
+                            className="form-control"
+                            type="text"
+                            placeholder="enter Title"
+                            name="Title"
+                            value={element.Title || ""}
+                            onChange={(e) => this.handleChange(index, e)}
+                          />
+                        </Col>
+                        <Col lg="6" md="6" sm="6">
+                          <Label>Description</Label>
+                          <textarea
+                            rows={15}
+                            className="form-control"
+                            type="text"
+                            placeholder="enter Description"
+                            name="Description"
+                            value={element.Description || ""}
+                            onChange={(e) => this.handleChange(index, e)}
+                          />
+                        </Col>
+                        <Col>
+                          <Button
+                            color="primary"
+                            className="button add mr-1 mt-1"
+                            type="button"
+                            onClick={() => this.addFormFields()}
+                          >
+                            +
+                          </Button>
+
+                          {index ? (
+                            <Button
+                              color="warning"
+                              type="button"
+                              className="button remove ml-1 mt-1"
+                              onClick={() => this.removeFormFields(index)}
+                            >
+                              -
+                            </Button>
+                          ) : null}
+                        </Col>
+                      </Row>
+                    </>
+                  ))}
+                </Form>
+              ) : null}
               {banner_title && banner_title !== "NA" ? (
                 <>
                   <Col lg="6" md="6" sm="6" className="mb-2">

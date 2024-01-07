@@ -77,7 +77,7 @@ class BannerList extends React.Component {
                     onClick={() => {
                       localStorage.setItem(
                         "SelectedCmsdata",
-                        JSON.stringify(params.data?.data)
+                        JSON.stringify(params.data)
                       );
                       history.push(
                         `/app/mmbaic/slider/EditCMS/${params.data?.id}`

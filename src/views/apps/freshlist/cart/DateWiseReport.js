@@ -22,7 +22,7 @@ import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import { Route, Link } from "react-router-dom";
 // import { components } from "react-select";
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../../AxiosnewConfig";
 import swal from "sweetalert";
 const selectItem1 = [];
 
@@ -32,6 +32,7 @@ class DateWiseReport extends React.Component {
     Userlist: [],
     multiSelect: [],
     SelectedClient: "",
+    SelectMemberType: "",
     paginationPageSize: 20,
     currenPageSize: "",
     Show: false,
@@ -53,132 +54,145 @@ class DateWiseReport extends React.Component {
         filter: true,
       },
       {
-        headerName: "PoNo",
-        field: "po_no",
+        headerName: "username",
+        field: "username",
         filter: true,
-        width: 100,
+        width: 170,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.po_no}</span>
+              <span>{params.data?.username}</span>
             </div>
           );
         },
       },
       {
-        headerName: "OrderStatus",
-        field: "order_status",
+        headerName: "transaction id",
+        field: "transaction_id",
         filter: true,
-        width: 120,
+        width: 160,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <Badge color="success">{params.data.order_status}</Badge>
+              <Badge color="success">{params.data?.transaction_id}</Badge>
             </div>
           );
         },
       },
       {
-        headerName: "Branch Code",
-        field: "display_code",
+        headerName: "Title",
+        field: "title",
         filter: true,
         width: 180,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.display_code}</span>
+              <span>{params.data?.title}</span>
             </div>
           );
         },
       },
-      // {
-      //   headerName: "mobileno",
-      //   field: "product",
-      //   filter: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <span>{params.data.user_mobile_no}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "useremail",
-      //   field: "user_email",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.user_email}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "phoneno",
-      //   field: "phone_no",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.phone_no}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "createdby",
-      //   field: "created_by",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.created_by}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "state",
-      //   field: "state_title",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.state_title}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
       {
-        headerName: "suppliername",
-        field: "supplier_name",
+        headerName: "state",
+        field: "state_title",
+        filter: true,
+        width: 190,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data?.state_title}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "purchase date",
+        field: "purchase_date",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.supplier_name}</span>
+              <span>{params.data?.purchase_date}</span>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Postal code",
+        field: "postal_code",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data?.postal_code}</span>
             </div>
           );
         },
       },
       {
-        headerName: "total",
-        field: "total",
+        headerName: "Plan Amount",
+        field: "plan_amount",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <Badge color="success">{params.data?.plan_amount}</Badge>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "phone",
+        field: "phone",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data?.phone}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "payment status",
+        field: "pay_status",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data?.pay_status}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "email",
+        field: "email",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params.data?.email}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "duration",
+        field: "duration",
         filter: true,
         width: 130,
         cellRendererFramework: (params) => {
           return (
             <div>
-              <Badge color="success">{params.data.total}</Badge>
+              <Badge color="success">{params.data?.duration} Year</Badge>
             </div>
           );
         },
@@ -253,33 +267,33 @@ class DateWiseReport extends React.Component {
       //     ) : null;
       //   },
       // },
-      {
-        headerName: "Actions",
-        field: "sortorder",
-        field: "transactions",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="actions cursor-pointer">
-              <Route
-                render={({ history }) => (
-                  <Eye
-                    className="mr-50"
-                    size="25px"
-                    color="blue"
-                    onClick={() =>
-                      history.push({
-                        pathname: `/app/freshlist/cart/ViewoneFinalreport`,
-                        state: params.data,
-                      })
-                    }
-                  />
-                )}
-              />
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Actions",
+      //   field: "sortorder",
+      //   field: "transactions",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         <Route
+      //           render={({ history }) => (
+      //             <Eye
+      //               className="mr-50"
+      //               size="25px"
+      //               color="blue"
+      //               onClick={() =>
+      //                 history.push({
+      //                   pathname: `/app/freshlist/cart/ViewoneFinalreport`,
+      //                   state: params.data,
+      //                 })
+      //               }
+      //             />
+      //           )}
+      //         />
+      //       </div>
+      //     );
+      //   },
+      // },
     ],
   };
   componentDidMount() {
@@ -302,18 +316,6 @@ class DateWiseReport extends React.Component {
     this.setState({
       Deletepermisson: newparmisson?.permission.includes("Delete"),
     });
-    const data = new FormData();
-    data.append("user_id", pageparmission?.Userinfo?.id);
-    data.append("role", pageparmission?.Userinfo?.role);
-    axiosConfig
-      .post("/getReportUserlist", data)
-      .then((response) => {
-        console.log(response?.data?.data?.users);
-        this.setState({ Userlist: response?.data?.data?.users });
-      })
-      .catch((err) => {
-        // console.log(err);
-      });
 
     // const formdata = new FormData();
     // formdata.append("user_id", pageparmission?.Userinfo?.id);
@@ -357,14 +359,23 @@ class DateWiseReport extends React.Component {
     const data = new FormData();
     data.append("user_id", pageparmission?.Userinfo?.id);
     data.append("role", pageparmission?.Userinfo?.role);
-    data.append("client_id", this.state.SelectedClient);
-    data.append("from_date ", this.state.StartDate);
-    data.append("to_date", this.state.EndDate);
+    if (this.state.SelectedClient) {
+      data.append("roletype", this.state.SelectedClient);
+    }
+    if (this.state.SelectMemberType) {
+      data.append("roletype", this.state.SelectedClient);
+    }
+    if (this.state.StartDate) {
+      data.append("from_date ", this.state.StartDate);
+    }
+    if (this.state.EndDate) {
+      data.append("to_date", this.state.EndDate);
+    }
     axiosConfig
       .post("/reportApi", data)
       .then((response) => {
         let alllist = response?.data?.data;
-        console.log(response.data?.message);
+        console.log(alllist);
         if (response.data?.message === "Record Not Found.") {
           swal(`${response.data?.message}`);
           this.setState({ rowData: "" });
@@ -381,7 +392,6 @@ class DateWiseReport extends React.Component {
       });
   };
   onSelect(selectedList, selectedItem) {
-    debugger;
     // console.log(selectedList[0]?.id);
     selectItem1 = [selectedList];
     // if (selectedList.length) {
@@ -409,8 +419,37 @@ class DateWiseReport extends React.Component {
         <Col sm="12">
           <Card>
             <Row className="m-2">
-              <Col sm="3" lg="3" md="3">
-                <h1 className="float-left">Date Wise Report</h1>
+              <Col lg="2" sm="2" md="2">
+                <label for="cars">Choose Role Type:</label>
+
+                <select
+                  onChange={(e) =>
+                    this.setState({ SelectedClient: e.target.value })
+                  }
+                  className="form-control"
+                  name="cars"
+                  id="cars"
+                >
+                  <option value="not Selected">--Select--</option>
+                  <option value="4">Branch</option>
+                  <option value="5">Franchisee</option>
+                </select>
+              </Col>
+              <Col lg="2" sm="2" md="2">
+                <label for="cars">Choose Member Type:</label>
+
+                <select
+                  onChange={(e) =>
+                    this.setState({ SelectMemberType: e.target.value })
+                  }
+                  className="form-control"
+                  name="cars"
+                  id="cars"
+                >
+                  <option value="">--Select Member--</option>
+                  <option value="Allmembership">All Membership</option>
+                  <option value="AffiliatedMember">Affiliated Member</option>
+                </select>
               </Col>
               <Col lg="2" sm="2" md="2">
                 <label for="start">Start Date:</label>
@@ -445,33 +484,6 @@ class DateWiseReport extends React.Component {
                   min="2019-01-01"
                   max={this.state.CurrentDate && this.state.CurrentDate}
                 />
-              </Col>
-              <Col lg="2" sm="2" md="2">
-                <label for="cars">Choose a User:</label>
-                {/* <Multiselect
-                  // singleSelect
-                  selectionLimit="1"
-                  options={Userlist} // Options to display in the dropdown
-                  selectedValues={this.state.SelectedClient} // Preselected value to persist in dropdown
-                  onSelect={this.onSelect} // Function will trigger on select event
-                  onRemove={this.onRemove} // Function will trigger on remove event
-                  displayValue="full_name" // Property name to display in the dropdown options
-                /> */}
-                <select
-                  onChange={(e) =>
-                    this.setState({ SelectedClient: e.target.value })
-                  }
-                  className="form-control"
-                  name="cars"
-                  id="cars"
-                >
-                  <option value="not Selected">--Select User--</option>
-                  {Userlist?.map((ele, i) => (
-                    <option key={i} value={ele.id}>
-                      {ele.full_name} &nbsp; &nbsp;({ele.role})
-                    </option>
-                  ))}
-                </select>
               </Col>
 
               <Col lg="2" className="d-flex justify-content-end">

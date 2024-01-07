@@ -184,15 +184,15 @@ class AffiliatedmemberList extends React.Component {
         },
       },
       {
-        headerName: "Device",
-        field: "device",
+        headerName: "Affiliated link",
+        field: "affiliated_link",
         filter: "agSetColumnFilter",
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params?.data?.device}</span>
+                <span>{params?.data?.affiliated_link}</span>
               </div>
             </div>
           );
@@ -316,22 +316,22 @@ class AffiliatedmemberList extends React.Component {
                 />
               )} */}
 
-              {/* {this.state.Viewpermisson && (
+              {this.state.Viewpermisson && (
                 <Route
                   render={({ history }) => (
                     <Eye
                       className="mr-50"
                       size="25px"
                       color="blue"
-                    //   onClick={() =>
-                    //     history.push(
-                    //       `/app/freshlist/account/UpdateExistingRole/${params?.data?.role}`
-                    //     )
-                    //   }
+                      onClick={() =>
+                        history.push(
+                          `/app/mmbaic/house/AffiliatedmemberInsidermember/${params?.data?.id}/${params?.data?.firstname}_${params?.data?.lastname}`
+                        )
+                      }
                     />
                   )}
                 />
-              )} */}
+              )}
             </div>
           );
         },
@@ -364,11 +364,12 @@ class AffiliatedmemberList extends React.Component {
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
-    formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
+    // formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
     // formdata.append("member_status", this.state.Leadtype);
 
+    // .post("/getAffiliatedMember", formdata)
     await axiosConfig
-      .post("/getAffiliatedMember", formdata)
+      .post("/getAllAffiliatedMemberlist", formdata)
       .then((response) => {
         console.log(response?.data?.data);
         let rowData = response?.data?.data;

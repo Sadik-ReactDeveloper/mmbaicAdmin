@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import swal from "sweetalert";
-// import {  EditorState, ContentState, convertFromHTML } from "draft-js";
+
 import "draft-js/dist/Draft.css";
 import {
   ContentState,
@@ -32,10 +32,13 @@ import { Route } from "react-router-dom";
 export default class AddBanner extends Component {
   constructor(props) {
     super(props);
+    this.editorRef = React.createRef();
     this.state = {
       banner_title: "",
       Notice: "",
       Title: "",
+      formValues: [{ Title: "", Description: "" }],
+
       PageName: "",
       cmstype: "",
       image: "",
@@ -46,6 +49,29 @@ export default class AddBanner extends Component {
       editorState: EditorState.createEmpty(),
     };
   }
+
+  handleChange(i, e) {
+    let formValues = this.state.formValues;
+    formValues[i][e.target.name] = e.target.value;
+    this.setState({ formValues });
+  }
+
+  addFormFields() {
+    this.setState({
+      formValues: [...this.state.formValues, { Title: "", Description: "" }],
+    });
+  }
+
+  removeFormFields(i) {
+    let formValues = this.state.formValues;
+    formValues.splice(i, 1);
+    this.setState({ formValues });
+  }
+  log = () => {
+    if (this.editorRef.current) {
+      console.log(this.editorRef.current.getContent());
+    }
+  };
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
@@ -55,14 +81,20 @@ export default class AddBanner extends Component {
   componentDidMount() {
     let { id } = this.props?.match?.params;
     // console.log(id);
-    let types = JSON.parse(localStorage.getItem("SelectedCmsdata"));
+    debugger;
+    let type = JSON.parse(localStorage.getItem("SelectedCmsdata"));
+    let types = JSON.parse(localStorage.getItem("SelectedCmsdata"))?.data;
     // console.log(types?.image);
     if (types?.image) {
       this.setState({ image: types?.image });
     }
+
     this.setState({ status: types?.IsActive });
     if (types?.cms_type) {
       this.setState({ cmstype: types?.cms_type });
+    }
+    if (type?.more_cms_content) {
+      this.setState({ formValues: type?.more_cms_content });
     }
     this.setState({ banner_title: types?.type });
     if (types?.description) {
@@ -147,10 +179,13 @@ export default class AddBanner extends Component {
     data.append("role", pageparmission?.Userinfo?.role);
     data.append("edit_id", id);
     data.append("action", "edit");
+    debugger;
     if (this.state.cmstype) {
       data.append("cms_type", this.state.cmstype);
     }
-
+    if (this.state.formValues) {
+      data.append("more_cms_content", JSON.stringify(this.state.formValues));
+    }
     if (banner_title) {
       data.append("type", banner_title);
     }
@@ -170,12 +205,11 @@ export default class AddBanner extends Component {
     // for (const file of selectedFile) {
     if (selectedFile !== null) {
       data.append("images", selectedFile);
+    } else {
+      if (this.state.image) {
+        data.append("imagename", this.state.image);
+      }
     }
-    // else {
-    //   if (this.state.image) {
-    //     data.append("image", this.state.image);
-    //   }
-    // }
     // }
     // for (var value of data.values()) {
     //   console.log(value);
@@ -249,7 +283,7 @@ export default class AddBanner extends Component {
                   <Label>
                     Selected CMS Page :- <strong>{banner_title}</strong>
                     <div>
-                      Selected CMS Type :- <strong>{cmstype}</strong>
+                      Selected CMS Type :- <strong>{cmstype && cmstype}</strong>
                     </div>
                   </Label>
                   {/* <CustomInput
@@ -388,7 +422,6 @@ export default class AddBanner extends Component {
                     <Col lg="6" md="6" sm="6" className="mb-2">
                       <Label>Image</Label>
                       <Input
-                        required
                         type="file"
                         className="form-control"
                         // value={this.state.PageName}
@@ -464,7 +497,6 @@ export default class AddBanner extends Component {
                     <Col lg="6" md="6" sm="6" className="mb-2">
                       <Label>Image</Label>
                       <Input
-                        required
                         type="file"
                         className="form-control"
                         // value={this.state.PageName}
@@ -483,6 +515,45 @@ export default class AddBanner extends Component {
 
                     <Col lg="12" md="12" sm="12" className="mb-2">
                       <Label>Editor</Label>
+                      {/* <Editor
+                        apiKey="4yu3dnnfomwho205whqgeq81g1t83w368xnb1sjmlua6646n"
+                        // onInit={(evt, editor) => editorRef.current = editor}
+                        onInit={(evt, editor) =>
+                          (this.editorRef.current = editor)
+                        }
+                        initialValue="<p>This is the initial content of the editor.</p>"
+                        init={{
+                          height: 500,
+                          menubar: false,
+                          plugins: [
+                            "advlist",
+                            "autolink",
+                            "lists",
+                            "link",
+                            "image",
+                            "charmap",
+                            "preview",
+                            "anchor",
+                            "searchreplace",
+                            "visualblocks",
+                            "code",
+                            "fullscreen",
+                            "insertdatetime",
+                            "media",
+                            "table",
+                            "code",
+                            "help",
+                            "wordcount",
+                          ],
+                          toolbar:
+                            "undo redo | blocks | " +
+                            "bold italic forecolor | alignleft aligncenter " +
+                            "alignright alignjustify | bullist numlist outdent indent | " +
+                            "removeformat | help",
+                          content_style:
+                            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                        }}
+                      /> */}
                       <Editor
                         toolbarClassName="toolbarClassName"
                         wrapperClassName="wrapperClassName"
@@ -494,6 +565,61 @@ export default class AddBanner extends Component {
                   </>
                 ) : null}
               </Row>
+              {banner_title == "Aboutus" || banner_title == "Opportunity" ? (
+                <Form>
+                  {this.state.formValues?.map((element, index) => (
+                    <>
+                      <Row key={index}>
+                        <Col lg="4" md="4" sm="6">
+                          <Label>Title</Label>
+
+                          <Input
+                            className="form-control"
+                            type="text"
+                            placeholder="enter Title"
+                            name="Title"
+                            value={element.Title || ""}
+                            onChange={(e) => this.handleChange(index, e)}
+                          />
+                        </Col>
+                        <Col lg="6" md="6" sm="6">
+                          <Label>Description</Label>
+                          <textarea
+                            rows={15}
+                            className="form-control"
+                            type="text"
+                            placeholder="enter Description"
+                            name="Description"
+                            value={element.Description || ""}
+                            onChange={(e) => this.handleChange(index, e)}
+                          />
+                        </Col>
+                        <Col>
+                          <Button
+                            color="primary"
+                            className="button add mr-1 mt-1"
+                            type="button"
+                            onClick={() => this.addFormFields()}
+                          >
+                            +
+                          </Button>
+
+                          {index ? (
+                            <Button
+                              color="warning"
+                              type="button"
+                              className="button remove ml-1 mt-1"
+                              onClick={() => this.removeFormFields(index)}
+                            >
+                              -
+                            </Button>
+                          ) : null}
+                        </Col>
+                      </Row>
+                    </>
+                  ))}
+                </Form>
+              ) : null}
               {banner_title && banner_title !== "" ? (
                 <>
                   <Col lg="6" md="6" sm="6" className="mb-2">

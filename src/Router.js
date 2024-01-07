@@ -85,11 +85,35 @@ const MemberPlanList = lazy(() =>
 const MemberShipList = lazy(() =>
   import("./views/apps/freshlist/banner/MemberShipList")
 );
+const RefrralUserList = lazy(() =>
+  import("./views/apps/freshlist/banner/RefrralUserList")
+);
+const Totalbalance = lazy(() =>
+  import("./views/apps/freshlist/banner/Totalbalance")
+);
+const AffiliatedTotalBal = lazy(() =>
+  import("./views/apps/freshlist/banner/AffiliatedTotalBal")
+);
+const userPaymenttrx = lazy(() =>
+  import("./views/apps/freshlist/banner/userPaymenttrx")
+);
+const AffiliateTransaction = lazy(() =>
+  import("./views/apps/freshlist/banner/AffiliateTransaction")
+);
+const UserWalletBalance = lazy(() =>
+  import("./views/apps/freshlist/banner/UserWalletBalance")
+);
+const AffiliatedWalletList = lazy(() =>
+  import("./views/apps/freshlist/banner/AffiliatedWalletList")
+);
 const BillingMembershipList = lazy(() =>
   import("./views/apps/freshlist/banner/BillingMembershipList")
 );
 const BillingPaidMemberlist = lazy(() =>
   import("./views/apps/freshlist/banner/BillingPaidMemberlist")
+);
+const MemberReceiptList = lazy(() =>
+  import("./views/apps/freshlist/banner/MemberReceiptList")
 );
 
 const AddBanner = lazy(() => import("./views/apps/freshlist/banner/AddBanner"));
@@ -532,6 +556,9 @@ const AffiliatedmemberList = lazy(() =>
 const AffiliatedAffimemberList = lazy(() =>
   import("./views/apps/freshlist/house/AffiliatedAffimemberList")
 );
+const AffiliatedmemberInsidermember = lazy(() =>
+  import("./views/apps/freshlist/house/AffiliatedmemberInsidermember")
+);
 const SupplierList = lazy(() =>
   import("./views/apps/freshlist/house/SupplierList")
 );
@@ -972,6 +999,38 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/mmbaic/plan/MemberShipList"
             component={MemberShipList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/MemberReceiptList"
+            component={MemberReceiptList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/RefrralUserList"
+            component={RefrralUserList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/Totalbalance"
+            component={Totalbalance}
+          />
+          <AppRoute
+            path="/app/mmbaic/Balance/AffiliatedTotalBal"
+            component={AffiliatedTotalBal}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/userPaymenttrx"
+            component={userPaymenttrx}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/AffiliateTransaction"
+            component={AffiliateTransaction}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/UserWalletBalance"
+            component={UserWalletBalance}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/AffiliatedWalletList"
+            component={AffiliatedWalletList}
           />
           <AppRoute
             path="/app/mmbaic/plan/BillingMembershipList"
@@ -1532,6 +1591,10 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/mmbaic/house/AffiliatedAffimemberList"
             component={AffiliatedAffimemberList}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/AffiliatedmemberInsidermember/:id/:Name"
+            component={AffiliatedmemberInsidermember}
           />
           <AppRoute
             path="/app/freshlist/house/SupplierList"

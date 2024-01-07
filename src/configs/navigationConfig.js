@@ -451,7 +451,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/order/purchasedorder",
+        navLink: "/app/mmbaic/plan/MemberReceiptList",
       },
       {
         id: "Refferal Payment List",
@@ -521,7 +521,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/order/purchasedorder",
+        navLink: "/app/mmbaic/plan/RefrralUserList",
       },
       {
         id: "Wallet",
@@ -529,7 +529,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/subcategory/Bills",
+        navLink: "/app/mmbaic/plan/UserWalletBalance",
       },
       // {
       //   id: "invoice Generator",
@@ -553,7 +553,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/subcategory/inVoices",
+        navLink: "/app/mmbaic/plan/Totalbalance",
       },
       {
         id: "Payment Transaction",
@@ -561,7 +561,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaCircle size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/freshlist/subcategory/PaymentStatus",
+        navLink: "/app/mmbaic/plan/userPaymenttrx",
       },
       // {
       //   id: "Payment completed",
@@ -598,15 +598,15 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
+        navLink: "/app/mmbaic/plan/AffiliatedWalletList",
       },
       {
-        id: "Total Balance",
+        id: "TotalBalance",
         title: "Total Balance",
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
+        navLink: "/app/mmbaic/Balance/AffiliatedTotalBal",
       },
       {
         id: "Commsion Request",
@@ -622,7 +622,7 @@ const navigationConfig = [
         type: "item",
         icon: <FaList size={8} />,
         permissions: ["admin", "editor"],
-        navLink: "/app/mmbaic/category/categoryList",
+        navLink: "/app/mmbaic/plan/AffiliateTransaction",
       },
     ],
   },
