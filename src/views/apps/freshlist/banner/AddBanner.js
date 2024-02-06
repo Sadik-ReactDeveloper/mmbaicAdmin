@@ -207,6 +207,7 @@ export default class AddBanner extends Component {
                   >
                     <option value="NA">--Select--</option>
                     <option value="Headernotice">Top Header</option>
+                    <option value="FAQ">FAQ'S</option>
                     <option value="Header">Header</option>
                     <option value="Slider">Slider</option>
                     <option value="Aboutus">About Us</option>
@@ -497,7 +498,9 @@ export default class AddBanner extends Component {
                   />
                 </Col> */}
               </Row>
-              {banner_title == "Aboutus" || banner_title == "Opportunity" ? (
+              {banner_title == "Aboutus" ||
+              banner_title == "Opportunity" ||
+              banner_title == "FAQ" ? (
                 <Form>
                   {this.state.formValues?.map((element, index) => (
                     <>

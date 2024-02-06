@@ -183,21 +183,21 @@ class AffiliatedmemberList extends React.Component {
           );
         },
       },
-      {
-        headerName: "Device",
-        field: "device",
-        filter: "agSetColumnFilter",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params?.data?.device}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Device",
+      //   field: "device",
+      //   filter: "agSetColumnFilter",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div className="">
+      //           <span>{params?.data?.device}</span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "status",
         field: "crm_status",
@@ -315,7 +315,7 @@ class AffiliatedmemberList extends React.Component {
                   )}
                 />
               )} */}
-
+              {/* 
               {this.state.Viewpermisson && (
                 <Route
                   render={({ history }) => (
@@ -331,7 +331,7 @@ class AffiliatedmemberList extends React.Component {
                     />
                   )}
                 />
-              )}
+              )} */}
             </div>
           );
         },

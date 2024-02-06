@@ -507,61 +507,61 @@ class SalesCRM extends React.Component {
       //     );
       //   },
       // },
-      {
-        headerName: "Actions",
-        field: "transactions",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="actions cursor-pointer">
-              {this.state.Deletepermisson && (
-                <Trash2
-                  className="mr-50"
-                  size="25px"
-                  color="Red"
-                  onClick={() => {
-                    this.runthisfunction(params?.data?.id);
-                  }}
-                />
-              )}
+      // {
+      //   headerName: "Actions",
+      //   field: "transactions",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         {this.state.Deletepermisson && (
+      //           <Trash2
+      //             className="mr-50"
+      //             size="25px"
+      //             color="Red"
+      //             onClick={() => {
+      //               this.runthisfunction(params?.data?.id);
+      //             }}
+      //           />
+      //         )}
 
-              {/* {this.state.Editpermisson && (
-                <Route
-                  render={({ history }) => (
-                    <Edit
-                      className="mr-50"
-                      size="25px"
-                      color="green"
-                      onClick={() =>
-                        history.push(
-                          `/app/freshlist/house/editProductType/${params?.data?.id}`
-                        )
-                      }
-                    />
-                  )}
-                />
-              )} */}
+      //         {/* {this.state.Editpermisson && (
+      //           <Route
+      //             render={({ history }) => (
+      //               <Edit
+      //                 className="mr-50"
+      //                 size="25px"
+      //                 color="green"
+      //                 onClick={() =>
+      //                   history.push(
+      //                     `/app/freshlist/house/editProductType/${params?.data?.id}`
+      //                   )
+      //                 }
+      //               />
+      //             )}
+      //           />
+      //         )} */}
 
-              {/* {this.state.Createpermisson && (
-                <Route
-                  render={({ history }) => (
-                    <FaLock
-                      className="mr-50"
-                      size="25px"
-                      color="blue"
-                      onClick={() =>
-                        history.push(
-                          `/app/freshlist/account/UpdateExistingRole/${params?.data?.role}`
-                        )
-                      }
-                    />
-                  )}
-                />
-              )} */}
-            </div>
-          );
-        },
-      },
+      //         {/* {this.state.Createpermisson && (
+      //           <Route
+      //             render={({ history }) => (
+      //               <FaLock
+      //                 className="mr-50"
+      //                 size="25px"
+      //                 color="blue"
+      //                 onClick={() =>
+      //                   history.push(
+      //                     `/app/freshlist/account/UpdateExistingRole/${params?.data?.role}`
+      //                   )
+      //                 }
+      //               />
+      //             )}
+      //           />
+      //         )} */}
+      //       </div>
+      //     );
+      //   },
+      // },
     ],
   };
 
@@ -587,15 +587,29 @@ class SalesCRM extends React.Component {
   Alllist = async () => {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     const formdata = new FormData();
+    let Role = pageparmission?.Userinfo?.role;
     formdata.append("user_id", pageparmission?.Userinfo?.id);
-    formdata.append("role", pageparmission?.Userinfo?.role);
+    formdata.append("role", Role);
     formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
     // formdata.append("member_status", this.state.Leadtype);
-    await axiosConfig.post("/getMemberlist", formdata).then((response) => {
-      let rowData = response?.data?.data;
-      this.setState({ rowData });
-      this.setState({ AllData: rowData });
-    });
+
+    if (Role == "16") {
+      await axiosConfig
+        .post("/getSalesCRmLeadMemberList", formdata)
+        .then((response) => {
+          let rowData = response?.data?.data;
+          this.setState({ rowData });
+          this.setState({ AllData: rowData });
+        });
+    } else {
+      await axiosConfig
+        .post("/getALLSalesCRMLeadlist", formdata)
+        .then((response) => {
+          let rowData = response?.data?.data;
+          this.setState({ rowData });
+          this.setState({ AllData: rowData });
+        });
+    }
   };
 
   runthisfunction(id) {
@@ -787,10 +801,10 @@ class SalesCRM extends React.Component {
                 </Col>
               </Row> */}
               <Row className="m-2">
-                <Col lg="7" sm="7" md="7">
-                  <h1 className="float-left">Generated Member Lead List</h1>
+                <Col>
+                  <h1 className="float-left">Generated Lead List</h1>
                 </Col>
-                <Col lg="3" md="3" sm="3" className="mb-1 ">
+                <Col lg="2" md="2" sm="2" className="mb-1 ">
                   <Label className="">Choose Type</Label>
                   <Input
                     className="float-right"
@@ -827,21 +841,21 @@ class SalesCRM extends React.Component {
                     Submit
                   </Button>
                 </Col>
-                {/* <Col>
+                <Col>
                   <Route
                     render={({ history }) => (
                       <Button
-                        className="float-right"
+                        className="float-right mt-2"
                         color="primary"
                         onClick={() =>
-                          history.push("/app/freshlist/options/ProductType")
+                          history.push("/app/mmbaic/lead/CreateLead")
                         }
                       >
-                        Add Type
+                        Add Lead
                       </Button>
                     )}
                   />
-                </Col> */}
+                </Col>
               </Row>
               <CardBody>
                 {this.state.rowData === null ? null : (

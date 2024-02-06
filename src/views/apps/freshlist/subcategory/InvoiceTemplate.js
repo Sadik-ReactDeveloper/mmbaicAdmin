@@ -77,9 +77,9 @@ const styles = StyleSheet.create({
 const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
   const { items, customerName, date, total, place_supply } = invoiceData;
   const curentDate = new Date();
+  console.log(tableList);
   console.log(invoiceData);
   console.log(BilData);
-  // debugger;
   let day = curentDate.getDate();
   let month = curentDate.getMonth() + 1;
   let year = curentDate.getFullYear();
@@ -151,9 +151,9 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
             >
               <View
                 style={{
-                  width: "50%",
+                  width: "80%",
                   padding: "10px 10px",
-                  borderRight: "1px solid black",
+                  // borderRight: "1px solid black",
                 }}
               >
                 <View style={{ flexDirection: "row", paddingBottom: "3px" }}>
@@ -167,7 +167,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
                     Receipt No.
                   </Text>
                   <Text style={{ fontSize: "10px", fontWeight: "bold" }}>
-                    :{invoiceData?.order_id}
+                    :{invoiceData?.id}
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", paddingBottom: "3px" }}>
@@ -201,7 +201,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
                 </View>
               </View>
 
-              <View style={{ padding: "10px", width: "50%" }}>
+              {/* <View style={{ padding: "10px", width: "50%" }}>
                 <View style={{ flexDirection: "row", paddingBottom: "3px" }}>
                   <Text
                     style={{
@@ -218,7 +218,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
                       BilData?.PrintData?.billing_zip}
                   </Text>
                 </View>
-              </View>
+              </View> */}
             </View>
             <View
               style={{
@@ -291,7 +291,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    {BilData?.PrintData?.billing_state_id}
+                    {invoiceData?.firstname},{invoiceData?.lastname}
                   </Text>{" "}
                   <Text
                     style={{
@@ -300,12 +300,8 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    {BilData?.PrintData?.billing_firstName},
-                    {BilData?.PrintData?.billing_lastName} ,
-                    {BilData?.PrintData?.billing_address} ,
-                    {BilData?.PrintData?.billing_city_id} ,
-                    {BilData?.PrintData?.billing_phone},
-                    {BilData?.PrintData?.billing_zip}
+                    {invoiceData?.city_name},{invoiceData?.state_title}, Postal
+                    Code- {invoiceData?.postal_code},
                   </Text>
                 </View>
               </View>
@@ -601,7 +597,7 @@ const InvoiceTemplate = ({ tableList, invoiceData, BilData, CurrentWords }) => {
                             marginLeft: "5px",
                           }}
                         >
-                          5124588
+                          {ele?.HSN_SAC}
                         </Text>
                       </View>
                       <View

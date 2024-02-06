@@ -5,14 +5,18 @@ import InvoiceTemplate from "./InvoiceTemplate";
 import ReactPDF from "@react-pdf/renderer";
 import POInVoice from "./POInVoice";
 // import POInVoice from "./POInVoice";
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../../AxiosnewConfig";
 const InvoiceGenerator = (props) => {
   const [Printview, setPrintview] = useState({});
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+
     const formdata = new FormData();
-    formdata.append("order_id", props.PrintData.order_id);
+    formdata.append("user_id", pageparmission?.Userinfo?.id);
+    formdata.append("role", pageparmission?.Userinfo?.role);
+    formdata.append("order_id", props?.PrintData?.id);
     axiosConfig
       .post(`/order_detail`, formdata)
       .then((response) => {
@@ -39,13 +43,6 @@ const InvoiceGenerator = (props) => {
           tableList={details}
           fileName="invoice.pdf"
         />
-        {/* <POInVoice
-          invoiceData={Printview}
-          CurrentWords={props.wordsNumber}
-          BilData={props}
-          tableList={details}
-          fileName="invoice.pdf"
-        /> */}
       </PDFViewer>
     </div>
   );

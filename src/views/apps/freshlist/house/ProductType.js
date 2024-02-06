@@ -62,14 +62,14 @@ class ProductType extends React.Component {
       },
       {
         headerName: "Role",
-        field: "role",
+        field: "role_name",
         filter: "agSetColumnFilter",
         width: 120,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
-                <span>{params?.data?.role}</span>
+                <span>{params?.data?.role_name}</span>
               </div>
             </div>
           );
@@ -636,7 +636,7 @@ class ProductType extends React.Component {
               <Row className="m-2">
                 <Col>
                   <h1 col-sm-6 className="float-left">
-                    User List with Role
+                    User List
                   </h1>
                 </Col>
                 {/* <Col>

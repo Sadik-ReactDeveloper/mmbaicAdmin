@@ -250,6 +250,9 @@ const AddGallery = lazy(() =>
 
 //order
 const All = lazy(() => import("./views/apps/freshlist/order/All"));
+const DispatchList = lazy(() =>
+  import("./views/apps/freshlist/order/DispatchList")
+);
 const Placeorder = lazy(() =>
   import("./views/apps/freshlist/order/Placeorder")
 );
@@ -383,6 +386,15 @@ const TaxReport = lazy(() => import("./views/apps/freshlist/report/TaxReport"));
 const CategoryList = lazy(() =>
   import("./views/apps/freshlist/category/CategoryList")
 );
+const NotaMemberList = lazy(() =>
+  import("./views/apps/freshlist/category/NotaMemberList")
+);
+const EmailList = lazy(() =>
+  import("./views/apps/freshlist/category/EmailList")
+);
+const SearchUserByPincode = lazy(() =>
+  import("./views/apps/freshlist/category/SearchUserByPincode")
+);
 const NotificationList = lazy(() =>
   import("./views/apps/freshlist/category/NotificationList")
 );
@@ -476,6 +488,9 @@ const UpdateExistingRole = lazy(() =>
 const CreateAccount = lazy(() =>
   import("./views/apps/freshlist/accounts/CreateAccount")
 );
+const CreateLead = lazy(() =>
+  import("./views/apps/freshlist/accounts/CreateLead")
+);
 const RoleList = lazy(() => import("./views/apps/freshlist/accounts/RoleList"));
 // INhouseProduct
 const HouseProductList = lazy(() =>
@@ -530,6 +545,9 @@ const ServiceMaster = lazy(() =>
 );
 const ProductType = lazy(() =>
   import("./views/apps/freshlist/house/ProductType")
+);
+const InventoryList = lazy(() =>
+  import("./views/apps/freshlist/house/InventoryList")
 );
 const Franchiseelist = lazy(() =>
   import("./views/apps/freshlist/house/Franchiseelist")
@@ -1181,6 +1199,10 @@ class AppRouter extends React.Component {
           {/* order */}
           <AppRoute path="/app/freshlist/order/all" component={All} />
           <AppRoute
+            path="/app/freshlist/order/DispatchList"
+            component={DispatchList}
+          />
+          <AppRoute
             path="/app/freshlist/order/Placeorder"
             component={Placeorder}
           />
@@ -1360,6 +1382,15 @@ class AppRouter extends React.Component {
             component={CategoryList}
           />
           <AppRoute
+            path="/app/mmbaic/UnauthrorisedList/NotaMemberList"
+            component={NotaMemberList}
+          />
+          <AppRoute path="/app/mmbaic/Email/EmailList" component={EmailList} />
+          <AppRoute
+            path="/app/mmbaic/Email/SearchUserByPincode"
+            component={SearchUserByPincode}
+          />
+          <AppRoute
             path="/app/mmbaic/category/addCategory"
             component={AddCategory}
           />
@@ -1493,6 +1524,7 @@ class AppRouter extends React.Component {
             path="/app/mmbaic/account/CreateAccount"
             component={CreateAccount}
           />
+          <AppRoute path="/app/mmbaic/lead/CreateLead" component={CreateLead} />
           <AppRoute path="/app/Trupee/account/RoleList" component={RoleList} />
           {/* inhouse Product */}
           <AppRoute
@@ -1551,7 +1583,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/app/house/ViewType/:id" component={ViewType} />
           <AppRoute path="/app/freshlist/house/Typelist" component={Typelist} />
           <AppRoute
-            path="/app/freshlist/house/inventory"
+            path="/app/freshlist/house/inventory/:id"
             component={Inventory}
           />
           <AppRoute
@@ -1559,6 +1591,10 @@ class AppRouter extends React.Component {
             component={ServiceMaster}
           />
           <AppRoute path="/app/mmbaic/house/userlist" component={ProductType} />
+          <AppRoute
+            path="/app/mmbaic/house/InventoryList"
+            component={InventoryList}
+          />
           <AppRoute
             path="/app/mmbaic/house/Franchiseelist"
             component={Franchiseelist}

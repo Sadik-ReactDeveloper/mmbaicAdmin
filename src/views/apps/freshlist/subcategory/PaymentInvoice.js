@@ -1,6 +1,6 @@
 // InvoiceGenerator.js
 import React, { useEffect, useState } from "react";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import InvoiceTemplate from "./InvoiceTemplate";
 import ReactPDF from "@react-pdf/renderer";
 import POInVoice from "./PaymentPOinvoice";
@@ -23,6 +23,22 @@ const InvoiceGenerator = (props) => {
           fileName="invoice.pdf"
         />
       </PDFViewer>
+      <PDFDownloadLink
+        document={
+          <POInVoice
+            CurrectReceipt={props?.CurrectReceipt}
+            fileName="invoice.pdf"
+          />
+        }
+        fileName="sample.pdf"
+      >
+        {({ blob, url, loading, error }) => {
+          debugger;
+          {
+            /* loading ? "Loading document..." : "Download now!" */
+          }
+        }}
+      </PDFDownloadLink>
     </div>
   );
 };

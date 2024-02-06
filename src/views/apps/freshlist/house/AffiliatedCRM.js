@@ -511,22 +511,34 @@ class AffiliatedCRM extends React.Component {
 
   Alllist = async () => {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    let Role = pageparmission?.Userinfo?.role;
 
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
-    formdata.append("role", pageparmission?.Userinfo?.role);
+    formdata.append("role", Role);
     formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
     // formdata.append("member_status", this.state.Leadtype);
-
-    await axiosConfig
-      .post("/getAffiliatedMember", formdata)
-      .then((response) => {
-        console.log(response?.data?.data);
-        let rowData = response?.data?.data;
-        if (rowData) {
-          this.setState({ rowData });
-        }
-      });
+    if (Role == "18") {
+      await axiosConfig
+        .post("/getAffiliatedMember", formdata)
+        .then((response) => {
+          console.log(response?.data?.data);
+          let rowData = response?.data?.data;
+          if (rowData) {
+            this.setState({ rowData });
+          }
+        });
+    } else {
+      await axiosConfig
+        .post("/getALLAffiliatedCRMLeadlist", formdata)
+        .then((response) => {
+          console.log(response?.data?.data);
+          let rowData = response?.data?.data;
+          if (rowData) {
+            this.setState({ rowData });
+          }
+        });
+    }
   };
 
   runthisfunction(id) {
@@ -719,7 +731,7 @@ class AffiliatedCRM extends React.Component {
               </Row> */}
               <Row className="m-2">
                 <Col lg="7" sm="7" md="7">
-                  <h1 className="float-left">Affiliated CRM List</h1>
+                  <h1 className="float-left">Affiliated CRM Lead List</h1>
                 </Col>
                 <Col lg="3" md="3" sm="3" className="mb-1 ">
                   <Label className="">Choose Type</Label>

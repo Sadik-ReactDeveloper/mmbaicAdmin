@@ -171,7 +171,7 @@ class Invetory extends React.Component {
       // },
       {
         headerName: "available Stock",
-        field: "quantity",
+        field: "total_quantity",
         filter: "agSetColumnFilter",
         width: 180,
         cellRendererFramework: (params) => {
@@ -179,7 +179,7 @@ class Invetory extends React.Component {
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
                 <Badge color="success">
-                  {ReactHtmlParser(params.data?.quantity)}
+                  {ReactHtmlParser(params.data?.total_quantity)}
                 </Badge>
               </div>
             </div>
@@ -289,19 +289,19 @@ class Invetory extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* {this.state.Editpermisson && ( */}
-              <Edit
-                className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() =>
-                  this.props.history.push({
-                    pathname: `/app/freshlist/house/editinventory/${params.data?.id}`,
-                    state: params.data,
-                  })
-                }
-              />
-              {/* )} */}
+              {this.state.Editpermisson && (
+                <Edit
+                  className="mr-50"
+                  size="25px"
+                  color="blue"
+                  onClick={() =>
+                    this.props.history.push({
+                      pathname: `/app/freshlist/house/editinventory/${params.data?.id}`,
+                      state: params.data,
+                    })
+                  }
+                />
+              )}
               {/* {this.state.Deletepermisson && (
                 <Trash2
                   className="mr-50"

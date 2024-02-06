@@ -19,7 +19,7 @@ import {
   ModalFooter,
 } from "reactstrap";
 import "../../../../assets/css/main.css";
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../../AxiosnewConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -116,7 +116,7 @@ class All extends React.Component {
       },
       {
         headerName: "Order Id",
-        field: "order_id",
+        field: "id",
         filter: true,
         resizable: true,
         width: 150,
@@ -125,7 +125,24 @@ class All extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div>
-                <span>{params?.data?.order_id}</span>
+                <span>{params?.data?.id}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Po No",
+        field: "po_no",
+        filter: true,
+        resizable: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          console.log(params.data);
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div>
+                <span>{params?.data?.po_no}</span>
               </div>
             </div>
           );
@@ -163,56 +180,72 @@ class All extends React.Component {
           );
         },
       },
-
       {
-        headerName: "Change Status ",
-        field: "Change Status",
+        headerName: "Order status",
+        field: "order_status",
         filter: true,
         resizable: true,
-        width: 230,
+        width: 150,
         cellRendererFramework: (params) => {
-          // console.log(params.data?.order_id);
-
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div>
-                <select
-                  // className="form-control"
-                  defaultValue={params.data?.order_status}
-                  onChange={(e) => {
-                    let data = new FormData();
-                    data.append("order_id", params.data?.order_id);
-                    data.append("order_status", e.target.value);
-                    axiosConfig
-                      .post(`/change_order_status`, data)
-                      .then((res) => {
-                        console.log(res?.data.message);
-                        if (res?.data.message) {
-                          this.componentDidMount();
-                          swal("status Updated Succesfully");
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                  }}
-                  name="changestatus"
-                  id="changeStatus"
-                >
-                  <option value={params.data?.order_status}>
-                    {params.data?.order_status}
-                  </option>
-                  <option value="NA">--UpdateStatus--</option>
-                  {/* <option value="Pending">Pending</option> */}
-                  <option value="Completed">Completed</option>
-                  <option value="Rejected">Rejected</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
+                <span>{params?.data?.order_status}</span>
               </div>
             </div>
           );
         },
       },
+
+      // {
+      //   headerName: "Change Status ",
+      //   field: "Change Status",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 230,
+      //   cellRendererFramework: (params) => {
+      //     // console.log(params.data?.order_id);
+
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <div>
+      //           <select
+      //             // className="form-control"
+      //             defaultValue={params.data?.order_status}
+      //             onChange={(e) => {
+      //               let data = new FormData();
+      //               data.append("order_id", params.data?.order_id);
+      //               data.append("order_status", e.target.value);
+      //               axiosConfig
+      //                 .post(`/change_order_status`, data)
+      //                 .then((res) => {
+      //                   console.log(res?.data.message);
+      //                   if (res?.data.message) {
+      //                     this.componentDidMount();
+      //                     swal("status Updated Succesfully");
+      //                   }
+      //                 })
+      //                 .catch((err) => {
+      //                   console.log(err);
+      //                 });
+      //             }}
+      //             name="changestatus"
+      //             id="changeStatus"
+      //           >
+      //             <option value={params.data?.order_status}>
+      //               {params.data?.order_status}
+      //             </option>
+      //             <option value="NA">--UpdateStatus--</option>
+      //             {/* <option value="Pending">Pending</option> */}
+      //             <option value="Completed">Completed</option>
+      //             <option value="Rejected">Rejected</option>
+      //             <option value="Cancelled">Cancelled</option>
+      //           </select>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Download Bill",
         field: "order_id",
@@ -235,39 +268,7 @@ class All extends React.Component {
           );
         },
       },
-      // {
-      //   headerName: "Created By",
-      //   field: "create_order_user_full_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.create_order_user_full_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
 
-      // {
-      //   headerName: "Supplier",
-      //   field: "supplier_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.supplier_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
       {
         headerName: "Order Date",
         field: "created_date",
@@ -317,36 +318,6 @@ class All extends React.Component {
         },
       },
 
-      // {
-      //   headerName: "Product Image",
-      //   field: "product_images",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 160,
-      //   cellRendererFramework: (params) => {
-      //     // console.log(params.data);
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           {params?.data?.product_images &&
-      //           params.data?.product_images?.length ? (
-      //             <>
-      //               <img
-      //                 style={{ borderRadius: "12px" }}
-      //                 src={params.data?.product_images[0]}
-      //                 alt="image"
-      //                 width="60px"
-      //               />
-      //             </>
-      //           ) : (
-      //             "No image"
-      //           )}
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
       {
         headerName: "Actions",
         field: "sortorder",
@@ -364,7 +335,7 @@ class All extends React.Component {
                       color="green"
                       onClick={() =>
                         history.push(
-                          `/app/freshlist/order/editplaceorder/${params.data?.order_id}`
+                          `/app/freshlist/order/editplaceorder/${params.data?.id}`
                         )
                       }
                     />
@@ -388,7 +359,7 @@ class All extends React.Component {
                 />
               )} */}
 
-              {this.state.Deletepermisson && (
+              {/* {this.state.Deletepermisson && (
                 <Route
                   render={() => (
                     <Trash2
@@ -403,320 +374,11 @@ class All extends React.Component {
                     />
                   )}
                 />
-              )}
+              )} */}
             </div>
           );
         },
       },
-
-      // {
-      //   headerName: "categoryName",
-      //   field: "category_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 160,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.category_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "brandname ",
-      //   field: "brand_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.brand_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "city",
-      //   field: "city",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 160,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.city}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "order Creation date",
-      //   field: "order_date",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 230,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.order_date}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "deliverydate",
-      //   field: "delivery_date",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 230,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.delivery_date}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "description",
-      //   field: "description",
-      //   filter: "true",
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div className="">
-      //           <span>{params.data?.description}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "discountprice",
-      //   field: "discountprice",
-      //   filter: "true",
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div className="">
-      //           <span>{params.data?.discountprice}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "email",
-      //   field: "email",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.email}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "full_name",
-      //   field: "full_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 170,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.full_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "mobile",
-      //   field: "mobile",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.mobile}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "price",
-      //   field: "price",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.price}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "producttype",
-      //   field: "product_type",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.product_type}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "shippingfee",
-      //   field: "shipping_fee",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.shipping_fee}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "status",
-      //   field: "status",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.status}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "stock",
-      //   field: "stock",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.stock}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "subtotal",
-      //   field: "subtotal",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.subtotal}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "tags",
-      //   field: "tags",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.tags}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "tax_rate",
-      //   field: "tax_rate",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.tax_rate}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "Permitions",
-      //   field: "permitions",
-      //   filter: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <CustomInput
-      //         type="switch"
-      //         className="mr-1"
-      //         id="primary"
-      //         name="primary"
-      //         inline
-      //         onChange={this.handleSwitchChange}
-      //       ></CustomInput>
-      //     );
-      //   },
-      // },
     ],
   };
   handleSwitchChange = () => {
@@ -729,8 +391,6 @@ class All extends React.Component {
     const toWords = new ToWords();
     let words = toWords.convert(Number(data.subtotal), { currency: true });
     this.setState({ wordsNumber: words });
-    console.log(words);
-    // console.log("object");
     this.toggleModal();
   };
   toggleModal = () => {
@@ -748,16 +408,12 @@ class All extends React.Component {
     const formdata = new FormData();
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
-    if (pageparmission?.Userinfo?.postal_code) {
-      formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
-    } else {
-      swal("user Does not have Postal Code please update it");
-    }
+
     await axiosConfig
-      .post(`/orderlist`, formdata)
+      // .post(`/orderlist`, formdata)
+      .post(`/getallcompleteorders`, formdata)
       .then((res) => {
         console.log(res.data.data);
-        // debugger;
         let rowData = res?.data?.data;
         this.setState({ rowData });
       })
@@ -766,7 +422,7 @@ class All extends React.Component {
       });
 
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "Order Dispatch"
+      (value) => value?.pageName === "Sold Product List"
     );
 
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });
@@ -779,11 +435,6 @@ class All extends React.Component {
     this.setState({
       Deletepermisson: newparmisson?.permission.includes("Delete"),
     });
-
-    // await axiosConfig.get("/admin/allorder_list").then((response) => {
-
-    // console.log(newparmisson?.permission.includes("Create"));
-    // });
   }
 
   async runthisfunction(id) {
@@ -846,7 +497,7 @@ class All extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  Place Order List
+                  Completed Order List
                 </h1>
               </Col>
               {/* <Col>

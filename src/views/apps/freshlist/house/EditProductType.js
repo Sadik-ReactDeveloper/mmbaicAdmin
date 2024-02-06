@@ -239,7 +239,7 @@ export class EditProductType extends Component {
     // console.log(this.state.SelectedSupplierCity);
     formdata.append("city_id", this.state.SelectedSupplierCity[0].id);
 
-    if (ths.state.CommisionPercentage) {
+    if (this.state.CommisionPercentage) {
       formdata.append("franchise_percentage", this.state.CommisionPercentage);
     }
     // formdata.append("full_name", this.state.fullname);

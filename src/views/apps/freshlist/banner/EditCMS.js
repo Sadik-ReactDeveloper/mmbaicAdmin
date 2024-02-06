@@ -12,6 +12,7 @@ import {
   CustomInput,
   Button,
 } from "reactstrap";
+import EmailEditor from "./EmailEditor";
 import axiosConfig from "../../../../axiosConfig";
 import swal from "sweetalert";
 
@@ -81,7 +82,6 @@ export default class AddBanner extends Component {
   componentDidMount() {
     let { id } = this.props?.match?.params;
     // console.log(id);
-    debugger;
     let type = JSON.parse(localStorage.getItem("SelectedCmsdata"));
     let types = JSON.parse(localStorage.getItem("SelectedCmsdata"))?.data;
     // console.log(types?.image);
@@ -256,7 +256,9 @@ export default class AddBanner extends Component {
               <Col>
                 <h2>edit Your CMS</h2>
               </Col>
-
+              <Row>
+                <Col>{/* <EmailEditor /> */}</Col>
+              </Row>
               <Col>
                 <div className="d-flex float-right">
                   <Route

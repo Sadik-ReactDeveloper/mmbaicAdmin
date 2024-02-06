@@ -194,6 +194,60 @@ class ProgramCRm extends React.Component {
         },
       },
       {
+        headerName: " Update Seminar Status",
+        field: "attend_seminar",
+        filter: "agSetColumnFilter",
+        width: 260,
+        cellRendererFramework: (params) => {
+          // console.log(object);
+          return params.data?.attend_seminar == "Yes" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data?.attend_seminar}
+            </div>
+          ) : params.data?.attend_seminar == "No" ? (
+            <div className="">
+              {params.data?.crm_status == "Accepted" ? (
+                <CustomInput
+                  type="select"
+                  name="changestatus"
+                  onChange={(e) => {
+                    let pageparmission = JSON.parse(
+                      localStorage.getItem("userData")
+                    );
+                    const formdata = new FormData();
+                    formdata.append("program_id", params?.data?.id);
+                    formdata.append("attend_seminar", e.target.value);
+                    // formdata.append(
+                    //   "program_crm_id",
+                    //   pageparmission?.Userinfo?.id
+                    // );
+
+                    axiosConfig
+                      .post("/changeSeminarStatus", formdata)
+                      .then((response) => {
+                        let rowData = response?.data;
+                        // console.log(rowData);
+                        this.Alllist();
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  }}
+                >
+                  <option>--Select--</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </CustomInput>
+              ) : (
+                <div className="badge badge-pill badge-warning">
+                  Not Accepted
+                </div>
+              )}
+            </div>
+          ) : null;
+        },
+      },
+      {
         headerName: "status",
         field: "crm_status",
         filter: "agSetColumnFilter",
@@ -255,7 +309,6 @@ class ProgramCRm extends React.Component {
                           .post("/changeProgramStatus", formdata)
                           .then((response) => {
                             let rowData = response?.data;
-                            // this.setState({ rowData });
                             console.log(rowData);
                             this.Alllist();
                           })
@@ -511,9 +564,11 @@ class ProgramCRm extends React.Component {
     formdata.append("user_id", pageparmission?.Userinfo?.id);
     formdata.append("role", pageparmission?.Userinfo?.role);
     formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
-    // formdata.append("member_status", this.state.Leadtype);
+    let Role = pageparmission?.Userinfo?.role;
+    let URL = "";
+    Role == "17" ? (URL = "getProgramMember") : (URL = "getProgramCRMLeadlist");
 
-    await axiosConfig.post("/getProgramMember", formdata).then((response) => {
+    await axiosConfig.post(URL, formdata).then((response) => {
       console.log(response?.data?.data);
       let rowData = response?.data?.data;
       if (rowData) {
@@ -712,7 +767,7 @@ class ProgramCRm extends React.Component {
               </Row> */}
               <Row className="m-2">
                 <Col lg="7" sm="7" md="7">
-                  <h1 className="float-left">Program CRM List</h1>
+                  <h1 className="float-left">Program CRM Lead List</h1>
                 </Col>
                 <Col lg="3" md="3" sm="3" className="mb-1 ">
                   <Label className="">Choose Type</Label>

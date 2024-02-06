@@ -374,18 +374,22 @@ export const Roles = [
         title: "Grades",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      // {
-      //   title: "Forums",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
+      {
+        title: "Not A MemberList",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
       {
         title: "Quiz",
         permission: ["View", "Create", "Edit", "Delete"],
       },
-      // {
-      //   title: "Reviews",
-      //   permission: ["View", "Create", "Edit", "Delete"],
-      // },
+      {
+        title: "Emails",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Search User",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
     ],
   },
   {

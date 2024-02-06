@@ -106,7 +106,8 @@ export class EditInventory extends Component {
         console.log(response);
         if (response.data.success) {
           swal("Success!", "You Inventory has been Updated", "success");
-          this.props.history.push("/app/freshlist/house/inventory");
+          this.props.history.goBack();
+          // this.props.history.push("/app/freshlist/house/inventory/0");
         }
       })
       .catch((error) => {
