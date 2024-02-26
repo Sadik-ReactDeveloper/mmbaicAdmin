@@ -75,12 +75,13 @@ export class EditCategory extends Component {
     axiosConfig
       .post(`/getcategoryview`, data)
       .then((response) => {
+        debugger;
         console.log(response.data.data?.category);
         this.setState({
           data: response.data.data?.category,
         });
         this.setState({
-          category_name: response.data.data?.category?.category_name,
+          category_name: response.data.data?.category?.category,
           status: response.data.data?.category?.status,
         });
       })
@@ -100,13 +101,15 @@ export class EditCategory extends Component {
     data.append("cat_id", id);
     data.append("category_name", this.state.category_name);
     data.append("status", this.state.status);
+    data.append("edit_id", id);
+    data.append("action", "Edit");
 
     // for (var value of data.values()) {
     //   console.log(value);
     // }
 
     axiosConfig
-      .post(`/categoryeditsubmit`, data)
+      .post(`/addcategory`, data)
       .then((response) => {
         // console.log(response?.data.success);
         if (response?.data.success) {

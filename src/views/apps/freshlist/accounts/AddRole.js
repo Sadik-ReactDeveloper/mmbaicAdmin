@@ -249,7 +249,11 @@ export const Roles = [
         permission: ["View", "Create", "Edit", "Delete"],
       },
       {
-        title: "Seminar Course Certificate",
+        title: "Progaram Certificate",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+      {
+        title: "Business Coordinator certificate",
         permission: ["View", "Create", "Edit", "Delete"],
       },
     ],

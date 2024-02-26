@@ -39,7 +39,11 @@ export default class AddBanner extends Component {
       Notice: "",
       Title: "",
       formValues: [{ Title: "", Description: "" }],
-
+      Welcome: "",
+      Heading: "",
+      HeadingOne: "",
+      Headingtwo: "",
+      Footer: "",
       PageName: "",
       cmstype: "",
       image: "",
@@ -85,6 +89,7 @@ export default class AddBanner extends Component {
     let type = JSON.parse(localStorage.getItem("SelectedCmsdata"));
     let types = JSON.parse(localStorage.getItem("SelectedCmsdata"))?.data;
     // console.log(types?.image);
+    debugger;
     if (types?.image) {
       this.setState({ image: types?.image });
     }
@@ -95,6 +100,14 @@ export default class AddBanner extends Component {
     }
     if (type?.more_cms_content) {
       this.setState({ formValues: type?.more_cms_content });
+    }
+    if (type?.more_cms_content) {
+      let value = type?.more_cms_content;
+      this.setState({ Welcome: value?.Welcome });
+      this.setState({ Heading: value?.Heading });
+      this.setState({ HeadingOne: value?.HeadingOne });
+      this.setState({ Headingtwo: value?.Headingtwo });
+      this.setState({ Footer: value?.Footer });
     }
     this.setState({ banner_title: types?.type });
     if (types?.description) {
@@ -209,6 +222,20 @@ export default class AddBanner extends Component {
       if (this.state.image) {
         data.append("imagename", this.state.image);
       }
+    }
+    if (
+      this.state.Heading ||
+      this.state.Welcome ||
+      this.state.HeadingOne ||
+      this.state.Footer
+    ) {
+      let Content = {
+        Welcome: this.state.Welcome,
+        Heading: this.state.Heading,
+        HeadingOne: this.state.HeadingOne,
+        Footer: this.state.Footer,
+      };
+      data.append("more_cms_contents", JSON.stringify(Content));
     }
     // }
     // for (var value of data.values()) {
@@ -385,14 +412,72 @@ export default class AddBanner extends Component {
                       />
                     </Col>
                     {this.state.image && (
-                      <img
-                        className="mb-1"
-                        style={{ borderRadius: "8px" }}
-                        width="180px"
-                        height="160px"
-                        src={this.state.image}
-                      />
+                      <Col lg="6" md="6" sm="6" className="mb-2">
+                        <img
+                          className="mb-1"
+                          style={{ borderRadius: "8px" }}
+                          width="180px"
+                          height="160px"
+                          src={this.state.image}
+                        />
+                      </Col>
                     )}
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Welcome Title</Label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        name="Welcome"
+                        placeholder="Enter Welcome Title"
+                        value={this.state.Welcome}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Heading</Label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        name="Heading"
+                        placeholder="Enter Heading here"
+                        value={this.state.Heading}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Heading Next</Label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        name="HeadingOne"
+                        placeholder="Enter Heading here"
+                        value={this.state.HeadingOne}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    {/* <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Heading two</Label>
+                      <Input
+                        required
+                        type="text"
+                        className="form-control"
+                        name="HeadingOne"
+                        placeholder="Enter Heading here"
+                        value={this.state.HeadingOne}
+                        onChange={this.changeHandler}
+                      />
+                    </Col> */}
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Footer</Label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        name="Footer"
+                        placeholder="Enter Heading here"
+                        value={this.state.Footer}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
                     <Col lg="12" md="12" sm="12" className="mb-2">
                       <Label>Enter Details</Label>
                       <Editor

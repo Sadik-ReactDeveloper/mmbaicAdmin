@@ -29,6 +29,12 @@ export default class AddBanner extends Component {
       banner_title: "",
       Notice: "",
       Title: "",
+      Welcome: "",
+      Heading: "",
+      Headingtwo: "",
+      HeadingOne: "",
+      Footer: "",
+      content: null,
       PageName: "",
       formValues: [{ Title: "", Description: "" }],
       selectedFile: null,
@@ -113,6 +119,23 @@ export default class AddBanner extends Component {
     }
     if (description) {
       data.append("description", description);
+    }
+    if (
+      this.state.Heading ||
+      this.state.Welcome ||
+      this.state.HeadingOne ||
+      this.state.Footer
+    ) {
+      let Content = [
+        {
+          Welcome: this.state.Welcome,
+          Headingtwo: this.state.Headingtwo,
+          Heading: this.state.Heading,
+          HeadingOne: this.state.HeadingOne,
+          Footer: this.state.Footer,
+        },
+      ];
+      data.append("more_cms_contents", JSON.stringify(Content));
     }
     if (this.state.formValues) {
       data.append("more_cms_content", JSON.stringify(this.state.formValues));
@@ -297,10 +320,67 @@ export default class AddBanner extends Component {
                         required
                         type="file"
                         className="form-control"
-                        // name="PageName"
-                        // placeholder="Enter PageName"
-                        // value={this.state.PageName}
                         onChange={this.onChangeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Welcome Title</Label>
+                      <Input
+                        required
+                        type="text"
+                        className="form-control"
+                        name="Welcome"
+                        placeholder="Enter Welcome Title"
+                        value={this.state.Welcome}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Heading</Label>
+                      <Input
+                        required
+                        type="text"
+                        className="form-control"
+                        name="Heading"
+                        placeholder="Enter Heading here"
+                        value={this.state.Heading}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Heading Next</Label>
+                      <Input
+                        required
+                        type="text"
+                        className="form-control"
+                        name="HeadingOne"
+                        placeholder="Enter Heading here"
+                        value={this.state.HeadingOne}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Heading two</Label>
+                      <Input
+                        required
+                        type="text"
+                        className="form-control"
+                        name="Headingtwo"
+                        placeholder="Enter Heading here"
+                        value={this.state.Headingtwo}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col lg="6" md="6" sm="6" className="mb-2">
+                      <Label>Footer</Label>
+                      <Input
+                        required
+                        type="text"
+                        className="form-control"
+                        name="Footer"
+                        placeholder="Enter Heading here"
+                        value={this.state.Footer}
+                        onChange={this.changeHandler}
                       />
                     </Col>
                     <Col lg="12" md="12" sm="12" className="mb-2">

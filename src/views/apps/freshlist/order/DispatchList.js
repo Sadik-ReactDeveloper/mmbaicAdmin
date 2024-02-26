@@ -23,7 +23,7 @@ import axiosConfig from "../../../../AxiosnewConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
-import { Eye, Trash2, ChevronDown, Edit } from "react-feather";
+import { Eye, Trash2, ChevronDown, Edit, Check } from "react-feather";
 import { history } from "../../../../history";
 import { ToWords } from "to-words";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
@@ -34,6 +34,8 @@ import { Route, Link } from "react-router-dom";
 import { AiOutlineDownload } from "react-icons/ai";
 import InvoiceGenerator from "../subcategory/InvoiceGenerator1";
 import { TbPhysotherapist } from "react-icons/tb";
+import { FaTruckLoading } from "react-icons/fa";
+import { MdOutlineInventory } from "react-icons/md";
 
 const toWords = new ToWords({
   localeCode: "en-IN",
@@ -127,6 +129,61 @@ class DispatchList extends React.Component {
               <div>
                 <span>{params?.data?.id}</span>
               </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Actions",
+        field: "sortorder",
+        field: "transactions",
+        width: 120,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="actions cursor-pointer">
+              {/* {this.state.Viewpermisson && (
+                <Route
+                  render={({ history }) => (
+                    <Eye
+                      className="mr-50"
+                      size="25px"
+                      color="green"
+                      onClick={() =>
+                        history.push(
+                          `/app/freshlist/order/editplaceorder/${params.data?.id}`
+                        )
+                      }
+                    />
+                  )}
+                />
+              )} */}
+              {this.state.Editpermisson && (
+                <>
+                  {params.data?.order_status === "Pending" ? (
+                    <>
+                      <Route
+                        render={({ history }) => (
+                          <MdOutlineInventory
+                            title="Inventory Verify"
+                            className="mr-50"
+                            size="25px"
+                            color="blue"
+                            onClick={() =>
+                              history.push(
+                                `/app/freshlist/order/ViewOneReceivedorder/${params.data?.id}`
+                              )
+                            }
+                          />
+                        )}
+                      />
+                    </>
+                  ) : (
+                    <div className="badge badge-pill bg-success">
+                      Dispatched
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           );
         },
@@ -246,28 +303,28 @@ class DispatchList extends React.Component {
       //     );
       //   },
       // },
-      {
-        headerName: "Download Bill",
-        field: "order_id",
-        filter: true,
-        resizable: true,
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center justify-content-center cursor-pointer">
-              <div>
-                <span>
-                  <AiOutlineDownload
-                    onClick={() => this.handleBillDownload(params?.data)}
-                    fill="green"
-                    size="30px"
-                  />
-                </span>
-              </div>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Download Bill",
+      //   field: "order_id",
+      //   filter: true,
+      //   resizable: true,
+      //   width: 180,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center justify-content-center cursor-pointer">
+      //         <div>
+      //           <span>
+      //             <AiOutlineDownload
+      //               onClick={() => this.handleBillDownload(params?.data)}
+      //               fill="green"
+      //               size="30px"
+      //             />
+      //           </span>
+      //         </div>
+      //       </div>
+      //     );
+      //   },
+      // },
 
       {
         headerName: "Order Date",
@@ -317,68 +374,6 @@ class DispatchList extends React.Component {
           );
         },
       },
-
-      {
-        headerName: "Actions",
-        field: "sortorder",
-        field: "transactions",
-        width: 120,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="actions cursor-pointer">
-              {this.state.Viewpermisson && (
-                <Route
-                  render={({ history }) => (
-                    <Eye
-                      className="mr-50"
-                      size="25px"
-                      color="green"
-                      onClick={() =>
-                        history.push(
-                          `/app/freshlist/order/editplaceorder/${params.data?.id}`
-                        )
-                      }
-                    />
-                  )}
-                />
-              )}
-              {/* {this.state.Editpermisson && (
-                <Route
-                  render={({ history }) => (
-                    <Edit
-                      className="mr-50"
-                      size="25px"
-                      color="blue"
-                      onClick={() =>
-                        history.push(
-                          `/app/freshlist/order/editplaceorder/${params.data?.order_id}`
-                        )
-                      }
-                    />
-                  )}
-                />
-              )} */}
-
-              {/* {this.state.Deletepermisson && (
-                <Route
-                  render={() => (
-                    <Trash2
-                      className="mr-50"
-                      size="25px"
-                      color="red"
-                      onClick={() => {
-                        let selectedData = this.gridApi.getSelectedRows();
-                        this.runthisfunction(params.data.id);
-                        this.gridApi.updateRowData({ remove: selectedData });
-                      }}
-                    />
-                  )}
-                />
-              )} */}
-            </div>
-          );
-        },
-      },
     ],
   };
   handleSwitchChange = () => {
@@ -422,7 +417,7 @@ class DispatchList extends React.Component {
       });
 
     let newparmisson = pageparmission?.role?.find(
-      (value) => value?.pageName === "Sold Product List"
+      (value) => value?.pageName === "Order Dispatch"
     );
 
     this.setState({ Viewpermisson: newparmisson?.permission.includes("View") });

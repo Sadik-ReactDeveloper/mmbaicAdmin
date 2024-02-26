@@ -163,7 +163,7 @@ class CategoryList extends React.Component {
                       color="blue"
                       onClick={() =>
                         history.push(
-                          `/app/freshlist/category/editCategory/${params?.data?.id}`
+                          `/app/mmbaic/category/addCategory/${params?.data?.id}`
                         )
                       }
                     />
@@ -344,7 +344,7 @@ class CategoryList extends React.Component {
                       <Button
                         className="btn btn-success float-right"
                         onClick={() =>
-                          history.push("/app/mmbaic/category/addCategory")
+                          history.push("/app/mmbaic/category/addCategory/0")
                         }
                       >
                         + Category

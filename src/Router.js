@@ -574,6 +574,18 @@ const AffiliatedmemberList = lazy(() =>
 const AffiliatedAffimemberList = lazy(() =>
   import("./views/apps/freshlist/house/AffiliatedAffimemberList")
 );
+const MemberShipcertificate = lazy(() =>
+  import("./views/apps/freshlist/house/MemberShipcertificate")
+);
+const CourseCompletedCertificate = lazy(() =>
+  import("./views/apps/freshlist/house/CourseCompletedCertificate")
+);
+const PilotProgramCerti = lazy(() =>
+  import("./views/apps/freshlist/house/PilotProgramCerti")
+);
+const AffiBusinessCorCertificate = lazy(() =>
+  import("./views/apps/freshlist/house/AffiBusinessCorCertificate")
+);
 const AffiliatedmemberInsidermember = lazy(() =>
   import("./views/apps/freshlist/house/AffiliatedmemberInsidermember")
 );
@@ -1391,7 +1403,7 @@ class AppRouter extends React.Component {
             component={SearchUserByPincode}
           />
           <AppRoute
-            path="/app/mmbaic/category/addCategory"
+            path="/app/mmbaic/category/addCategory/:id"
             component={AddCategory}
           />
           <AppRoute
@@ -1627,6 +1639,22 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/mmbaic/house/AffiliatedAffimemberList"
             component={AffiliatedAffimemberList}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/MemberShipcertificate"
+            component={MemberShipcertificate}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/CourseCompletedCertificate"
+            component={CourseCompletedCertificate}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/PilotProgramCerti"
+            component={PilotProgramCerti}
+          />
+          <AppRoute
+            path="/app/mmbaic/house/AffiBusinessCorCertificate"
+            component={AffiBusinessCorCertificate}
           />
           <AppRoute
             path="/app/mmbaic/house/AffiliatedmemberInsidermember/:id/:Name"

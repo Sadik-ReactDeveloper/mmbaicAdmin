@@ -22,6 +22,7 @@ export class AddCategory extends Component {
     this.state = {
       category_name: "",
       type: "",
+      Mode: "create",
       desc: "",
       status: "",
       selectedFile1: null,
@@ -62,16 +63,54 @@ export class AddCategory extends Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  submitHandler = (e) => {
-    e.preventDefault();
+
+  componentDidMount() {
+    let { id } = this.props.match.params;
+    console.log(id);
+    if (id > 0) {
+      this.setState({ Mode: "edit" });
+    } else {
+      this.setState({ Mode: "create" });
+    }
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
     const data = new FormData();
     data.append("user_id", pageparmission?.Userinfo?.id);
-    // data.append("role", pageparmission?.Userinfo?.role);
+    data.append("role", pageparmission?.Userinfo?.role);
+    data.append("cat_id", id);
+    axiosConfig
+      .post(`/getcategoryview`, data)
+      .then((response) => {
+        console.log(response.data.data?.category);
+        this.setState({
+          data: response.data.data?.category,
+        });
+        this.setState({
+          category_name: response.data.data?.category?.category,
+          status: response.data.data?.category?.status,
+          type: response.data.data?.category?.type,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  submitHandler = (e) => {
+    e.preventDefault();
+    let { id } = this.props.match.params;
+    debugger;
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+    const data = new FormData();
+    data.append("user_id", pageparmission?.Userinfo?.id);
+    data.append("role", pageparmission?.Userinfo?.role);
     data.append("type", this.state.type);
+    data.append("cat_id", id);
+
     data.append("category", this.state.category_name);
     data.append("parent_id", 0);
     data.append("status", this.state.status);
+    data.append("edit_id", id);
+    data.append("action", this.state.Mode);
     axiosConfig
       .post(`/addcategory`, data)
       .then((response) => {
@@ -93,7 +132,7 @@ export class AddCategory extends Component {
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Add Category
+                {this.state.Mode && this.state.Mode} Category
               </h1>
             </Col>
             <Col>
@@ -142,12 +181,12 @@ export class AddCategory extends Component {
                   </FormGroup>
                 </Col>
 
-                <Col lg="6" md="6">
+                {/* <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Category Image </Label>
                     <CustomInput type="file" onChange={this.onChangeHandler1} />
                   </FormGroup>
-                </Col>
+                </Col> */}
 
                 {/* <Col lg="6" md="6">
                   <FormGroup>
@@ -187,6 +226,7 @@ export class AddCategory extends Component {
                     onChange={this.changeHandler1}
                   >
                     <input
+                      checked={this.state.status === "Active" ? true : false}
                       style={{ marginRight: "3px" }}
                       type="radio"
                       name="status"
@@ -195,6 +235,7 @@ export class AddCategory extends Component {
                     <span style={{ marginRight: "20px" }}>Active</span>
 
                     <input
+                      checked={this.state.status == "Deactive" ? true : false}
                       style={{ marginRight: "3px" }}
                       type="radio"
                       name="status"
@@ -209,7 +250,7 @@ export class AddCategory extends Component {
                 <Col>
                   <div className="d-flex justify-content-start">
                     <Button.Ripple color="primary" type="submit" className="">
-                      Add Category
+                      {this.state.Mode && this.state.Mode} Category
                     </Button.Ripple>
                   </div>
                 </Col>

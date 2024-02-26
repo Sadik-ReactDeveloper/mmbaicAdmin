@@ -20,7 +20,7 @@ import {
   Badge,
 } from "reactstrap";
 import "../../../../assets/css/main.css";
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../../AxiosnewConfig";
 import { ContextLayout } from "../../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -30,7 +30,6 @@ import { ToWords } from "to-words";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
 import swal from "sweetalert";
-// import AnalyticsDashboard from "../../../dashboard/analytics/AnalyticsDashboard";
 import { Route, Link } from "react-router-dom";
 import { AiOutlineDownload } from "react-icons/ai";
 import InvoiceGenerator from "../subcategory/InvoiceGenerator1";
@@ -146,6 +145,22 @@ class ViewOneReceivedorder extends React.Component {
             <div className="d-flex align-items-center cursor-pointer">
               <div>
                 <span>{params.data?.username}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Price",
+        field: "price",
+        filter: true,
+        resizable: true,
+        width: 180,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div>
+                <span>{params.data?.price}</span>
               </div>
             </div>
           );
@@ -307,12 +322,14 @@ class ViewOneReceivedorder extends React.Component {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div>
-                {params?.data?.product_images &&
-                params.data?.product_images?.length ? (
+                {params?.data?.product_images && params.data?.product_images ? (
                   <>
                     <img
                       style={{ borderRadius: "12px" }}
-                      src={params.data?.product_images[0]}
+                      src={
+                        params.data?.product_images &&
+                        params.data?.product_images
+                      }
                       alt="image"
                       width="60px"
                     />
@@ -320,22 +337,6 @@ class ViewOneReceivedorder extends React.Component {
                 ) : (
                   "No image"
                 )}
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Price",
-        field: "price",
-        filter: true,
-        resizable: true,
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div>
-                <span>{params.data?.price}</span>
               </div>
             </div>
           );
@@ -358,22 +359,7 @@ class ViewOneReceivedorder extends React.Component {
           );
         },
       },
-      {
-        headerName: "tags",
-        field: "tags",
-        filter: true,
-        resizable: true,
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div>
-                <span>{params.data?.tags}</span>
-              </div>
-            </div>
-          );
-        },
-      },
+
       {
         headerName: "created_on",
         field: "order_date",
@@ -390,394 +376,6 @@ class ViewOneReceivedorder extends React.Component {
           );
         },
       },
-      // {
-      //   headerName: "sub_total",
-      //   field: "subtotal",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.sub_total && params.data?.sub_total}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "total",
-      //   field: "total",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.total && params.data?.total}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "Actions",
-      //   field: "sortorder",
-      //   field: "transactions",
-      //   width: 120,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="actions cursor-pointer">
-      //         {this.state.Viewpermisson && (
-      //           <Route
-      //             render={({ history }) => (
-      //               <Eye
-      //                 className="mr-50"
-      //                 size="25px"
-      //                 color="green"
-      //                 onClick={() =>
-      //                   history.push(
-      //                     `/app/freshlist/order/editplaceorder/${params.data?.order_id}`
-      //                   )
-      //                 }
-      //               />
-      //             )}
-      //           />
-      //         )}
-      //         {this.state.Editpermisson && (
-      //           <Route
-      //             render={({ history }) => (
-      //               <Edit
-      //                 className="mr-50"
-      //                 size="25px"
-      //                 color="blue"
-      //                 onClick={() =>
-      //                   history.push(
-      //                     `/app/freshlist/order/editplaceorder/${params.data?.order_id}`
-      //                   )
-      //                 }
-      //               />
-      //             )}
-      //           />
-      //         )}
-
-      //         {this.state.Deletepermisson && (
-      //           <Route
-      //             render={() => (
-      //               <Trash2
-      //                 className="mr-50"
-      //                 size="25px"
-      //                 color="red"
-      //                 onClick={() => {
-      //                   let selectedData = this.gridApi.getSelectedRows();
-      //                   this.runthisfunction(params.data.id);
-      //                   this.gridApi.updateRowData({ remove: selectedData });
-      //                 }}
-      //               />
-      //             )}
-      //           />
-      //         )}
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "categoryName",
-      //   field: "category_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 160,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.category_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "brandname ",
-      //   field: "brand_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.brand_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "city",
-      //   field: "city",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 160,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.city}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "order Creation date",
-      //   field: "order_date",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 230,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.order_date}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "deliverydate",
-      //   field: "delivery_date",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 230,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.delivery_date}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "description",
-      //   field: "description",
-      //   filter: "true",
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div className="">
-      //           <span>{params.data?.description}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "discountprice",
-      //   field: "discountprice",
-      //   filter: "true",
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div className="">
-      //           <span>{params.data?.discountprice}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "email",
-      //   field: "email",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.email}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "full_name",
-      //   field: "full_name",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 170,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.full_name}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "mobile",
-      //   field: "mobile",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.mobile}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "price",
-      //   field: "price",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.price}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "producttype",
-      //   field: "product_type",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.product_type}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "shippingfee",
-      //   field: "shipping_fee",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 190,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.shipping_fee}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "status",
-      //   field: "status",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.status}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "stock",
-      //   field: "stock",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.stock}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "subtotal",
-      //   field: "subtotal",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.subtotal}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "tax_rate",
-      //   field: "tax_rate",
-      //   filter: true,
-      //   resizable: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <div>
-      //           <span>{params.data?.tax_rate}</span>
-      //         </div>
-      //       </div>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   headerName: "Permitions",
-      //   field: "permitions",
-      //   filter: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <CustomInput
-      //         type="switch"
-      //         className="mr-1"
-      //         id="primary"
-      //         name="primary"
-      //         inline
-      //         onChange={this.handleSwitchChange}
-      //       ></CustomInput>
-      //     );
-      //   },
-      // },
     ],
   };
   handleSwitchChange = () => {
@@ -806,10 +404,12 @@ class ViewOneReceivedorder extends React.Component {
 
     const formdata = new FormData();
     formdata.append("order_id", id);
+    formdata.append("user_id", pageparmission?.Userinfo?.id);
+    formdata.append("role", pageparmission?.Userinfo?.role);
+
     await axiosConfig
       .post(`/order_detail`, formdata)
       .then((res) => {
-        console.log(res.data.data);
         let rowData = res?.data?.data;
         this.setState({ rowData });
         let Verificatinstatus = res.data?.data?.every(
@@ -892,6 +492,8 @@ class ViewOneReceivedorder extends React.Component {
   };
 
   handleDispatch = () => {
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+
     let DispatchItem = [];
     let { id } = this.props.match.params;
     this.state.rowData?.map((ele) => {
@@ -904,21 +506,22 @@ class ViewOneReceivedorder extends React.Component {
     const formdata = new FormData();
     formdata.append("dispatch_item", JSON.stringify(DispatchItem));
     formdata.append("order_id", id);
+    formdata.append("user_id", pageparmission?.Userinfo?.id);
+    formdata.append("role", pageparmission?.Userinfo?.role);
     formdata.append("order_status", "Completed");
     axiosConfig
       .post(`/order_dispatch`, formdata)
       .then((res) => {
         console.log(res.data);
         if (res.data.success) {
-          this.props.history.push("/app/freshlist/order/confirmed");
+          this.props.history.push("/app/freshlist/order/DispatchList");
           swal("order Dispatched Successfully");
         }
       })
       .catch((err) => {
-        console.log(er);
+        console.log(err);
+        swal("somthing Went Wrong");
       });
-
-    console.log(DispatchItem);
   };
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
