@@ -19,7 +19,7 @@ import { Edit, Trash2, ChevronDown, Eye } from "react-feather";
 import { history } from "../../../../history";
 import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../../assets/scss/pages/users.scss";
-import axiosConfig from "../../../../axiosConfig";
+import axiosConfig from "../../../../AxiosnewConfig";
 
 import { Route, Link } from "react-router-dom";
 // import { components } from "react-select";
@@ -53,14 +53,14 @@ class Logs extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data?.full_name}</span>
+              <span>{params?.data?.full_name}</span>
             </div>
           );
         },
       },
       {
         headerName: "Activity",
-        field: "product",
+        field: "log_event",
         filter: true,
         width: 700,
         cellRendererFramework: (params) => {
@@ -73,19 +73,19 @@ class Logs extends React.Component {
           );
         },
       },
-      // {
-      //   headerName: "How Many Day",
-      //   field: "validity",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div>
-      //         <span>{params.data.validity}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "userid",
+        field: "user_id",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>{params?.data?.user_id}</span>
+            </div>
+          );
+        },
+      },
       // {
       //   headerName: "How Many Orders Placed",
       //   field: "orders",
@@ -178,8 +178,8 @@ class Logs extends React.Component {
     axiosConfig
       .post("/getAllLogs", data)
       .then((response) => {
+        debugger;
         console.log(response?.data?.data);
-
         this.setState({ rowData: response?.data?.data });
       })
       .catch((err) => {

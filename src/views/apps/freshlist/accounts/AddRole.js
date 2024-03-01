@@ -259,6 +259,23 @@ export const Roles = [
     ],
   },
   // {
+  //   title: "Content",
+  //   TabName: [
+  //     {
+  //       title: "Privacy Policy",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //     {
+  //       title: "Term & Condition",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //     {
+  //       title: "FAQ",
+  //       permission: ["View", "Create", "Edit", "Delete"],
+  //     },
+  //   ],
+  // },
+  // {
   //   title: "Associate",
   //   TabName: [
   //     {

@@ -567,7 +567,12 @@ export default class AddBanner extends Component {
                     </Col>
                   </>
                 ) : null}
-                {banner_title && banner_title == "Aboutus" ? (
+                {banner_title == "Aboutus" ||
+                banner_title == "RefundPolicy" ||
+                banner_title == "FAQ" ||
+                banner_title == "PrivacyPolicy" ||
+                banner_title == "CookieNotice" ||
+                banner_title == "SiteMap" ? (
                   <>
                     <Col lg="6" md="6" sm="6" className="mb-2">
                       <Label>Title</Label>
@@ -652,7 +657,13 @@ export default class AddBanner extends Component {
                   </>
                 ) : null}
               </Row>
-              {banner_title == "Aboutus" || banner_title == "Opportunity" ? (
+              {banner_title == "Aboutus" ||
+              banner_title == "Opportunity" ||
+              banner_title == "FAQ" ||
+              banner_title == "RefundPolicy" ||
+              banner_title == "PrivacyPolicy" ||
+              banner_title == "CookieNotice" ||
+              banner_title == "SiteMap" ? (
                 <Form>
                   {this.state.formValues?.map((element, index) => (
                     <>

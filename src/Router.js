@@ -109,6 +109,12 @@ const AffiliatedWalletList = lazy(() =>
 const BillingMembershipList = lazy(() =>
   import("./views/apps/freshlist/banner/BillingMembershipList")
 );
+const FranchiseeBilling = lazy(() =>
+  import("./views/apps/freshlist/banner/FranchiseeBilling")
+);
+const FranchiseeReport = lazy(() =>
+  import("./views/apps/freshlist/banner/FranchiseeReport")
+);
 const BillingPaidMemberlist = lazy(() =>
   import("./views/apps/freshlist/banner/BillingPaidMemberlist")
 );
@@ -1029,6 +1035,14 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/mmbaic/plan/MemberShipList"
             component={MemberShipList}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/FranchiseeBilling"
+            component={FranchiseeBilling}
+          />
+          <AppRoute
+            path="/app/mmbaic/plan/FranchiseeReport"
+            component={FranchiseeReport}
           />
           <AppRoute
             path="/app/mmbaic/plan/MemberReceiptList"

@@ -317,19 +317,18 @@ class DateWiseReport extends React.Component {
       Deletepermisson: newparmisson?.permission.includes("Delete"),
     });
 
-    // const formdata = new FormData();
-    // formdata.append("user_id", pageparmission?.Userinfo?.id);
-    // formdata.append("role", pageparmission?.Userinfo?.role);
-    // axiosConfig
-    //   .post("/reportApi", formdata)
-    //   .then((response) => {
-    //     // console.log(response?.data?.data);
-    //     let rowData = response?.data?.data;
-    //     this.setState({ rowData });
-    //   })
-    //   .catch((err) => {
-    //     // console.log(err);
-    //   });
+    const formdata = new FormData();
+    formdata.append("user_id", pageparmission?.Userinfo?.id);
+    formdata.append("role", pageparmission?.Userinfo?.role);
+    axiosConfig
+      .post("/reportApi", formdata)
+      .then((response) => {
+        let rowData = response?.data?.data;
+        this.setState({ rowData });
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
   }
   onGridReady = (params) => {
     this.gridApi = params.api;
