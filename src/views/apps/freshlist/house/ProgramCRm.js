@@ -177,6 +177,21 @@ class ProgramCRm extends React.Component {
         },
       },
       {
+        headerName: "Opportunity",
+        field: "program_id",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>{params?.data?.program_id}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
         headerName: "Seminar Status",
         field: "attend_seminar",
         filter: "agSetColumnFilter",
@@ -194,7 +209,7 @@ class ProgramCRm extends React.Component {
         },
       },
       {
-        headerName: " Update Seminar Status",
+        headerName: "Update Seminar Status",
         field: "attend_seminar",
         filter: "agSetColumnFilter",
         width: 260,
