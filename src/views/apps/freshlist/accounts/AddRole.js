@@ -213,6 +213,15 @@ export const Roles = [
     ],
   },
   {
+    title: "Withdrawl Request",
+    TabName: [
+      {
+        title: "Withdrawl Request",
+        permission: ["View", "Create", "Edit", "Delete"],
+      },
+    ],
+  },
+  {
     title: "Affiliated",
     TabName: [
       {

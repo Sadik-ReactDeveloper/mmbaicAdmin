@@ -639,6 +639,7 @@ const ProductWise = lazy(() =>
   import("./views/apps/freshlist/cart/ProductWise")
 );
 const LogsReport = lazy(() => import("./views/apps/freshlist/cart/Logs"));
+const WithdrawalRrequst = lazy(() => import("./views/apps/freshlist/cart/WithdrawalRrequst"));
 const UniqueCode = lazy(() => import("./views/apps/freshlist/cart/UniqueCode"));
 // Subscriber
 const SubscriberList = lazy(() =>
@@ -1734,6 +1735,10 @@ class AppRouter extends React.Component {
           <AppRoute
             path="/app/freshlist/report/LogsReport"
             component={LogsReport}
+          />
+          <AppRoute
+            path="/app/freshlist/report/WithdrawalRrequst"
+            component={WithdrawalRrequst}
           />
           <AppRoute
             path="/app/freshlist/code/UniqueCode"

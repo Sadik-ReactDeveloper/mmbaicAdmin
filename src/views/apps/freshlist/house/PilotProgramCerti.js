@@ -36,6 +36,7 @@ import {
 import "moment-timezone";
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
+let Alldata = [];
 
 class AffiliatedmemberList extends React.Component {
   state = {
@@ -181,14 +182,13 @@ class AffiliatedmemberList extends React.Component {
 
   Alllist = async () => {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
-
     const formdata = new FormData();
     formdata.append("user_id ", pageparmission?.Userinfo?.id);
     formdata.append("role_id", pageparmission?.Userinfo?.role);
-    formdata.append("type", "pilot-program-certificate");
+    formdata.append("type", "pilot_project");
     // formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
     // formdata.append("member_status", this.state.Leadtype);
-
+    Alldata = [];
     // .post("/getAffiliatedMember", formdata)
     await axiosConfigOne
       .post("/getAllMemberCertificates", formdata)
@@ -196,9 +196,30 @@ class AffiliatedmemberList extends React.Component {
         debugger;
         console.log(response?.data?.data);
         let rowData = response?.data?.data;
-        if (rowData) {
-          this.setState({ rowData });
-        }
+        Alldata.push(rowData);
+        // if (rowData) {
+        // this.setState({ rowData });
+        // }
+      });
+    await this.handleCallApi();
+  };
+  handleCallApi = async () => {
+    let pageparmission = JSON.parse(localStorage.getItem("userData"));
+
+    const formdata = new FormData();
+    formdata.append("user_id ", pageparmission?.Userinfo?.id);
+    formdata.append("role_id", pageparmission?.Userinfo?.role);
+    formdata.append("type", "pre_pilot_project");
+    await axiosConfigOne
+      .post("/getAllMemberCertificates", formdata)
+      .then((response) => {
+        console.log(response?.data?.data);
+        let rowData = response?.data?.data;
+        // console.log(Alldata);
+        Alldata.push(rowData);
+        // if (rowData) {
+        this.setState({ rowData: Alldata?.flat() });
+        // }
       });
   };
 

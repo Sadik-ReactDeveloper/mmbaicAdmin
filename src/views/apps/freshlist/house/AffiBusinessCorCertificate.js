@@ -36,6 +36,7 @@ import {
 import "moment-timezone";
 import { Route } from "react-router-dom";
 import swal from "sweetalert";
+let Alldata = [];
 
 class AffiliatedmemberList extends React.Component {
   state = {
@@ -181,20 +182,17 @@ class AffiliatedmemberList extends React.Component {
 
   Alllist = async () => {
     let pageparmission = JSON.parse(localStorage.getItem("userData"));
-
     const formdata = new FormData();
     formdata.append("user_id ", pageparmission?.Userinfo?.id);
     formdata.append("role_id", pageparmission?.Userinfo?.role);
-    formdata.append("type", "affiliated-business-cordinator-certificate");
+    formdata.append("type", "abc_project");
     // formdata.append("crm_postal_code", pageparmission?.Userinfo?.postal_code);
     // formdata.append("member_status", this.state.Leadtype);
-
-    // .post("/getAffiliatedMember", formdata)
+    Alldata = [];
     await axiosConfigOne
       .post("/getAllMemberCertificates", formdata)
       .then((response) => {
-        debugger;
-        console.log(response?.data?.data);
+        // console.log(response?.data?.data);
         let rowData = response?.data?.data;
         if (rowData) {
           this.setState({ rowData });

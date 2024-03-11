@@ -637,6 +637,19 @@ const navigationConfig = [
   },
   {
     type: "groupHeader",
+    groupTitle: "Withdrawl Request",
+    title: "Withdrawl Request",
+  },
+  {
+    id: "Withdrawl Request",
+    title: "Withdrawl Request",
+    type: "item",
+    icon: <FaList size={15} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/freshlist/report/WithdrawalRrequst",
+  },
+  {
+    type: "groupHeader",
     groupTitle: "CERTIFICATION MANAGEMENT",
     title: "Certification",
   },
@@ -1131,6 +1144,7 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/freshlist/report/LogsReport",
   },
+
   // {
   //   id: "refund",
   //   title: "Refund Requests",
